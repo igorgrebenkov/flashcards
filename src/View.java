@@ -32,6 +32,7 @@ public class View extends JFrame {
         JButton loadFile = new JButton("Load");
         loadFile.setFocusPainted(false);
         loadFile.addActionListener(controller);
+        loadFile.setActionCommand("loadFile");
 
         // Add JPanel for buttons
         JPanel control = new JPanel();

@@ -17,6 +17,7 @@ public class FlashCard {
     public FlashCard(String question, String answer) {
         this.question = question;
         this.answer = answer;
+        numCountRight = 0;
     }
 
     /**
