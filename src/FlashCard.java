@@ -14,7 +14,7 @@ public class FlashCard {
      * @param question the question string
      * @param answer the answer string
      */
-    private FlashCard(String question, String answer) {
+    public FlashCard(String question, String answer) {
         this.question = question;
         this.answer = answer;
     }

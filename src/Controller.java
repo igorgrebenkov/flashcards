@@ -14,12 +14,12 @@ public class Controller implements ActionListener {
 
     /**
      * Constructor
-     * @param model the Model
-     * @param view the View
+     * @param fc the FlashCard set
      */
-    public Controller(Model model, View view) {
-        this.model = model;
-        this.view = view;
+    public Controller(FlashCard[] fc) {
+        model = new Model(fc);
+        view = new View(model, this);
+        view.update();
 
     }
 

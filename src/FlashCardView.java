@@ -19,6 +19,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
 
         setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(640,380));
     }
 
     /**

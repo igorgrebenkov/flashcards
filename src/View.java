@@ -24,12 +24,32 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.WHITE);
 
+        // Add view of FlashCards
         flashCardView = new FlashCardView(model, controller);
         add(flashCardView, BorderLayout.CENTER);
 
+        // JButton for loading a FlashCard set from a file
         JButton loadFile = new JButton("Load");
         loadFile.setFocusPainted(false);
         loadFile.addActionListener(controller);
 
+        // Add JPanel for buttons
+        JPanel control = new JPanel();
+        control.setBackground(Color.darkGray);
+        control.add(loadFile);
+        add(control, BorderLayout.SOUTH);
+
+        // Finish him!
+        pack();
+        setResizable(true);
+        setVisible(true);
+
+    }
+
+    /**
+     * Updates the FlashCardView.
+     */
+    public void update() {
+        flashCardView.update();
     }
 }
