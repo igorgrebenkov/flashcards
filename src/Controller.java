@@ -23,7 +23,7 @@ public class Controller implements ActionListener {
     public Controller() {
         model = new Model(new ArrayList<FlashCard>());
         view = new View(model, this);
-        view.update();
+        //view.update();
 
     }
 
@@ -76,11 +76,17 @@ public class Controller implements ActionListener {
                 flashCardSet = fileChooser.getSelectedFile();
                 try {
                     this.model.setFlashCards(createFlashCards(flashCardSet));
+                    view.getFlashCardView().displayCard(0);
+                    view.update();
                 }
                 catch (IOException IOe) {
                     System.out.println("IO Exception!");
                 }
             }
+        }
+
+        if (action.equals("update")) {
+            view.update();
         }
     }
 
@@ -122,10 +128,11 @@ public class Controller implements ActionListener {
 
         Iterator i = flashCards.iterator();
 
+        /*
         while (i.hasNext()) {
             System.out.println(i.next());
         }
-
+        */
         return flashCards;
     }
 }

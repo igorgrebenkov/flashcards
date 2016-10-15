@@ -34,10 +34,15 @@ public class View extends JFrame {
         loadFile.addActionListener(controller);
         loadFile.setActionCommand("loadFile");
 
+        JButton update = new JButton("Update");
+        update.addActionListener(controller);
+        update.setActionCommand("update");
+
         // Add JPanel for buttons
         JPanel control = new JPanel();
         control.setBackground(Color.darkGray);
         control.add(loadFile);
+        control.add(update);
         add(control, BorderLayout.SOUTH);
 
         // Finish him!
@@ -45,6 +50,14 @@ public class View extends JFrame {
         setResizable(true);
         setVisible(true);
 
+    }
+
+    /**
+     * Getter for the FlashCardView;
+     * @return the FlashCardView
+     */
+    public FlashCardView getFlashCardView() {
+        return flashCardView;
     }
 
     /**

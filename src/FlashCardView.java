@@ -17,6 +17,7 @@ public class FlashCardView extends JPanel {
      */
     public FlashCardView(Model model, Controller controller) {
         this.model = model;
+        this.setLayout(new GridBagLayout());
 
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(640,380));
@@ -26,6 +27,19 @@ public class FlashCardView extends JPanel {
      * Updates the FlashCardView.
      */
     public void update() {
+        revalidate();
         repaint();
+    }
+
+    public void displayCard(int i) {
+        //GridBagConstraints gbc = new GridBagConstraints();
+        if (model.getFlashCards().isEmpty()) {
+            throw new NullPointerException("Null Pointer Exception.");
+        }
+
+        JLabel flashCardText = new JLabel(model.getFlashCards().get(i).getQuestion());
+        flashCardText.setFont(new Font("Verdana", 1, 20));
+        this.add(flashCardText);
+        update();
     }
 }
