@@ -76,13 +76,29 @@ public class Controller implements ActionListener {
                 flashCardSet = fileChooser.getSelectedFile();
                 try {
                     this.model.setFlashCards(createFlashCards(flashCardSet));
-                    view.getFlashCardView().displayCard(0);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION);
                     view.update();
                 }
                 catch (IOException IOe) {
                     System.out.println("IO Exception!");
                 }
             }
+        }
+
+        if (action.equals("revealQuestion")) {
+            view.getFlashCardView().revealQuestion();
+        }
+
+        if (action.equals("revealAnswer")) {
+            view.getFlashCardView().revealAnswer();
+        }
+
+        if (action.equals("prevCard")) {
+            view.getFlashCardView().prevCard();
+        }
+
+        if (action.equals("nextCard")) {
+            view.getFlashCardView().nextCard();
         }
 
         if (action.equals("update")) {
@@ -96,9 +112,9 @@ public class Controller implements ActionListener {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
 
-            String readLine;
-            String question = "";
-            String answer = "";
+            String readLine;       // reads the current line of text
+            String question = "";  // the FlashCard's question
+            String answer = "";    // The FlashCard's answer
 
             boolean haveQ = false, haveA = false;
 
@@ -113,6 +129,7 @@ public class Controller implements ActionListener {
                     haveA = true;
                 }
 
+                // We have a question and answer, so make a FlashCard and add it to the set
                 if (haveQ && haveA) {
                     flashCards.add(new FlashCard(question,answer));
                     question = "";
@@ -125,14 +142,6 @@ public class Controller implements ActionListener {
         catch ( FileNotFoundException FNFe) {
             System.out.println("Cannot find file!");
         }
-
-        Iterator i = flashCards.iterator();
-
-        /*
-        while (i.hasNext()) {
-            System.out.println(i.next());
-        }
-        */
         return flashCards;
     }
 }

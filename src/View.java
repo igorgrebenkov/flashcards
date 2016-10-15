@@ -34,6 +34,26 @@ public class View extends JFrame {
         loadFile.addActionListener(controller);
         loadFile.setActionCommand("loadFile");
 
+        JButton revealQuestion = new JButton("Question");
+        revealQuestion.setFocusPainted(false);
+        revealQuestion.addActionListener(controller);
+        revealQuestion.setActionCommand("revealQuestion");
+
+        JButton revealAnswer = new JButton("Answer");
+        revealAnswer.setFocusPainted(false);
+        revealAnswer.addActionListener(controller);
+        revealAnswer.setActionCommand("revealAnswer");
+
+        JButton nextCard = new JButton("Next");
+        nextCard.setFocusPainted(false);
+        nextCard.addActionListener(controller);
+        nextCard.setActionCommand("nextCard");
+
+        JButton prevCard = new JButton("Prev");
+        prevCard.setFocusPainted(false);
+        prevCard.addActionListener(controller);
+        prevCard.setActionCommand("prevCard");
+
         JButton update = new JButton("Update");
         update.addActionListener(controller);
         update.setActionCommand("update");
@@ -42,6 +62,10 @@ public class View extends JFrame {
         JPanel control = new JPanel();
         control.setBackground(Color.darkGray);
         control.add(loadFile);
+        control.add(prevCard);
+        control.add(nextCard);
+        control.add(revealQuestion);
+        control.add(revealAnswer);
         control.add(update);
         add(control, BorderLayout.SOUTH);
 
