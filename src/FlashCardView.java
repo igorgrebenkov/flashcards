@@ -31,7 +31,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(800, 380));
+        setPreferredSize(new Dimension(1000, 380));
         undoStack = new Stack<>();
     }
 
@@ -66,7 +66,7 @@ public class FlashCardView extends JPanel {
         JEditorPane cardPane = new JEditorPane();
         // Allows setting font properties
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE);
-        cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
+        cardPane.setFont(new Font("Verdana", Font.PLAIN, 30));
         cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText("<div>"
                 + "<span>"

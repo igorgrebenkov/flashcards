@@ -1,0 +1,34 @@
+Q: Program
+A: A list of instructions to be carried out by a computer.
+Q: Compiler
+A: A program that translates a computer program written in one language into an equivalent program in another language (often, but not always, translating from a high-level language into machine language)
+Q: Java Runtime
+A: A program that executes compiled Java bytecodes.
+Q: Java Class Libraries
+A: The collection of preexisting Java code that provides solutions to common programming problems.
+Q: API Specification
+A: A set of routines, protocols, and tools for building software applications. It provides all the building blocks that a programmer then puts together.
+Q: Class
+A: A unit of code that is the basic building block of Java programs.
+Q: Method
+A: A program unit that represents a particular action or computation.
+Q: Statement
+A: An executable snippet of code that represents a complete command.
+Q: String
+A: A sequence of characters (literal text) that can be sent to the console window as output.
+Q: Identifier
+A: A name given to an entity in a program, such as a class or method. The words used to name parts of a Java program.
+Q: Keyword
+A: A set of predefined identifiers that are reserved for particular uses.
+Q: Comment
+A: Text that programmers include in a program to explain their code. The compiler ignores it.
+Q: Syntax Error
+A: Errors that occur when you misuse Java. They are the programming equivalent of bad grammar and are caught by the Java compiler.
+Q: Logic Error
+A: Errors that occur when you write code that doesn't perform the task it is intended to perform.
+Q: Decomposition
+A: A seperation into dicernible parts, each of which is simpler than the whole.
+Q: Iterative Enhancement
+A: The process of producing a program in stages, adding new functionality at each stage. A key feature of each step is that you can test it to make sure that piece works before moving on.
+Q: Runtime Error
+A: Logic errors that are so severe that Java stops your program from executing
