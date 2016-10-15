@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The model.
  *
@@ -10,10 +12,10 @@
 public class Model {
     //instance variables
 
-    private FlashCard[] flashCards;     // The list of FlashCards
-    private FlashCard[] discardedPile;  // The list of discarded FlashCards
+    private ArrayList<FlashCard> flashCards;     // The list of FlashCards
+    private ArrayList<FlashCard> discardedPile;  // The list of discarded FlashCards
 
-    public Model(FlashCard[] fc) {
+    public Model(ArrayList<FlashCard> fc) {
         flashCards = fc;
     }
 
@@ -21,7 +23,7 @@ public class Model {
      * Getter method for the main FlashCard array
      * @return the main FlashCard array
      */
-    public FlashCard[] getFlashCards() {
+    public ArrayList<FlashCard> getFlashCards() {
         return flashCards;
     }
 
@@ -29,7 +31,7 @@ public class Model {
      * Setter method for the main FlashCard array
      * @param flashCards  the main FlashCard array
      */
-    public void setFlashCards(FlashCard[] flashCards) {
+    public void setFlashCards(ArrayList<FlashCard> flashCards) {
         this.flashCards = flashCards;
     }
 

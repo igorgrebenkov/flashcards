@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The controller. Handles Events. Implements ActionListener.
@@ -18,8 +20,8 @@ public class Controller implements ActionListener {
      * Constructor
      * @param fc the FlashCard set
      */
-    public Controller(FlashCard[] fc) {
-        model = new Model(fc);
+    public Controller() {
+        model = new Model(new ArrayList<FlashCard>());
         view = new View(model, this);
         view.update();
 
@@ -66,13 +68,14 @@ public class Controller implements ActionListener {
 
         // Handles loading a FlashCard set from a txt file
         if (action.equals("loadFile")) {
-            final JFileChooser fileChooser = new JFileChooser();
+            final File workingDirectory = new File(System.getProperty("user.dir"));
+            final JFileChooser fileChooser = new JFileChooser(workingDirectory);
             final JFrame selectFrame = new JFrame("Select a file...");
             int returnVal = fileChooser.showOpenDialog(selectFrame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 flashCardSet = fileChooser.getSelectedFile();
                 try {
-                    createFlashCards(flashCardSet);
+                    this.model.setFlashCards(createFlashCards(flashCardSet));
                 }
                 catch (IOException IOe) {
                     System.out.println("IO Exception!");
@@ -81,62 +84,48 @@ public class Controller implements ActionListener {
         }
     }
 
-    private void createFlashCards(File file) throws IOException {
+    private ArrayList<FlashCard> createFlashCards(File file) throws IOException {
+        ArrayList<FlashCard> flashCards = new ArrayList<>();
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
 
-            String readLine = "";
+            String readLine;
             String question = "";
             String answer = "";
 
-            boolean concatQ = false;    // Flag for active question concatenation
-            boolean concatA = false;    // Flag for active answer concatenation
-            boolean endConcat = false;  // flag for ending concatenation
+            boolean haveQ = false, haveA = false;
 
             // Read the file line by line
             while ((readLine = br.readLine()) != null) {
 
                 if (readLine.charAt(0) == 'Q') {         // start reading a question
-                    concatQ = true;
-                } else if (readLine.charAt(0) == 'A') {  // start reading an answer
-                    concatA = true;
-                }
-
-                // The '~' character indicates the end of a question or answer and signals end of concatenation.
-                if (readLine.charAt(readLine.length() - 1) == '~') {
-                    endConcat = true;
-                }
-
-                // Concatenate question lines if active
-                if (concatQ) {
                     question = question + readLine;
-
-                }
-
-                // Concatenate answer lines if active
-                if (concatA) {
+                    haveQ = true;
+                } else if (readLine.charAt(0) == 'A') {  // start reading an answer
                     answer = answer + readLine;
+                    haveA = true;
                 }
 
-                // Processing/flag setting for the end of a concatenation of a question or answer
-                if (endConcat) {  // If done concatenating ('~' encountered)
-                    if (concatQ) {
-                        concatQ = false;
-                        question = question.substring(0, question.length() - 1); // Trim the '~' character
-                    } else if (concatA) {
-                        concatA = false;
-                        answer = answer.substring(0, answer.length() - 1);       // Trim the '~' character
-                    }
-
-                    endConcat = false;
+                if (haveQ && haveA) {
+                    flashCards.add(new FlashCard(question,answer));
+                    question = "";
+                    answer = "";
+                    haveQ = false;
+                    haveA = false;
                 }
             }
-
-            FlashCard card = new FlashCard(question, answer);
-
         }
         catch ( FileNotFoundException FNFe) {
             System.out.println("Cannot find file!");
         }
+
+        Iterator i = flashCards.iterator();
+
+        while (i.hasNext()) {
+            System.out.println(i.next());
+        }
+
+        return flashCards;
     }
 }
