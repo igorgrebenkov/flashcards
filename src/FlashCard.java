@@ -9,15 +9,17 @@ public class FlashCard {
     private String question;
     private String answer;
     private int numCountRight;  // Number of times user got this card right
+    private int cardIndex;        // The sequence number in its set
     /**
      * Constructor
      * @param question the question string
      * @param answer the answer string
      */
-    public FlashCard(String question, String answer) {
+    public FlashCard(String question, String answer, int cardIndex) {
         this.question = question;
         this.answer = answer;
         numCountRight = 0;
+        this.cardIndex = cardIndex;
     }
 
     /**
@@ -70,14 +72,11 @@ public class FlashCard {
     }
 
     /**
-     * Returns a string representation of the FlashCard.
-     * @return a string representation of the FlashCard
+     * Used to display appropriate labels in the View's JList
+     * @return a string representation of the card's index in the set
      */
     @Override
     public String toString() {
-        return "FlashCard{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+        return "Card " + cardIndex;
     }
 }

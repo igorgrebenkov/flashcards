@@ -11,6 +11,7 @@ import java.awt.*;
 public class View extends JFrame {
     private Model model;                  // Reference to the model
     private FlashCardView flashCardView;  // Reference to the FlashCardView
+    private CardListView cardListView;    // Reference to the CardListView
 
     /**
      * Constructor for the View.
@@ -27,6 +28,11 @@ public class View extends JFrame {
         // Add view of FlashCards
         flashCardView = new FlashCardView(model, controller);
         add(flashCardView, BorderLayout.CENTER);
+        flashCardView.setPreferredSize(new Dimension(1000, 380));
+
+        // Add view of FlashCard list
+        cardListView = new CardListView(model, controller);
+        add(cardListView, BorderLayout.EAST);
 
         // JButton for loading a FlashCard set from a file
         JButton loadFile = new JButton("Load");
@@ -82,6 +88,10 @@ public class View extends JFrame {
      */
     public FlashCardView getFlashCardView() {
         return flashCardView;
+    }
+
+    public CardListView getCardListView() {
+        return cardListView;
     }
 
     /**

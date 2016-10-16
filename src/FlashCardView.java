@@ -18,7 +18,7 @@ public class FlashCardView extends JPanel {
 
     private Model model;
     private Stack<FlashCard> undoStack; // Used for flipping to the next/previous card
-    public final boolean QUESTION = TRUE;
+    public final boolean QUESTION = TRUE; // Maybe enum instead?
     public final boolean ANSWER = FALSE;
 
     /**
@@ -31,7 +31,6 @@ public class FlashCardView extends JPanel {
         this.model = model;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(1000, 380));
         undoStack = new Stack<>();
     }
 
@@ -46,7 +45,7 @@ public class FlashCardView extends JPanel {
     /**
      * Displays the current FlashCard.
      */
-    public void displayCard(boolean operation) {
+    public void displayCard(boolean operation, int index) {
         // Prevent loading an empty flash card set
         if (model.getFlashCards().isEmpty()) {
             throw new NullPointerException("Null Pointer Exception.");
@@ -54,12 +53,13 @@ public class FlashCardView extends JPanel {
 
         // Clear previous flash card
         this.removeAll();
+
         String displayString;
 
         if (operation == QUESTION) {
-            displayString = model.getFlashCards().get(0).getQuestion();
+            displayString = model.getFlashCards().get(index).getQuestion();
         } else {
-            displayString = model.getFlashCards().get(0).getAnswer();
+            displayString = model.getFlashCards().get(index).getAnswer();
         }
 
         // JEditorPane displays the current FlashCard
@@ -89,7 +89,7 @@ public class FlashCardView extends JPanel {
             throw new NullPointerException("Null Pointer Exception. No next card.");
         }
         undoStack.push(model.getFlashCards().remove(0));
-        displayCard(QUESTION);
+        displayCard(QUESTION, 0);
     }
 
     /**
@@ -102,15 +102,15 @@ public class FlashCardView extends JPanel {
             throw new NullPointerException("Null Pointer Exception. No previous card.");
         }
         model.getFlashCards().add(0, undoStack.pop());
-        displayCard(QUESTION);
+        displayCard(QUESTION, 0);
 
     }
 
     public void revealQuestion() {
-        displayCard(QUESTION);
+        displayCard(QUESTION, 0);
     }
 
     public void revealAnswer() {
-        displayCard(ANSWER);
+        displayCard(ANSWER, 0);
     }
 }

@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -10,7 +12,7 @@ import java.util.Iterator;
  *
  * @author Igor Grebenkov
  */
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, ListSelectionListener {
 
     private File flashCardSet;  // the set of flash cards in a txt file
     private Model model;
@@ -18,7 +20,6 @@ public class Controller implements ActionListener {
 
     /**
      * Constructor
-     * @param fc the FlashCard set
      */
     public Controller() {
         model = new Model(new ArrayList<FlashCard>());
@@ -76,7 +77,8 @@ public class Controller implements ActionListener {
                 flashCardSet = fileChooser.getSelectedFile();
                 try {
                     this.model.setFlashCards(createFlashCards(flashCardSet));
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, 0);
+                    view.getCardListView().update();
                     view.update();
                 }
                 catch (IOException IOe) {
@@ -106,10 +108,20 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     *  List selection listener for JList card set View
+     * @param e the ListSelectionEvent
+     */
+    public void valueChanged(ListSelectionEvent e) {
+        int firstIndex = e.getFirstIndex();
+        view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, firstIndex);
+    }
+
     private ArrayList<FlashCard> createFlashCards(File file) throws IOException {
         ArrayList<FlashCard> flashCards = new ArrayList<>();
 
         try {
+            int i = 0; // FlashCard index
             BufferedReader br = new BufferedReader(new FileReader(file));
 
             String readLine;       // reads the current line of text
@@ -120,7 +132,6 @@ public class Controller implements ActionListener {
 
             // Read the file line by line
             while ((readLine = br.readLine()) != null) {
-
                 if (readLine.charAt(0) == 'Q') {         // start reading a question
                     question = question + readLine;
                     haveQ = true;
@@ -131,11 +142,12 @@ public class Controller implements ActionListener {
 
                 // We have a question and answer, so make a FlashCard and add it to the set
                 if (haveQ && haveA) {
-                    flashCards.add(new FlashCard(question,answer));
+                    flashCards.add(new FlashCard(question,answer, i));
                     question = "";
                     answer = "";
                     haveQ = false;
                     haveA = false;
+                    ++i;
                 }
             }
         }
