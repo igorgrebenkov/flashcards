@@ -17,9 +17,10 @@ import static javax.swing.SwingConstants.CENTER;
 public class FlashCardView extends JPanel {
 
     private Model model;
-    private Stack<FlashCard> undoStack; // Used for flipping to the next/previous card
+    private int currentCardIndex;         // The index of the card currently displayed
     public final boolean QUESTION = TRUE; // Maybe enum instead?
     public final boolean ANSWER = FALSE;
+
 
     /**
      * Constructor for FlashCardView.
@@ -31,7 +32,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
-        undoStack = new Stack<>();
+        currentCardIndex = -1;
     }
 
     /**
@@ -46,6 +47,8 @@ public class FlashCardView extends JPanel {
      * Displays the current FlashCard.
      */
     public void displayCard(boolean operation, int index) {
+        currentCardIndex = index;
+
         // Prevent loading an empty flash card set
         if (model.getFlashCards().isEmpty()) {
             throw new NullPointerException("Null Pointer Exception.");
@@ -57,9 +60,9 @@ public class FlashCardView extends JPanel {
         String displayString;
 
         if (operation == QUESTION) {
-            displayString = model.getFlashCards().get(index).getQuestion();
+            displayString = model.getFlashCards().get(currentCardIndex).getQuestion();
         } else {
-            displayString = model.getFlashCards().get(index).getAnswer();
+            displayString = model.getFlashCards().get(currentCardIndex).getAnswer();
         }
 
         // JEditorPane displays the current FlashCard
@@ -85,11 +88,10 @@ public class FlashCardView extends JPanel {
      * Call to displayCard() subsequently updates the view and displays the next card.
      */
     public void nextCard() {
-        if (model.getFlashCards().size() <= 1) {
-            throw new NullPointerException("Null Pointer Exception. No next card.");
+        if (currentCardIndex != model.getFlashCards().size() &&
+                !model.getFlashCards().isEmpty()) {
+            displayCard(QUESTION, ++currentCardIndex);
         }
-        undoStack.push(model.getFlashCards().remove(0));
-        displayCard(QUESTION, 0);
     }
 
     /**
@@ -98,19 +100,17 @@ public class FlashCardView extends JPanel {
      * Call to displayCard() subsequently updates the view and displays the previous card.
      */
     public void prevCard() {
-        if (undoStack.isEmpty()) {
-            throw new NullPointerException("Null Pointer Exception. No previous card.");
+        if (currentCardIndex != 0 &&
+                !model.getFlashCards().isEmpty()) {
+            displayCard(QUESTION, --currentCardIndex);
         }
-        model.getFlashCards().add(0, undoStack.pop());
-        displayCard(QUESTION, 0);
-
     }
 
     public void revealQuestion() {
-        displayCard(QUESTION, 0);
+        displayCard(QUESTION, currentCardIndex);
     }
 
     public void revealAnswer() {
-        displayCard(ANSWER, 0);
+        displayCard(ANSWER, currentCardIndex);
     }
 }

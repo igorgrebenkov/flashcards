@@ -78,7 +78,6 @@ public class Controller implements ActionListener, ListSelectionListener {
                 try {
                     this.model.setFlashCards(createFlashCards(flashCardSet));
                     view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, 0);
-                    view.getCardListView().update();
                     view.update();
                 }
                 catch (IOException IOe) {
@@ -113,8 +112,12 @@ public class Controller implements ActionListener, ListSelectionListener {
      * @param e the ListSelectionEvent
      */
     public void valueChanged(ListSelectionEvent e) {
-        int firstIndex = e.getFirstIndex();
-        view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, firstIndex);
+        if (!e.getValueIsAdjusting()) {
+            JList source = (JList) e.getSource();
+            view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                    source.getSelectedIndex());
+        }
+
     }
 
     private ArrayList<FlashCard> createFlashCards(File file) throws IOException {
