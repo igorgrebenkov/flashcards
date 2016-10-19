@@ -1,13 +1,8 @@
 import javafx.scene.web.HTMLEditor;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Stack;
-
 import static java.lang.Boolean.*;
-import static javax.swing.SwingConstants.CENTER;
 
 /**
  * The class FlashCardView shows the view of the FLashCards.
@@ -47,6 +42,7 @@ public class FlashCardView extends JPanel {
      * Displays the current FlashCard.
      */
     public void displayCard(boolean operation, int index) {
+        // Update currentCardIndex
         currentCardIndex = index;
 
         // Prevent loading an empty flash card set
@@ -57,8 +53,8 @@ public class FlashCardView extends JPanel {
         // Clear previous flash card
         this.removeAll();
 
+        // Display question or answer based on value of operation
         String displayString;
-
         if (operation == QUESTION) {
             displayString = model.getFlashCards().get(currentCardIndex).getQuestion();
         } else {
@@ -67,8 +63,8 @@ public class FlashCardView extends JPanel {
 
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
-        // Allows setting font properties
-        cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE);
+
+        cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font("Verdana", Font.PLAIN, 30));
         cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText("<div>"
@@ -83,21 +79,19 @@ public class FlashCardView extends JPanel {
     }
 
     /**
-     * Advances forwards one card in the set.
-     * Does this by pushing the currently displayed FlashCard onto a stack.
-     * Call to displayCard() subsequently updates the view and displays the next card.
+     * Advances forwards one card in the set by incrementing the currentCardIndex
+     * and displaying the card in question.
      */
     public void nextCard() {
-        if (currentCardIndex != model.getFlashCards().size() &&
+        if (currentCardIndex != model.getFlashCards().size() - 1 &&
                 !model.getFlashCards().isEmpty()) {
             displayCard(QUESTION, ++currentCardIndex);
         }
     }
 
     /**
-     * Advances backwards one card in the set.
-     * Does this by popping last displayed FlashCard off the stack to the original ArrayList of Flash Cards.
-     * Call to displayCard() subsequently updates the view and displays the previous card.
+     * Advances backwards one card in the set by decrementing the currentCardIndex
+     * and displaying the card in question.
      */
     public void prevCard() {
         if (currentCardIndex != 0 &&
