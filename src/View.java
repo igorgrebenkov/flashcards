@@ -95,9 +95,10 @@ public class View extends JFrame {
     }
 
     /**
-     * Updates the FlashCardView.
+     * Updates the View (and all component views).
      */
     public void update() {
         flashCardView.update();
+        cardListView.update();
     }
 }
