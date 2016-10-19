@@ -51,10 +51,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlashCardView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FlashCardView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FlashCardView.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-638">
+=======
+            <state relative-caret-position="154">
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
               <caret line="19" column="86" selection-start-line="19" selection-start-column="86" selection-end-line="19" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -68,7 +72,11 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="650">
+=======
+            <state relative-caret-position="728">
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
               <caret line="111" column="38" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -89,7 +97,11 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
+=======
+      <file leaf-file-name="View.java" pinned="false" current-in-tab="true">
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
         <entry file="file://$PROJECT_DIR$/src/View.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1666">
@@ -137,9 +149,15 @@
         <option value="$PROJECT_DIR$/src/CardListRenderer.java" />
         <option value="$PROJECT_DIR$/src/FlashCard.java" />
         <option value="$PROJECT_DIR$/src/CardListView.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/FlashCardView.java" />
         <option value="$PROJECT_DIR$/src/View.java" />
         <option value="$PROJECT_DIR$/src/Controller.java" />
+=======
+        <option value="$PROJECT_DIR$/src/Controller.java" />
+        <option value="$PROJECT_DIR$/src/FlashCardView.java" />
+        <option value="$PROJECT_DIR$/src/View.java" />
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
       </list>
     </option>
   </component>
@@ -734,12 +752,20 @@
       <workItem from="1476548340025" duration="894000" />
       <workItem from="1476555616568" duration="602000" />
       <workItem from="1476589493060" duration="8680000" />
+<<<<<<< HEAD
       <workItem from="1476911265991" duration="2129000" />
+=======
+      <workItem from="1476911265991" duration="1611000" />
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="32823000" />
+=======
+    <option name="totallyTimeSpent" value="32305000" />
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1726" height="1417" extended-state="0" />
@@ -989,6 +1015,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/src/FlashCard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -1045,6 +1073,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
     <entry file="file://$PROJECT_DIR$/src/FlashCard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
@@ -1069,6 +1098,65 @@
             <element signature="imports" expanded="true" />
             <element signature="e#3402#3403#0" expanded="true" />
             <element signature="e#3455#3456#0" expanded="true" />
+<<<<<<< HEAD
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="88" column="53" selection-start-line="88" selection-start-column="53" selection-end-line="88" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlashCard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlashCardView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3402#3403#0" expanded="true" />
+            <element signature="e#3455#3456#0" expanded="true" />
+=======
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
           </folding>
         </state>
       </provider>
@@ -1231,6 +1319,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
@@ -1246,6 +1335,35 @@
         <state relative-caret-position="112">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FlashCardView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="19" column="86" selection-start-line="19" selection-start-column="86" selection-end-line="19" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3402#3403#0" expanded="true" />
+            <element signature="e#3455#3456#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="111" column="38" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
         </state>
       </provider>
     </entry>
@@ -1253,6 +1371,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+<<<<<<< HEAD
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1263,20 +1382,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
           <caret line="111" column="38" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
+=======
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FlashCardView.java">
+    <entry file="file://$PROJECT_DIR$/src/View.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-638">
           <caret line="19" column="86" selection-start-line="19" selection-start-column="86" selection-end-line="19" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3402#3403#0" expanded="true" />
             <element signature="e#3455#3456#0" expanded="true" />
+=======
+        <state relative-caret-position="1666">
+          <caret line="97" column="50" selection-start-line="97" selection-start-column="50" selection-end-line="97" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+>>>>>>> 3a818c0c6a4de9392246417964def09372f15ee6
           </folding>
         </state>
       </provider>
