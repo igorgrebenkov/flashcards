@@ -108,25 +108,27 @@ public class Controller implements ActionListener, ListSelectionListener {
      * Then, updates the view to reflect the change.
      */
     private void discardButtonAction() {
+        // Discards the current card to the discard pile
         try {
-            // Discards the current card to the discard pile
+            // Can only discard if there is at least two cards
+            if (model.getFlashCards().size() > 1) {
+                // Get the index of the card to discard
+                int discardIndex = view.getFlashCardView().getCurrentCardIndex();
 
-            // Get the index of the card to discard
-            int discardIndex = view.getFlashCardView().getCurrentCardIndex();
+                // Discard it from the model
+                model.discardFlashCard(discardIndex);
 
-            // Discard it from the model
-            model.discardFlashCard(discardIndex);
-
-            // If we're discarding anything but the last card, show the next card
-            // Else, show the previous card (since there is no next card)
-            if ((discardIndex < model.getFlashCards().size())) {
-                view.getFlashCardView().setCurrentCardIndex(discardIndex);
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
-            } else {
-                view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex - 1);
+                // If we're discarding anything but the last card, show the next card
+                // Else, show the previous card (since there is no next card)
+                if ((discardIndex < model.getFlashCards().size())) {
+                    view.getFlashCardView().setCurrentCardIndex(discardIndex);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
+                } else {
+                    view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex - 1);
+                }
+                view.update();
             }
-            view.update();
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
             System.err.println("NullPointerException: " + NPe.getMessage());
