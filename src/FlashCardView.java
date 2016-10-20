@@ -25,6 +25,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
+        setPreferredSize(new Dimension(900, 300));
         currentCardIndex = -1;
     }
 

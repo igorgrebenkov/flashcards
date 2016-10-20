@@ -19,6 +19,7 @@ public abstract class ListView extends JPanel {
         this.model = model;
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
+
         cardList = new JList();
         cardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         cardList.setLayoutOrientation(JList.VERTICAL);
@@ -28,7 +29,7 @@ public abstract class ListView extends JPanel {
 
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
-        add(listScroller);
+        add(listScroller, BorderLayout.CENTER);
     }
 
     // Updates the list view

@@ -16,7 +16,7 @@ public class DiscardedListView extends ListView {
      */
     @SuppressWarnings({"unchecked"})
     public void update() {
-        cardList.setListData(model.getFlashCards().toArray());
+        cardList.setListData(model.getDiscardedCards().toArray());
         revalidate();
         repaint();
     }

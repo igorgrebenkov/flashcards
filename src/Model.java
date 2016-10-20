@@ -13,15 +13,15 @@ public class Model {
     //instance variables
 
     private ArrayList<FlashCard> flashCards;     // The list of FlashCards
-    private ArrayList<FlashCard> discardedPile;  // The list of discarded FlashCards
+    private ArrayList<FlashCard> discardedCards;  // The list of discarded FlashCards
 
     public Model(ArrayList<FlashCard> fc) {
         flashCards = fc;
-        discardedPile = new ArrayList<>();
+        discardedCards = new ArrayList<>();
     }
 
     /**
-     * Getter method for the main FlashCard array
+     * Getter method for the main FlashCard ArrayList
      * @return the main FlashCard array
      */
     public ArrayList<FlashCard> getFlashCards() {
@@ -29,11 +29,19 @@ public class Model {
     }
 
     /**
-     * Setter method for the main FlashCard array
+     * Setter method for the main FlashCard ArrayList
      * @param flashCards  the main FlashCard array
      */
     public void setFlashCards(ArrayList<FlashCard> flashCards) {
         this.flashCards = flashCards;
+    }
+
+    /**
+     * Getter method for the discarded FlashCard ArrayList
+     * @return
+     */
+    public ArrayList<FlashCard> getDiscardedCards() {
+        return discardedCards;
     }
 
     /**
@@ -47,7 +55,7 @@ public class Model {
      * Puts a FlashCard into the discarded pile
      */
     public void discardFlashCard(int index) {
-        discardedPile.add(flashCards.remove(index));
+        discardedCards.add(flashCards.remove(index));
     }
 
     /**
