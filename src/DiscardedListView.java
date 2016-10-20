@@ -1,17 +1,13 @@
 import javax.swing.*;
-import java.awt.*;
 
-/**
- * The class CardListView displays a list of FlashCards in a JList.
- */
-class CardListView extends ListView {
+public class DiscardedListView extends ListView {
     /**
      * Constructor
      * @param model       the model
      * @param controller  the controller
      */
     @SuppressWarnings({"unchecked"})
-    public CardListView(Model model, Controller controller) {
+    public DiscardedListView(Model model, Controller controller) {
         super(model, controller);
     }
 

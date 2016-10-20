@@ -9,9 +9,9 @@ import java.awt.*;
  * @author Igor Grebenkov
  */
 public class View extends JFrame {
-    private Model model;                  // Reference to the model
-    private FlashCardView flashCardView;  // Reference to the FlashCardView
-    private CardListView cardListView;    // Reference to the CardListView
+    private Model model;                    // Reference to the model
+    private FlashCardView flashCardView;    // Reference to the FlashCardView
+    private CardListView cardListView;      // Reference to the CardListView
     private CardListView discardedListview; //
 
     /**
