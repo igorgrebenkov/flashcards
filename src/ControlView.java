@@ -18,12 +18,6 @@ public class ControlView extends JPanel {
         loadFile.addActionListener(controller);
         loadFile.setActionCommand("loadFile");
 
-        // Reveals the question (if in an answer)
-        JButton revealQuestion = new JButton("Question");
-        revealQuestion.setFocusPainted(false);
-        revealQuestion.addActionListener(controller);
-        revealQuestion.setActionCommand("revealQuestion");
-
         // Reveals the answer (if in a question)
         JButton revealAnswer = new JButton("Answer");
         revealAnswer.setFocusPainted(false);
@@ -56,7 +50,6 @@ public class ControlView extends JPanel {
         add(loadFile);
         add(prevCard);
         add(nextCard);
-        add(revealQuestion);
         add(revealAnswer);
         add(discardCard);
         add(unDiscardCard);

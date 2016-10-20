@@ -36,9 +36,6 @@ public class Controller implements ActionListener, ListSelectionListener {
                 case "loadFile":
                     loadFileButtonAction();
                     break;
-                case "revealQuestion":
-                    view.getFlashCardView().revealQuestion();
-                    break;
                 case "revealAnswer":
                     view.getFlashCardView().revealAnswer();
                     break;

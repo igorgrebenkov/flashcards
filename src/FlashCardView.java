@@ -13,6 +13,8 @@ public class FlashCardView extends JPanel {
 
     private Model model;
     private int currentCardIndex;         // The index of the card currently displayed
+    private boolean isQuestion;           // Flag to indicate if the displayed card shows a question or answer
+
     public final boolean QUESTION = TRUE; // Used to indicate displaying a question
     public final boolean ANSWER = FALSE;  // Used to indicated displaying an answer
     public final boolean CARD = TRUE;     // Used to indicate displaying from the active card pile
@@ -38,6 +40,7 @@ public class FlashCardView extends JPanel {
         add(cardPane, BorderLayout.CENTER);
 
         currentCardIndex = -1;
+        isQuestion = true;
     }
 
     /**
@@ -83,6 +86,9 @@ public class FlashCardView extends JPanel {
         String displayString = operation ?
                 cardsToDisplay.get(currentCardIndex).getQuestion() :
                 cardsToDisplay.get(currentCardIndex).getAnswer();
+
+        // Set flag to indicate if this card is a question based on operation type
+        isQuestion = operation;
 
 
         // JEditorPane displays the current FlashCard
@@ -137,8 +143,11 @@ public class FlashCardView extends JPanel {
      * Reveals the answer associated with this card.
      */
     public void revealAnswer() {
-        if (currentCardIndex > -1) { // Make sure there's something to reveal
+        if (currentCardIndex > -1 && isQuestion) { // Make sure there's something to reveal
             displayCard(ANSWER, CARD, currentCardIndex);
+            isQuestion = false;
+        } else {
+            revealQuestion();
         }
     }
 

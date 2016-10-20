@@ -44,7 +44,7 @@ public class View extends JFrame {
         JPanel rightView = new JPanel();
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
         rightView.setPreferredSize(new Dimension(200, getHeight()));
-        
+
         // Add JList view of current FlashCard set
         cardListView = new CardListView(model, controller);
         rightView.add(cardListView);
