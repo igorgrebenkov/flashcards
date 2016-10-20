@@ -75,8 +75,14 @@ public class Controller implements ActionListener, ListSelectionListener {
         try {
             // Discards the current card to the discard pile
             if (action.equals("discard")) {
+                // Get the index of the card to discard
                 int discardIndex = view.getFlashCardView().getCurrentCardIndex();
+
+                // Discard it from the model
                 model.discardFlashCard(discardIndex);
+
+                // If we're discarding anything but the last card, show the next card
+                // Else, show the previous card (since there is no next card)
                 if (discardIndex < model.getFlashCards().size() - 1) {
                     view.getFlashCardView().setCurrentCardIndex(discardIndex);
                     view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
@@ -86,7 +92,7 @@ public class Controller implements ActionListener, ListSelectionListener {
                 }
                 view.update();
             }
-        } catch (NullPointerException NPe) { // If one card left, can't discard it
+        } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
             System.err.println("NullPointerException: " + NPe.getMessage());
         }
@@ -101,8 +107,8 @@ public class Controller implements ActionListener, ListSelectionListener {
         JList source = (JList) e.getSource();
 
         // If a card has been selected, display it
-        //  -- Ensures selected index is great than 0 to avoid actions
-        //     when deselecting (such as when a card has been discarded)
+        //  -- Ensures selected index is in the range of the
+        //     Arraylist of FlashCards
         if (!e.getValueIsAdjusting() &&
                 (source.getSelectedIndex() >= 0) &&
                 (source.getSelectedIndex() < model.getFlashCards().size())) {
