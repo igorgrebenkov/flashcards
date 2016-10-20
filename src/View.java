@@ -9,19 +9,16 @@ import java.awt.*;
  * @author Igor Grebenkov
  */
 public class View extends JFrame {
-    private Model model;                    // Reference to the model
     private FlashCardView flashCardView;    // Reference to the FlashCardView
     private CardListView cardListView;      // Reference to the CardListView
     private CardListView discardedListview; //
 
     /**
      * Constructor for the View.
-     * @param model       the Model
-     * @param controller  the Controller
+     * @param controller  the ControllerS
      */
     public View(Model model, Controller controller) {
         super("FlashCards");
-        this.model = model;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.WHITE);
