@@ -34,67 +34,28 @@ public class Controller implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
 
-        // Handles loading a FlashCard set from a txt file
-        if (action.equals("loadFile")) {
-            final File workingDirectory = new File(System.getProperty("user.dir"));
-            final JFileChooser fileChooser = new JFileChooser(workingDirectory);
-            final JFrame selectFrame = new JFrame("Select a file...");
-            int returnVal = fileChooser.showOpenDialog(selectFrame);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                flashCardSet = fileChooser.getSelectedFile();
-                try {
-                    this.model.setFlashCards(createFlashCards(flashCardSet));
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, 0);
-                    view.update();
-                } catch (IOException IOe) {
-                    System.err.println("IOException: " + IOe.getMessage());
-                }
+        if (e.getSource() instanceof JButton) {
+            switch (action) {
+                case "loadFile":
+                    loadFileButtonAction();
+                    break;
+                case "revealQuestion":
+                    view.getFlashCardView().revealQuestion();
+                    break;
+                case "revealAnswer":
+                    view.getFlashCardView().revealAnswer();
+                    break;
+                case "prevCard":
+                    view.getFlashCardView().prevCard();
+                    break;
+                case "nextCard":
+                    view.getFlashCardView().nextCard();
+                    break;
+                case "discard":
+                    discardButtonAction();
+                    break;
             }
-        }
 
-        // Reveals the question for the current card
-        if (action.equals("revealQuestion")) {
-            view.getFlashCardView().revealQuestion();
-        }
-
-        // Reveals the answer for the current card
-        if (action.equals("revealAnswer")) {
-            view.getFlashCardView().revealAnswer();
-        }
-
-        // Flips to the previous card in the set
-        if (action.equals("prevCard")) {
-            view.getFlashCardView().prevCard();
-        }
-
-        // Flips to the next card in the set
-        if (action.equals("nextCard")) {
-            view.getFlashCardView().nextCard();
-        }
-
-        try {
-            // Discards the current card to the discard pile
-            if (action.equals("discard")) {
-                // Get the index of the card to discard
-                int discardIndex = view.getFlashCardView().getCurrentCardIndex();
-
-                // Discard it from the model
-                model.discardFlashCard(discardIndex);
-
-                // If we're discarding anything but the last card, show the next card
-                // Else, show the previous card (since there is no next card)
-                if (discardIndex < model.getFlashCards().size() - 1) {
-                    view.getFlashCardView().setCurrentCardIndex(discardIndex);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
-                } else {
-                    view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex - 1);
-                }
-                view.update();
-            }
-        } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
-            // Maybe pop up a window here?
-            System.err.println("NullPointerException: " + NPe.getMessage());
         }
     }
 
@@ -117,6 +78,51 @@ public class Controller implements ActionListener, ListSelectionListener {
         }
 
     }
+
+    private void loadFileButtonAction() {
+        // Handles loading a FlashCard set from a txt file
+        final File workingDirectory = new File(System.getProperty("user.dir"));
+        final JFileChooser fileChooser = new JFileChooser(workingDirectory);
+        final JFrame selectFrame = new JFrame("Select a file...");
+        int returnVal = fileChooser.showOpenDialog(selectFrame);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            flashCardSet = fileChooser.getSelectedFile();
+            try {
+                this.model.setFlashCards(createFlashCards(flashCardSet));
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, 0);
+                view.update();
+            } catch (IOException IOe) {
+                System.err.println("IOException: " + IOe.getMessage());
+            }
+        }
+    }
+
+    private void discardButtonAction() {
+        try {
+            // Discards the current card to the discard pile
+
+            // Get the index of the card to discard
+            int discardIndex = view.getFlashCardView().getCurrentCardIndex();
+
+            // Discard it from the model
+            model.discardFlashCard(discardIndex);
+
+            // If we're discarding anything but the last card, show the next card
+            // Else, show the previous card (since there is no next card)
+            if (discardIndex < model.getFlashCards().size() - 1) {
+                view.getFlashCardView().setCurrentCardIndex(discardIndex);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
+            } else {
+                view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex - 1);
+            }
+            view.update();
+        } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
+            // Maybe pop up a window here?
+            System.err.println("NullPointerException: " + NPe.getMessage());
+        }
+    }
+
 
     /**
      * Creates an ArrayList of FlashCards from a text file that is read line-by-line.
@@ -165,4 +171,5 @@ public class Controller implements ActionListener, ListSelectionListener {
         }
         return flashCards;
     }
+
 }
