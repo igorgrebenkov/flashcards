@@ -226,5 +226,4 @@ public class Controller implements ActionListener, ListSelectionListener {
         }
         return flashCards;
     }
-
 }

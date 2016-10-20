@@ -35,6 +35,7 @@ public class FlashCardView extends JPanel {
 
     /**
      * Getter for the current card index
+     *
      * @return the current FlashCard's index
      */
     public int getCurrentCardIndex() {
@@ -43,6 +44,7 @@ public class FlashCardView extends JPanel {
 
     /**
      * Setter for the current card index
+     *
      * @param index the new index of the current FlashCard
      */
     public void setCurrentCardIndex(int index) {
@@ -51,6 +53,9 @@ public class FlashCardView extends JPanel {
 
     /**
      * Displays the current FlashCard.
+     * @param operation controls whether to display a question or answer
+     * @param cardPile  controls whether to display from active or discarded pile
+     * @param index     the index of the card to display
      */
     public void displayCard(boolean operation, boolean cardPile, int index) {
         // Fetch whichever card set to display
@@ -116,14 +121,18 @@ public class FlashCardView extends JPanel {
      * Reveals the question associated with this card.
      */
     public void revealQuestion() {
-        displayCard(QUESTION, CARD, currentCardIndex);
+        if (currentCardIndex > -1) {  // Make sure there's something to reveal
+            displayCard(QUESTION, CARD, currentCardIndex);
+        }
     }
 
     /**
      * Reveals the answer associated with this card.
      */
     public void revealAnswer() {
-        displayCard(ANSWER, CARD, currentCardIndex);
+        if (currentCardIndex > -1) { // Make sure there's something to reveal
+            displayCard(ANSWER, CARD, currentCardIndex);
+        }
     }
 
     /**
