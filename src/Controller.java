@@ -23,7 +23,6 @@ public class Controller implements ActionListener, ListSelectionListener {
     public Controller() {
         model = new Model(new ArrayList<FlashCard>());
         view = new View(model, this);
-        //view.update();
     }
 
     /**
@@ -58,7 +57,6 @@ public class Controller implements ActionListener, ListSelectionListener {
                     unDiscardButtonAction();
                     break;
             }
-
         }
     }
 
@@ -73,7 +71,7 @@ public class Controller implements ActionListener, ListSelectionListener {
         if (e.getSource() == view.getCardListView().getCardList()) {
             // If a card has been selected, display it
             //  -- Ensures selected index is in the range of the
-            //     Arraylist of FlashCards
+            //     ArrayList of FlashCards
             if (!e.getValueIsAdjusting() &&
                     (source.getSelectedIndex() >= 0) &&
                     (source.getSelectedIndex() < model.getFlashCards().size())) {
@@ -108,8 +106,11 @@ public class Controller implements ActionListener, ListSelectionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             flashCardSet = fileChooser.getSelectedFile();
             try {
+                // Create a FlashCard set and set the model
                 this.model.setFlashCards(createFlashCards(flashCardSet));
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, view.getFlashCardView().CARD, 0);
+                // Display the first card
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().CARD, 0);
                 view.update();
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());

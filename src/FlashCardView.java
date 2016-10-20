@@ -13,10 +13,10 @@ public class FlashCardView extends JPanel {
 
     private Model model;
     private int currentCardIndex;         // The index of the card currently displayed
-    public final boolean QUESTION = TRUE; // Maybe enum instead?
-    public final boolean ANSWER = FALSE;
-    public final boolean CARD = TRUE;
-    public final boolean DISCARD = FALSE;
+    public final boolean QUESTION = TRUE; // Used to indicate displaying a question
+    public final boolean ANSWER = FALSE;  // Used to indicated displaying an answer
+    public final boolean CARD = TRUE;     // Used to indicate displaying from the active card pile
+    public final boolean DISCARD = FALSE; // Used to indicate displaying from the discarded card pile
 
 
     /**
@@ -30,6 +30,13 @@ public class FlashCardView extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(900, 300));
+
+        // Display a blank JEditorPane initially
+        JEditorPane cardPane = new JEditorPane();
+        cardPane.setText("");
+        cardPane.setEditable(false);
+        add(cardPane, BorderLayout.CENTER);
+
         currentCardIndex = -1;
     }
 
