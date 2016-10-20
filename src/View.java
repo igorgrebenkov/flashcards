@@ -36,7 +36,7 @@ public class View extends JFrame {
         add(cardListView, BorderLayout.EAST);
 
         // Add view of app controls
-        add(new ControlsView(controller), BorderLayout.SOUTH);
+        add(new ControlView(controller), BorderLayout.SOUTH);
 
         // Finish him!
         pack();
