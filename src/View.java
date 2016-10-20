@@ -37,6 +37,8 @@ public class View extends JFrame {
         flashCardView = new FlashCardView(model, controller);
         leftView.add(flashCardView);
 
+        leftView.add(Box.createVerticalGlue());
+
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
         leftView.add(controlView);

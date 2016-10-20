@@ -29,15 +29,29 @@ public class FlashCardView extends JPanel {
      */
     public FlashCardView(Model model, Controller controller) {
         this.model = model;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
         setBackground(Color.WHITE);
+        // Keeps this View from making ControlsView disappear when
+        // View is resized and FlashCard text takes up more horizontal
+        // space than the preferred size
+        setMinimumSize(new Dimension(900, 200));
         setPreferredSize(new Dimension(900, 500));
 
         // Display a blank JEditorPane initially
         JEditorPane cardPane = new JEditorPane();
         cardPane.setText("");
         cardPane.setEditable(false);
-        add(cardPane, BorderLayout.CENTER);
+        cardPane.setPreferredSize(new Dimension(900,500));
+        //cardPane.setMaximumSize(new Dimension(900, Integer.MAX_VALUE));
+
+
+        JScrollPane cardScroller = new JScrollPane(cardPane);
+        cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        cardScroller.setPreferredSize(new Dimension(900, 500));
+
+
+        add(cardScroller, BorderLayout.CENTER);
 
         currentCardIndex = -1;
         isQuestion = true;
@@ -93,9 +107,10 @@ public class FlashCardView extends JPanel {
 
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
+        cardPane.setSize(300, Integer.MAX_VALUE);
 
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
-        cardPane.setFont(new Font("Verdana", Font.PLAIN, 30));
+        cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText("<div>"
                 + "<span>"
@@ -103,6 +118,7 @@ public class FlashCardView extends JPanel {
                 + "</span>"
                 + "</html>");
         cardPane.setEditable(false);
+
 
         this.add(cardPane, BorderLayout.CENTER);
         update();

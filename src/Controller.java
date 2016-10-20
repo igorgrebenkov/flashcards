@@ -3,6 +3,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Igor Grebenkov
  */
-public class Controller implements ActionListener, ListSelectionListener {
+public class Controller implements ActionListener, ListSelectionListener, KeyListener {
     private Model model;
     private View view;
 
@@ -85,7 +87,49 @@ public class Controller implements ActionListener, ListSelectionListener {
             }
 
         }
+    }
 
+    /**
+     * The KeyListener method for key typed events
+     *
+     * @param e the KeyEvent
+     */
+    public void keyTyped(KeyEvent e) {
+    }
+
+    /**
+     * The KeyListener method for key press events
+     *
+     * @param e the KeyEvent
+     */
+    public void keyPressed(KeyEvent e) {
+        JList source = (JList) e.getSource();
+
+        // These actions can only be performed when the active card JList is in focus
+        char c = e.getKeyChar();
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            switch (c) {
+                case 'd':
+                    if (source == view.getCardListView().getCardList()) {
+                        discardButtonAction();
+                    } else {
+                        unDiscardButtonAction();
+                    }
+                    break;
+                case 'a':
+                    view.getFlashCardView().revealAnswer();
+                    break;
+            }
+        }
+    }
+
+
+    /**
+     * The KeyListener method for key release events
+     *
+     * @param e the KeyEvent
+     */
+    public void keyReleased(KeyEvent e) {
     }
 
     /**
@@ -158,8 +202,6 @@ public class Controller implements ActionListener, ListSelectionListener {
         try {
             if (model.getDiscardedCards().size() > 0) {
                 int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
-                System.out.println(unDiscardIndex);
-
                 // Return it to the model
                 model.unDiscardFlashCard(unDiscardIndex);
             }

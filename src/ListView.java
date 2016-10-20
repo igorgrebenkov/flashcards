@@ -19,6 +19,7 @@ public abstract class ListView extends JPanel {
         this.model = model;
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
+        setFocusable(true);
 
         cardList = new JList();
         cardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -26,6 +27,8 @@ public abstract class ListView extends JPanel {
         cardList.setVisibleRowCount(-1); // display max items possible in space
         cardList.addListSelectionListener(controller);
         cardList.setFixedCellWidth(150);
+        cardList.addKeyListener(controller);
+
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
 
