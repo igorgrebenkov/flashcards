@@ -143,14 +143,6 @@ public class FlashCardView extends JPanel {
         }
     }
 
-    /**
-     * Reveals the question associated with this card.
-     */
-    public void revealQuestion() {
-        if (currentCardIndex > -1) {  // Make sure there's something to reveal
-            displayCard(QUESTION, CARD, currentCardIndex);
-        }
-    }
 
     /**
      * Reveals the answer associated with this card.
@@ -170,5 +162,14 @@ public class FlashCardView extends JPanel {
     public void update() {
         revalidate();
         repaint();
+    }
+
+    /**
+     * Reveals the question associated with this card.
+     */
+    private void revealQuestion() {
+        if (currentCardIndex > -1) {  // Make sure there's something to reveal
+            displayCard(QUESTION, CARD, currentCardIndex);
+        }
     }
 }

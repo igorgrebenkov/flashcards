@@ -110,14 +110,24 @@ public class Controller implements ActionListener, ListSelectionListener, KeyLis
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             switch (c) {
                 case 'd':
+                    // Discards/undiscards a card
                     if (source == view.getCardListView().getCardList()) {
-                        discardButtonAction();
+                        discardButtonAction();    // Discard if source is CardView JList
                     } else {
-                        unDiscardButtonAction();
+                        unDiscardButtonAction();  // Undiscard if source is DiscardedListView JList
                     }
                     break;
                 case 'a':
+                    // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
+                    break;
+                case 'r':
+                    // Changes focus between the two JLists
+                    if (source == view.getCardListView().getCardList()) {
+                        view.getDiscardedListView().getCardList().requestFocus();
+                    } else {
+                        view.getCardListView().getCardList().requestFocus();
+                    }
                     break;
             }
         }
