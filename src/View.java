@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The view. Displays the FlashCardView, and the program buttons in two JPanels.
+ * The class View is the main view into the app's UI.
  *
  * It extends JFrame.
  *
@@ -55,6 +55,8 @@ public class View extends JFrame {
     public CardListView getCardListView() {
         return cardListView;
     }
+
+    public CardListView getDiscardedListView() { return discardedListview; }
 
     /**
      * Updates the View (and all component views).

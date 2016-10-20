@@ -8,8 +8,8 @@
 public class FlashCard {
     private String question;
     private String answer;
-    private int numCountRight;  // Number of times user got this card right
-    private int cardIndex;        // The sequence number in its set
+    private int numCountRight;    // Number of times user got this card right
+    private int cardIndex;        // The index of the card in its set
     /**
      * Constructor
      * @param question the question string

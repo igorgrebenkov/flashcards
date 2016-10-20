@@ -8,6 +8,11 @@ public class CardListView extends JPanel {
     private Model model;
     private JList cardList;
 
+    /**
+     * Constructor
+     * @param model       the model
+     * @param controller  the controller
+     */
     @SuppressWarnings({"unchecked"})
     public CardListView(Model model, Controller controller) {
         this.model = model;
@@ -20,6 +25,7 @@ public class CardListView extends JPanel {
         cardList.addListSelectionListener(controller);
         cardList.setFixedCellWidth(100);
 
+        // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
         add(listScroller);
     }

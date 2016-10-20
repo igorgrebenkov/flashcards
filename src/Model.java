@@ -17,6 +17,7 @@ public class Model {
 
     public Model(ArrayList<FlashCard> fc) {
         flashCards = fc;
+        discardedPile = new ArrayList<>();
     }
 
     /**
@@ -46,7 +47,7 @@ public class Model {
      * Puts a FlashCard into the discarded pile
      */
     public void discardFlashCard(int index) {
-
+        discardedPile.add(flashCards.remove(index));
     }
 
     /**

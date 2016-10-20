@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-
+/**
+ * The class Main initiates the app.
+ */
 public class Main {
     public static void main(String[] args) {
 

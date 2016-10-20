@@ -1,5 +1,3 @@
-import javafx.scene.web.HTMLEditor;
-
 import javax.swing.*;
 import java.awt.*;
 import static java.lang.Boolean.*;
@@ -31,11 +29,19 @@ public class FlashCardView extends JPanel {
     }
 
     /**
-     * Updates the FlashCardView.
+     * Getter for the current card index
+     * @return the current FlashCard's index
      */
-    public void update() {
-        revalidate();
-        repaint();
+    public int getCurrentCardIndex() {
+        return currentCardIndex;
+    }
+
+    /**
+     * Setter for the current card index
+     * @param index the new index of the current FlashCard
+     */
+    public void setCurrentCardIndex(int index) {
+        currentCardIndex = index;
     }
 
     /**
@@ -47,7 +53,7 @@ public class FlashCardView extends JPanel {
 
         // Prevent loading an empty flash card set
         if (model.getFlashCards().isEmpty()) {
-            throw new NullPointerException("Null Pointer Exception.");
+            throw new NullPointerException("NullPointerException.");
         }
 
         // Clear previous flash card
@@ -100,11 +106,25 @@ public class FlashCardView extends JPanel {
         }
     }
 
+    /**
+     * Reveals the question associated with this card.
+     */
     public void revealQuestion() {
         displayCard(QUESTION, currentCardIndex);
     }
 
+    /**
+     * Reveals the answer associated with this card.
+     */
     public void revealAnswer() {
         displayCard(ANSWER, currentCardIndex);
+    }
+
+    /**
+     * Updates the FlashCardView.
+     */
+    public void update() {
+        revalidate();
+        repaint();
     }
 }

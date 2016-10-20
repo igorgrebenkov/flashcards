@@ -42,17 +42,17 @@ public class ControlsView extends JPanel {
         prevCard.addActionListener(controller);
         prevCard.setActionCommand("prevCard");
 
-        /*
-        JButton update = new JButton("Update");
-        update.addActionListener(controller);
-        update.setActionCommand("update");
-        */
+        JButton discardCard = new JButton("Discard");
+        discardCard.setFocusPainted(false);
+        discardCard.addActionListener(controller);
+        discardCard.setActionCommand("discard");
+
         setBackground(Color.darkGray);
         add(loadFile);
         add(prevCard);
         add(nextCard);
         add(revealQuestion);
         add(revealAnswer);
-        //add(update);
+        add(discardCard);
     }
 }
