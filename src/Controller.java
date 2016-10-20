@@ -130,6 +130,8 @@ public class Controller implements ActionListener, ListSelectionListener {
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
             System.err.println("NullPointerException: " + NPe.getMessage());
+        } catch (ArrayIndexOutOfBoundsException AIe) {
+            System.err.println("ArrayIndexOutOfBoundsException: " + AIe.getMessage());
         }
     }
 
