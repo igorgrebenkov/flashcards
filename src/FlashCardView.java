@@ -31,6 +31,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
+
         // Keeps this View from making ControlsView disappear when
         // View is resized and FlashCard text takes up more horizontal
         // space than the preferred size
@@ -41,17 +42,15 @@ public class FlashCardView extends JPanel {
         JEditorPane cardPane = new JEditorPane();
         cardPane.setText("");
         cardPane.setEditable(false);
-        cardPane.setPreferredSize(new Dimension(900,500));
-        //cardPane.setMaximumSize(new Dimension(900, Integer.MAX_VALUE));
+        cardPane.setLayout(new BorderLayout());
 
-
+        // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
+        // Not really necessary for a blank card, but keeps the View consistent when a card set is loaded
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        cardScroller.setPreferredSize(new Dimension(900, 500));
 
-
-        add(cardScroller, BorderLayout.CENTER);
+        add(cardScroller);
 
         currentCardIndex = -1;
         isQuestion = true;
@@ -104,23 +103,21 @@ public class FlashCardView extends JPanel {
         // Set flag to indicate if this card is a question based on operation type
         isQuestion = operation;
 
-
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
         cardPane.setSize(300, Integer.MAX_VALUE);
-
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
-        cardPane.setText("<div>"
-                + "<span>"
-                + displayString
-                + "</span>"
-                + "</html>");
+        cardPane.setText(displayString);
         cardPane.setEditable(false);
 
+        // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
+        JScrollPane cardScroller = new JScrollPane(cardPane);
+        cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        this.add(cardPane, BorderLayout.CENTER);
+        this.add(cardScroller, BorderLayout.CENTER);
         update();
     }
 
