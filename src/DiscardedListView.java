@@ -11,6 +11,7 @@ public class DiscardedListView extends ListView {
         super(model, controller);
     }
 
+
     /**
      * Updates the CardListView.
      */

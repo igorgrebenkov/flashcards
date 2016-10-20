@@ -67,14 +67,27 @@ public class Controller implements ActionListener, ListSelectionListener {
     public void valueChanged(ListSelectionEvent e) {
         JList source = (JList) e.getSource();
 
-        // If a card has been selected, display it
-        //  -- Ensures selected index is in the range of the
-        //     Arraylist of FlashCards
-        if (!e.getValueIsAdjusting() &&
-                (source.getSelectedIndex() >= 0) &&
-                (source.getSelectedIndex() < model.getFlashCards().size())) {
-            view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                    source.getSelectedIndex());
+        if (e.getSource() == view.getCardListView().getCardList()) {
+            // If a card has been selected, display it
+            //  -- Ensures selected index is in the range of the
+            //     Arraylist of FlashCards
+            if (!e.getValueIsAdjusting() &&
+                    (source.getSelectedIndex() >= 0) &&
+                    (source.getSelectedIndex() < model.getFlashCards().size())) {
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().CARD,
+                        source.getSelectedIndex());
+            }
+        } else {
+            // Same as above for discarded cards
+            if (!e.getValueIsAdjusting() &&
+                    (source.getSelectedIndex() >= 0) &&
+                    (source.getSelectedIndex() < model.getDiscardedCards().size())) {
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().DISCARD,
+                        source.getSelectedIndex());
+            }
+
         }
 
     }
@@ -93,7 +106,7 @@ public class Controller implements ActionListener, ListSelectionListener {
             flashCardSet = fileChooser.getSelectedFile();
             try {
                 this.model.setFlashCards(createFlashCards(flashCardSet));
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, 0);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, view.getFlashCardView().CARD, 0);
                 view.update();
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());
@@ -104,7 +117,7 @@ public class Controller implements ActionListener, ListSelectionListener {
     /**
      * Actions for the Discard button that updates the model by removing a
      * card from the FlashCard set and putting it in the discard pile.
-     *
+     * <p>
      * Then, updates the view to reflect the change.
      */
     private void discardButtonAction() {
@@ -122,10 +135,14 @@ public class Controller implements ActionListener, ListSelectionListener {
                 // Else, show the previous card (since there is no next card)
                 if ((discardIndex < model.getFlashCards().size())) {
                     view.getFlashCardView().setCurrentCardIndex(discardIndex);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().CARD,
+                            discardIndex);
                 } else {
                     view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex - 1);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().CARD,
+                            discardIndex - 1);
                 }
                 view.update();
             }

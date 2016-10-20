@@ -40,7 +40,6 @@ public class View extends JFrame {
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
 
 
-
         // Add JList view of current FlashCard set
         cardListView = new CardListView(model, controller);
         rightView.add(cardListView);

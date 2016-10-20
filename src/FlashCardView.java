@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import static java.lang.Boolean.*;
 
 /**
@@ -13,6 +15,8 @@ public class FlashCardView extends JPanel {
     private int currentCardIndex;         // The index of the card currently displayed
     public final boolean QUESTION = TRUE; // Maybe enum instead?
     public final boolean ANSWER = FALSE;
+    public final boolean CARD = TRUE;
+    public final boolean DISCARD = FALSE;
 
 
     /**
@@ -48,25 +52,26 @@ public class FlashCardView extends JPanel {
     /**
      * Displays the current FlashCard.
      */
-    public void displayCard(boolean operation, int index) {
+    public void displayCard(boolean operation, boolean cardPile, int index) {
+        // Fetch whichever card set to display
+        ArrayList<FlashCard> cardsToDisplay = cardPile ? model.getFlashCards() : model.getDiscardedCards();
+
         // Update currentCardIndex
         currentCardIndex = index;
 
         // Prevent loading an empty flash card set
-        if (model.getFlashCards().isEmpty()) {
+        if (cardsToDisplay.isEmpty()) {
             throw new NullPointerException("NullPointerException.");
         }
 
         // Clear previous flash card
-        this.removeAll();
+        removeAll();
 
         // Display question or answer based on value of operation
-        String displayString;
-        if (operation == QUESTION) {
-            displayString = model.getFlashCards().get(currentCardIndex).getQuestion();
-        } else {
-            displayString = model.getFlashCards().get(currentCardIndex).getAnswer();
-        }
+        String displayString = operation ?
+                cardsToDisplay.get(currentCardIndex).getQuestion() :
+                cardsToDisplay.get(currentCardIndex).getAnswer();
+
 
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
@@ -92,7 +97,7 @@ public class FlashCardView extends JPanel {
     public void nextCard() {
         if (currentCardIndex != model.getFlashCards().size() - 1 &&
                 !model.getFlashCards().isEmpty()) {
-            displayCard(QUESTION, ++currentCardIndex);
+            displayCard(QUESTION, CARD, ++currentCardIndex);
         }
     }
 
@@ -103,7 +108,7 @@ public class FlashCardView extends JPanel {
     public void prevCard() {
         if (currentCardIndex != 0 &&
                 !model.getFlashCards().isEmpty()) {
-            displayCard(QUESTION, --currentCardIndex);
+            displayCard(QUESTION, CARD, --currentCardIndex);
         }
     }
 
@@ -112,14 +117,14 @@ public class FlashCardView extends JPanel {
      */
     public void revealQuestion() {
 
-        displayCard(QUESTION, currentCardIndex);
+        displayCard(QUESTION, CARD, currentCardIndex);
     }
 
     /**
      * Reveals the answer associated with this card.
      */
     public void revealAnswer() {
-        displayCard(ANSWER, currentCardIndex);
+        displayCard(ANSWER, CARD, currentCardIndex);
     }
 
     /**
