@@ -79,6 +79,10 @@ public class Controller implements ActionListener, ListSelectionListener {
 
     }
 
+    /**
+     * Loads a file in response to pressing the Load button and turns
+     * it into a set of FlashCards used to update the model.
+     */
     private void loadFileButtonAction() {
         // Handles loading a FlashCard set from a txt file
         final File workingDirectory = new File(System.getProperty("user.dir"));
@@ -97,6 +101,12 @@ public class Controller implements ActionListener, ListSelectionListener {
         }
     }
 
+    /**
+     * Actions for the Discard button that updates the model by removing a
+     * card from the FlashCard set and putting it in the discard pile.
+     *
+     * Then, updates the view to reflect the change.
+     */
     private void discardButtonAction() {
         try {
             // Discards the current card to the discard pile
@@ -109,7 +119,7 @@ public class Controller implements ActionListener, ListSelectionListener {
 
             // If we're discarding anything but the last card, show the next card
             // Else, show the previous card (since there is no next card)
-            if (discardIndex < model.getFlashCards().size() - 1) {
+            if ((discardIndex < model.getFlashCards().size())) {
                 view.getFlashCardView().setCurrentCardIndex(discardIndex);
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION, discardIndex);
             } else {
