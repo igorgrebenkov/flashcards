@@ -24,7 +24,11 @@ public class View extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.WHITE);
-        setLayout(new GridLayout());
+        setLayout(new GridBagLayout());
+        setMinimumSize(new Dimension(800, 400));
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
 
         JPanel leftView = new JPanel();
         leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
@@ -39,7 +43,6 @@ public class View extends JFrame {
 
         JPanel rightView = new JPanel();
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
-        rightView.setPreferredSize(new Dimension(100, 400));
 
         // Add JList view of current FlashCard set
         cardListView = new CardListView(model, controller);
@@ -49,9 +52,17 @@ public class View extends JFrame {
         discardedListView = new DiscardedListView(model, controller);
         rightView.add(discardedListView);
 
-        add(leftView);
-        add(rightView);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.8;
+        c.weighty = 1;
+        add(leftView, c) ;
 
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = 0.2;
+        c.weighty = 1;
+        add(rightView, c);
 
         // Finish him!
         pack();

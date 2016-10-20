@@ -25,10 +25,17 @@ public abstract class ListView extends JPanel {
         cardList.setLayoutOrientation(JList.VERTICAL);
         cardList.setVisibleRowCount(-1); // display max items possible in space
         cardList.addListSelectionListener(controller);
-        cardList.setFixedCellWidth(100);
-
+        cardList.setFixedCellWidth(150);
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
+
+        // Keeps ListView from decreasing width suddenly when resizing
+        listScroller.setMinimumSize(new Dimension(150, 300));
+        listScroller.setMaximumSize(new Dimension(150, getHeight()));
+
+        // Keep horizontal scrollbar from showing
+        listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         add(listScroller, BorderLayout.CENTER);
     }
 

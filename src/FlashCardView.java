@@ -29,7 +29,7 @@ public class FlashCardView extends JPanel {
         this.model = model;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(900, 300));
+        setPreferredSize(new Dimension(900, 500));
 
         // Display a blank JEditorPane initially
         JEditorPane cardPane = new JEditorPane();
