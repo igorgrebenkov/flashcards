@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-
 /**
  * The class CardListView displays a list of FlashCards in a JList.
  */

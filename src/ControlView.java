@@ -9,7 +9,7 @@ public class ControlView extends JPanel {
 
     /**
      * Constructor
-     * @param controller the controller
+     * @param controller the Controller
      */
     public ControlView(Controller controller) {
         // Loads and creates FlashCard set from a file

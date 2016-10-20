@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 public class DiscardedListView extends ListView {
     /**
      * Constructor

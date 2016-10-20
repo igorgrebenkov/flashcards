@@ -12,8 +12,6 @@ import java.util.ArrayList;
  * @author Igor Grebenkov
  */
 public class Controller implements ActionListener, ListSelectionListener {
-
-    private File flashCardSet;  // the set of flash cards in a txt file
     private Model model;
     private View view;
 
@@ -21,7 +19,7 @@ public class Controller implements ActionListener, ListSelectionListener {
      * Constructor
      */
     public Controller() {
-        model = new Model(new ArrayList<FlashCard>());
+        model = new Model(new ArrayList<>());
         view = new View(model, this);
     }
 
@@ -104,7 +102,7 @@ public class Controller implements ActionListener, ListSelectionListener {
         final JFrame selectFrame = new JFrame("Select a file...");
         int returnVal = fileChooser.showOpenDialog(selectFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            flashCardSet = fileChooser.getSelectedFile();
+            File flashCardSet = fileChooser.getSelectedFile();
             try {
                 // Create a FlashCard set and set the model
                 this.model.setFlashCards(createFlashCards(flashCardSet));

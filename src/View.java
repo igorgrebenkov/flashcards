@@ -16,7 +16,8 @@ public class View extends JFrame {
 
     /**
      * Constructor for the View.
-     * @param controller  the ControllerS
+     * @param model       the Model
+     * @param controller  the Controller
      */
     public View(Model model, Controller controller) {
         super("FlashCards");
@@ -38,6 +39,7 @@ public class View extends JFrame {
 
         JPanel rightView = new JPanel();
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
+        rightView.setPreferredSize(new Dimension(100, 400));
 
         // Add JList view of current FlashCard set
         cardListView = new CardListView(model, controller);
