@@ -54,6 +54,14 @@ public class FlashCard {
         this.answer = answer;
     }
 
+    /**
+     * Getter for the card's index
+     * @return the card's index
+     */
+    public int getCardIndex() {
+        return cardIndex;
+    }
+
 
     /**
      * Getter for number of times right counter.

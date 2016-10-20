@@ -116,7 +116,6 @@ public class FlashCardView extends JPanel {
      * Reveals the question associated with this card.
      */
     public void revealQuestion() {
-
         displayCard(QUESTION, CARD, currentCardIndex);
     }
 

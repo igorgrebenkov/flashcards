@@ -54,6 +54,9 @@ public class Controller implements ActionListener, ListSelectionListener {
                 case "discard":
                     discardButtonAction();
                     break;
+                case "unDiscard":
+                    unDiscardButtonAction();
+                    break;
             }
 
         }
@@ -151,6 +154,27 @@ public class Controller implements ActionListener, ListSelectionListener {
             System.err.println("NullPointerException: " + NPe.getMessage());
         } catch (ArrayIndexOutOfBoundsException AIe) {
             System.err.println("ArrayIndexOutOfBoundsException: " + AIe.getMessage());
+        }
+    }
+
+    private void unDiscardButtonAction() {
+        // Returns the current card to the discard pile
+        try {
+            if (model.getDiscardedCards().size() > 0) {
+                int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
+                System.out.println(unDiscardIndex);
+
+                // Return it to the model
+                model.unDiscardFlashCard(unDiscardIndex);
+            }
+            view.update();
+        } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
+            // Maybe pop up a window here?
+            System.err.println("NullPointerException: " + NPe.getMessage());
+        } catch (ArrayIndexOutOfBoundsException AIe) {
+            System.err.println("ArrayIndexOutOfBoundsException: " + AIe.getMessage());
+        } catch (IndexOutOfBoundsException IOBe) {
+            System.err.println("IndexOutOfBoundsException: " + IOBe.getMessage());
         }
     }
 

@@ -24,7 +24,7 @@ public class ControlView extends JPanel {
         revealQuestion.addActionListener(controller);
         revealQuestion.setActionCommand("revealQuestion");
 
-        // Reveals the answer (if in a questtion)
+        // Reveals the answer (if in a question)
         JButton revealAnswer = new JButton("Answer");
         revealAnswer.setFocusPainted(false);
         revealAnswer.addActionListener(controller);
@@ -47,6 +47,11 @@ public class ControlView extends JPanel {
         discardCard.addActionListener(controller);
         discardCard.setActionCommand("discard");
 
+        JButton unDiscardCard = new JButton("Undiscard");
+        unDiscardCard.setFocusPainted(false);
+        unDiscardCard.addActionListener(controller);
+        unDiscardCard.setActionCommand("unDiscard");
+
         setBackground(Color.darkGray);
         add(loadFile);
         add(prevCard);
@@ -54,5 +59,6 @@ public class ControlView extends JPanel {
         add(revealQuestion);
         add(revealAnswer);
         add(discardCard);
+        add(unDiscardCard);
     }
 }

@@ -61,8 +61,11 @@ public class Model {
     /**
      * Returns a FlashCard to the main pile from the discard pile
      */
-    public void undiscardFlashCard(int index) {
+    public void unDiscardFlashCard(int index) {
+        // Fetch the discarded card's index in the original set
+        int returnIndex = discardedCards.get(0).getCardIndex();
 
+        flashCards.add(returnIndex, discardedCards.remove(0));
     }
 
     /**
