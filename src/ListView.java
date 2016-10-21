@@ -42,8 +42,8 @@ public abstract class ListView extends JPanel {
         listScroller.setMinimumSize(new Dimension(200, 300));
         listScroller.setMaximumSize(new Dimension(300, getHeight()));
 
-        // Keeps horizontal scrollbar from showing
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
 
         add(listScroller, BorderLayout.CENTER);
     }

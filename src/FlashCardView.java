@@ -119,6 +119,8 @@ public class FlashCardView extends JPanel {
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
 
+        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
+
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -179,6 +181,7 @@ public class FlashCardView extends JPanel {
     private void revealQuestion() {
         if (currentCardIndex > -1) {  // Make sure there's something to reveal
                 displayCard(QUESTION, isActive, currentCardIndex);
+            isQuestion = true;
         }
     }
 }
