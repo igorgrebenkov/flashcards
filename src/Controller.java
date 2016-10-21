@@ -46,7 +46,6 @@ public class Controller extends AbstractAction
                 case "d": // Discards the current card
                     discardButtonAction();
                     break;
-
             }
         }
 
@@ -173,6 +172,8 @@ public class Controller extends AbstractAction
                 // Display the first card
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
                         view.getFlashCardView().CARD, 0);
+                // Focus on active card JList
+                view.getCardListView().getCardList().requestFocus();
                 view.update();
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());

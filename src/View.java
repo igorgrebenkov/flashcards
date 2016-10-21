@@ -37,8 +37,8 @@ public class View extends JFrame {
         InputMap imap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         // Put the keystroke objects into the panel's input map under the identifier "test"
-        imap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
-        imap.put(KeyStroke.getKeyStroke('d'), "discardCard");
+        imap.put(KeyStroke.getKeyStroke('a'), "revealAnswer"); // Toggle revealing answer/question
+        imap.put(KeyStroke.getKeyStroke('d'), "discardCard");  // Discard current card
 
         // Get the ActionMap for the panel
         ActionMap aMap = rootPane.getActionMap();
