@@ -2,8 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The abstract class ListView provides a general constructor
- * for a JList in a JPanel used to display a list of FlashCards
+ * The abstract class <b>ListView</b> provides a JPanel containing
+ * a JList, embedded in a JScrollPane used to display a list of FlashCards
+ * <p>
+ * It extends JPanel.
+ *
+ * @author Igor Grebenkov
  */
 public abstract class ListView extends JPanel {
     protected Model model;
@@ -11,15 +15,16 @@ public abstract class ListView extends JPanel {
 
     /**
      * Constructor
-     * @param model       the model
-     * @param controller  the controller
+     *
+     * @param model      the model
+     * @param controller the controller
      */
     @SuppressWarnings({"unchecked"})
     public ListView(Model model, Controller controller) {
         this.model = model;
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
-        setFocusable(true);
+        setFocusable(false);
 
         cardList = new JList();
         cardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -45,12 +50,12 @@ public abstract class ListView extends JPanel {
 
     /**
      * Returns the card set's JList.
+     *
      * @return the card set's JList
      */
     public JList getCardList() {
         return cardList;
     }
-
 
 
     // Updates the list view

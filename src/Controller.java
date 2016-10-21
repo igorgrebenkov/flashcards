@@ -1,19 +1,22 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
 /**
- * The class Controller handles Events. Implements ActionListener and ListSelectionListener.
+ * The class <b>Controller</b> handles Events.
+ * <p>
+ * Implements ActionListener, ListSelectionListener and KeyListener.
  *
  * @author Igor Grebenkov
  */
-public class Controller implements ActionListener, ListSelectionListener, KeyListener {
+public class Controller extends AbstractAction
+        implements
+        ActionListener,
+        ListSelectionListener,
+        KeyListener {
     private Model model;
     private View view;
 
@@ -32,7 +35,22 @@ public class Controller implements ActionListener, ListSelectionListener, KeyLis
      */
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
+        System.out.println(action);
 
+        // Handles actions associated with InputMap/ActionMap keyboard shortcuts
+        if (e.getSource() instanceof JRootPane) {
+            switch (action) {
+                case "a": // Toggles revealing answer/question
+                    view.getFlashCardView().revealAnswer();
+                    break;
+                case "d": // Discards the current card
+                    discardButtonAction();
+                    break;
+
+            }
+        }
+
+        // Handles actions associated with JButtons
         if (e.getSource() instanceof JButton) {
             switch (action) {
                 case "loadFile":
@@ -65,6 +83,7 @@ public class Controller implements ActionListener, ListSelectionListener, KeyLis
     public void valueChanged(ListSelectionEvent e) {
         JList source = (JList) e.getSource();
 
+        // Handles displaying the selected FlashCard
         if (e.getSource() == view.getCardListView().getCardList()) {
             // If a card has been selected, display it
             //  -- Ensures selected index is in the range of the
@@ -99,38 +118,32 @@ public class Controller implements ActionListener, ListSelectionListener, KeyLis
 
     /**
      * The KeyListener method for key press events
+     * <p>
+     * Used for Keyboard Shortcuts only relevant when a JList component is in focus.
      *
      * @param e the KeyEvent
      */
     public void keyPressed(KeyEvent e) {
         JList source = (JList) e.getSource();
 
-        // These actions can only be performed when the active card JList is in focus
+        // These actions can only be performed when the discarded card JList is in focus
         char c = e.getKeyChar();
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             switch (c) {
-                case 'd':
-                    // Discards/undiscards a card
-                    if (source == view.getCardListView().getCardList()) {
-                        discardButtonAction();    // Discard if source is CardView JList
-                    } else {
-                        unDiscardButtonAction();  // Undiscard if source is DiscardedListView JList
-                    }
-                    break;
-                case 'a':
-                    // Toggles revealing answer/question
-                    view.getFlashCardView().revealAnswer();
-                    break;
-                case 'r':
-                    // Changes focus between the two JLists
-                    if (source == view.getCardListView().getCardList()) {
-                        view.getDiscardedListView().getCardList().requestFocus();
-                    } else {
+                case 'r':   // Switches focus between the two JLists
+                    if (source == view.getDiscardedListView().getCardList()) {
                         view.getCardListView().getCardList().requestFocus();
+                    } else {
+                        view.getDiscardedListView().getCardList().requestFocus();
                     }
                     break;
+                case 'u':  // Undiscards currently selected card
+                    if (source == view.getDiscardedListView().getCardList()) {
+                        unDiscardButtonAction();
+                    }
             }
         }
+
     }
 
 

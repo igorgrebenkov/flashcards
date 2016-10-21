@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
 import static java.lang.Boolean.*;
 
 /**
- * The class FlashCardView shows the view of the FLashCards.
+ * The class <b>FlashCardView</b> shows the view of the FLashCards.
  * <p>
  * It extends JPanel.
+ *
+ * @author Igor Grebenkov
  */
 public class FlashCardView extends JPanel {
 
@@ -42,6 +43,7 @@ public class FlashCardView extends JPanel {
         JEditorPane cardPane = new JEditorPane();
         cardPane.setText("");
         cardPane.setEditable(false);
+        cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
         cardPane.setLayout(new BorderLayout());
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
@@ -76,6 +78,7 @@ public class FlashCardView extends JPanel {
 
     /**
      * Displays the current FlashCard.
+     *
      * @param operation controls whether to display a question or answer
      * @param cardPile  controls whether to display from active or discarded pile
      * @param index     the index of the card to display
@@ -111,6 +114,8 @@ public class FlashCardView extends JPanel {
         cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText(displayString);
         cardPane.setEditable(false);
+        cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
+
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);

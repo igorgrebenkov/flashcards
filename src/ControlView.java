@@ -2,13 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The class ControlsView is a JPanel that contains all
+ * The class <b>ControsView</b> contains all
  * control buttons for interacting with the app.
+ * <p>
+ * It extends JPanel.
+ *
+ * @author Igor Grebenkov
  */
 public class ControlView extends JPanel {
 
     /**
      * Constructor
+     *
      * @param controller the Controller
      */
     public ControlView(Controller controller) {

@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The class View is the main view into the app's UI.
- *
+ * The class <b>View</b> is the main view into the app's UI.
+ * <p>
  * It extends JFrame.
  *
  * @author Igor Grebenkov
@@ -15,8 +15,9 @@ public class View extends JFrame {
 
     /**
      * Constructor for the View.
-     * @param model       the Model
-     * @param controller  the Controller
+     *
+     * @param model      the Model
+     * @param controller the Controller
      */
     public View(Model model, Controller controller) {
         super("FlashCards");
@@ -25,6 +26,24 @@ public class View extends JFrame {
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(800, 400));
+
+        // Get the "focus is in the window" input map for the root panel
+        JRootPane rootPane = getRootPane();
+        rootPane.setFocusable(true);
+        rootPane.requestFocusInWindow();
+
+        InputMap imap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        // Put the keystroke objects into the panel's input map under the identifier "test"
+        imap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
+        imap.put(KeyStroke.getKeyStroke('d'), "discardCard");
+
+        // Get the ActionMap for the panel
+        ActionMap aMap = rootPane.getActionMap();
+
+        // Put the object into the panel's ActionMap
+        aMap.put("revealAnswer", controller);
+        aMap.put("discardCard", controller);
 
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
@@ -56,7 +75,7 @@ public class View extends JFrame {
         c.gridy = 0;
         c.weightx = 0.8;
         c.weighty = 1;
-        add(leftView, c) ;
+        add(leftView, c);
 
         c.gridx = 1;
         c.gridy = 0;
@@ -68,10 +87,12 @@ public class View extends JFrame {
         pack();
         setResizable(true);
         setVisible(true);
+        setFocusable(false);
     }
 
     /**
      * Getter for the FlashCardView;
+     *
      * @return the FlashCardView
      */
     public FlashCardView getFlashCardView() {
@@ -82,12 +103,15 @@ public class View extends JFrame {
         return cardListView;
     }
 
-    public DiscardedListView getDiscardedListView() { return discardedListView; }
+    public DiscardedListView getDiscardedListView() {
+        return discardedListView;
+    }
 
     /**
      * Updates the View (and all component views).
      */
     public void update() {
+        requestFocus();
         flashCardView.update();
         cardListView.update();
         discardedListView.update();

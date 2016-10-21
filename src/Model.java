@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * The model.
- *
- * Stores an array of all the FlashCards in the current set. Also stores a pile
+ * The class <b>Model</b> stores an array of all the FlashCards in the current set. Also stores a pile
  * of discarded FlashCards from the current set. This allows the user to discard
  * FlashCards when they feel confident they know the answer well enough.
  *
@@ -22,6 +20,7 @@ public class Model {
 
     /**
      * Getter method for the main FlashCard ArrayList
+     *
      * @return the main FlashCard array
      */
     public ArrayList<FlashCard> getFlashCards() {
@@ -30,7 +29,8 @@ public class Model {
 
     /**
      * Setter method for the main FlashCard ArrayList
-     * @param flashCards  the main FlashCard array
+     *
+     * @param flashCards the main FlashCard array
      */
     public void setFlashCards(ArrayList<FlashCard> flashCards) {
         this.flashCards = flashCards;
@@ -38,6 +38,7 @@ public class Model {
 
     /**
      * Getter method for the discarded FlashCard ArrayList
+     *
      * @return
      */
     public ArrayList<FlashCard> getDiscardedCards() {

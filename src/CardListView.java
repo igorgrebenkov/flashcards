@@ -1,11 +1,17 @@
 /**
- * The class CardListView displays a list of FlashCards in a JList.
+ * The class <b>CardListView</b> provides a view of the list of active
+ * FlashCards in a JList embedded in a JScrollPane.
+ * <p>
+ * It extends ListView.
+ *
+ * @author Igor Grebenkov
  */
 class CardListView extends ListView {
     /**
      * Constructor
-     * @param model       the model
-     * @param controller  the controller
+     *
+     * @param model      the model
+     * @param controller the controller
      */
     @SuppressWarnings({"unchecked"})
     public CardListView(Model model, Controller controller) {
