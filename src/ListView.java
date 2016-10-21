@@ -26,6 +26,7 @@ public abstract class ListView extends JPanel {
         setLayout(new BorderLayout());
         setFocusable(false);
 
+        // Init new JList
         cardList = new JList();
         cardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         cardList.setLayoutOrientation(JList.VERTICAL);
@@ -41,13 +42,12 @@ public abstract class ListView extends JPanel {
         listScroller.setMinimumSize(new Dimension(150, 300));
         listScroller.setMaximumSize(new Dimension(150, getHeight()));
 
-        // Keep horizontal scrollbar from showing
+        // Keeps horizontal scrollbar from showing
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         add(listScroller, BorderLayout.CENTER);
     }
-
-
+    
     /**
      * Returns the card set's JList.
      *

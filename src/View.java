@@ -21,12 +21,14 @@ public class View extends JFrame {
      */
     public View(Model model, Controller controller) {
         super("FlashCards");
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(800, 400));
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
 
+        /*************** Set up key mappings for keyboard shortcuts ***************/
         // Get the "focus is in the window" input map for the root panel
         JRootPane rootPane = getRootPane();
         rootPane.setFocusable(true);
@@ -44,10 +46,10 @@ public class View extends JFrame {
         // Put the object into the panel's ActionMap
         aMap.put("revealAnswer", controller);
         aMap.put("discardCard", controller);
+        /************* End set up key mappings for keyboard shortcuts *************/
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
 
+        /*********************** Set up Left JPanel in View  **********************/
         JPanel leftView = new JPanel();
         leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
 
@@ -58,7 +60,10 @@ public class View extends JFrame {
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
         leftView.add(controlView);
+        /********************* End set up Left JPanel in View  ********************/
 
+
+        /********************** Set up Right JPanel in View  **********************/
         JPanel rightView = new JPanel();
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
         rightView.setPreferredSize(new Dimension(200, getHeight()));
@@ -70,6 +75,7 @@ public class View extends JFrame {
         // Add JList view of discarded FlashCards
         discardedListView = new DiscardedListView(model, controller);
         rightView.add(discardedListView);
+        /******************** End set up Right JPanel in View  ********************/
 
         c.gridx = 0;
         c.gridy = 0;
