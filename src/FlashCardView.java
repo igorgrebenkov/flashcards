@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+
 import static java.lang.Boolean.*;
 
 /**
@@ -15,6 +16,7 @@ public class FlashCardView extends JPanel {
     private Model model;
     private int currentCardIndex;         // The index of the card currently displayed
     private boolean isQuestion;           // Flag to indicate if the displayed card shows a question or answer
+    private boolean isActive;             // Flag to indicate if the displayed card is in the active pile
 
     public final boolean QUESTION = TRUE; // Used to indicate displaying a question
     public final boolean ANSWER = FALSE;  // Used to indicated displaying an answer
@@ -105,6 +107,8 @@ public class FlashCardView extends JPanel {
 
         // Set flag to indicate if this card is a question based on operation type
         isQuestion = operation;
+        // Set flag to indicate if this card is in the discarded pile
+        isActive = cardPile;
 
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
@@ -131,9 +135,10 @@ public class FlashCardView extends JPanel {
      * and displaying the card in question.
      */
     public void nextCard() {
-        if (currentCardIndex != model.getFlashCards().size() - 1 &&
-                !model.getFlashCards().isEmpty()) {
-            displayCard(QUESTION, CARD, ++currentCardIndex);
+        // Get the relevant FlashCard list for bounds-checking
+        ArrayList<FlashCard> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
+        if (currentCardIndex != fc.size() - 1 && !fc.isEmpty()) {
+            displayCard(QUESTION, isActive, ++currentCardIndex);
         }
     }
 
@@ -142,9 +147,10 @@ public class FlashCardView extends JPanel {
      * and displaying the card in question.
      */
     public void prevCard() {
-        if (currentCardIndex != 0 &&
-                !model.getFlashCards().isEmpty()) {
-            displayCard(QUESTION, CARD, --currentCardIndex);
+        // Get the relevant FlashCard list for bounds-checking
+        ArrayList<FlashCard> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
+        if (currentCardIndex != 0 && !fc.isEmpty()) {
+            displayCard(QUESTION, isActive, --currentCardIndex);
         }
     }
 
@@ -154,7 +160,7 @@ public class FlashCardView extends JPanel {
      */
     public void revealAnswer() {
         if (currentCardIndex > -1 && isQuestion) { // Make sure there's something to reveal
-            displayCard(ANSWER, CARD, currentCardIndex);
+            displayCard(ANSWER, isActive, currentCardIndex);     // Show active card
             isQuestion = false;
         } else {
             revealQuestion();
@@ -174,7 +180,7 @@ public class FlashCardView extends JPanel {
      */
     private void revealQuestion() {
         if (currentCardIndex > -1) {  // Make sure there's something to reveal
-            displayCard(QUESTION, CARD, currentCardIndex);
+                displayCard(QUESTION, isActive, currentCardIndex);
         }
     }
 }
