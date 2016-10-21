@@ -85,6 +85,6 @@ public class FlashCard {
      */
     @Override
     public String toString() {
-        return "Card " + cardIndex;
+        return question;
     }
 }
