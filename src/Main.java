@@ -16,7 +16,6 @@ public class Main {
         } catch (UnsupportedLookAndFeelException e) {
             System.err.println("UnsupportedLookAndFeelException: " + e.getMessage());
         }
-
         new Controller();
     }
 }

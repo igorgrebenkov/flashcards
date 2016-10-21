@@ -25,7 +25,8 @@ public class View extends JFrame {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setMinimumSize(new Dimension(800, 400));
+        setMinimumSize(new Dimension(826, 413)); // Approximately proportional to the preferredArea
+        setPreferredSize(new Dimension(1050, 525));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
 

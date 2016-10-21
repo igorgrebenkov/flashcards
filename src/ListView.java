@@ -39,8 +39,8 @@ public abstract class ListView extends JPanel {
         JScrollPane listScroller = new JScrollPane(cardList);
 
         // Keeps ListView from decreasing width suddenly when resizing
-        listScroller.setMinimumSize(new Dimension(150, 300));
-        listScroller.setMaximumSize(new Dimension(150, getHeight()));
+        listScroller.setMinimumSize(new Dimension(200, 300));
+        listScroller.setMaximumSize(new Dimension(300, getHeight()));
 
         // Keeps horizontal scrollbar from showing
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
