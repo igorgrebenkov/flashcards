@@ -39,8 +39,10 @@ public class View extends JFrame {
         InputMap iMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         // Put the keystroke objects into the panel's input map under the identifier "test"
-        iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer"); // Toggle revealing answer/question
-        iMap.put(KeyStroke.getKeyStroke('d'), "discardCard");  // Discard current card
+        iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
+        iMap.put(KeyStroke.getKeyStroke('d'), "discardCard");
+        iMap.put(KeyStroke.getKeyStroke('z'), "prevCard");
+        iMap.put(KeyStroke.getKeyStroke('x'), "nextCard");
 
         // Get the ActionMap for the panel
         ActionMap aMap = rootPane.getActionMap();
@@ -48,6 +50,8 @@ public class View extends JFrame {
         // Put the object into the panel's ActionMap
         aMap.put("revealAnswer", controller);
         aMap.put("discardCard", controller);
+        aMap.put("prevCard", controller);
+        aMap.put("nextCard", controller);
         /************* End set up key mappings for keyboard shortcuts *************/
 
 

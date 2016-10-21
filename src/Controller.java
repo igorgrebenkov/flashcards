@@ -39,10 +39,16 @@ public class Controller extends AbstractAction
         // Handles actions associated with InputMap/ActionMap keyboard shortcuts
         if (e.getSource() instanceof JRootPane) {
             switch (action) {
-                case "a": // Toggles revealing answer/question
+                case "z":  // Flips to previous card
+                    view.getFlashCardView().prevCard();
+                    break;
+                case "x":  // Flips to next card
+                    view.getFlashCardView().nextCard();
+                    break;
+                case "a":  // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
                     break;
-                case "d": // Discards the current card
+                case "d":  // Discards the current card
                     discardButtonAction();
                     break;
             }
@@ -135,7 +141,7 @@ public class Controller extends AbstractAction
                         view.getDiscardedListView().getCardList().requestFocus();
                     }
                     break;
-                case 'u':  // Undiscards currently selected card
+                case 's':  // Undiscards currently selected card
                     if (source == view.getDiscardedListView().getCardList()) {
                         unDiscardButtonAction();
                     }
