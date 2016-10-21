@@ -130,7 +130,7 @@ public class Controller extends AbstractAction
         char c = e.getKeyChar();
         if (e.getID() == KeyEvent.KEY_PRESSED) {
             switch (c) {
-                case 'r':   // Switches focus between the two JLists
+                case 'f':   // Switches focus between the two JLists
                     if (source == view.getDiscardedListView().getCardList()) {
                         view.getCardListView().getCardList().requestFocus();
                     } else {
