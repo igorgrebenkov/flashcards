@@ -45,6 +45,7 @@ public class FlashCardView extends JPanel {
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
         cardPane.setLayout(new BorderLayout());
+        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         // Not really necessary for a blank card, but keeps the View consistent when a card set is loaded
@@ -118,6 +119,7 @@ public class FlashCardView extends JPanel {
         cardPane.setText("<html>" + displayString + "</html>");
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
+        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);
@@ -179,6 +181,7 @@ public class FlashCardView extends JPanel {
     private void revealQuestion() {
         if (currentCardIndex > -1) {  // Make sure there's something to reveal
                 displayCard(QUESTION, isActive, currentCardIndex);
+            isQuestion = true;
         }
     }
 }
