@@ -47,7 +47,7 @@ public abstract class ListView extends JPanel {
 
         add(listScroller, BorderLayout.CENTER);
     }
-    
+
     /**
      * Returns the card set's JList.
      *

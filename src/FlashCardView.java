@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -36,7 +37,6 @@ public class FlashCardView extends JPanel {
     public FlashCardView(Model model, Controller controller) {
         this.model = model;
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
 
         // Keeps this View from making ControlsView disappear when
         // View is resized and FlashCard text takes up more horizontal

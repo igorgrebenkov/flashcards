@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -22,7 +24,6 @@ public class View extends JFrame {
     public View(Model model, Controller controller) {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(800, 400));
         GridBagConstraints c = new GridBagConstraints();
@@ -59,7 +60,10 @@ public class View extends JFrame {
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
-        leftView.add(controlView);
+        JScrollPane controlPane = new JScrollPane(controlView);
+        controlPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        controlPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        leftView.add(controlPane);
         /********************* End set up Left JPanel in View  ********************/
 
 
