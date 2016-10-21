@@ -56,7 +56,7 @@ public class View extends JFrame {
         leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
 
         // Add view of FlashCards
-        flashCardView = new FlashCardView(model, controller);
+        flashCardView = new FlashCardView(model);
         leftView.add(flashCardView);
 
         // Add view of app controls

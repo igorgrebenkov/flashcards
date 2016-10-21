@@ -1,8 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.Document;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -32,9 +28,8 @@ public class FlashCardView extends JPanel {
      * Constructor for FlashCardView.
      *
      * @param model      the Model
-     * @param controller the Controller
      */
-    public FlashCardView(Model model, Controller controller) {
+    public FlashCardView(Model model) {
         this.model = model;
         setLayout(new BorderLayout());
 
