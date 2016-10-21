@@ -34,11 +34,11 @@ public class View extends JFrame {
         rootPane.setFocusable(true);
         rootPane.requestFocusInWindow();
 
-        InputMap imap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        InputMap iMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         // Put the keystroke objects into the panel's input map under the identifier "test"
-        imap.put(KeyStroke.getKeyStroke('a'), "revealAnswer"); // Toggle revealing answer/question
-        imap.put(KeyStroke.getKeyStroke('d'), "discardCard");  // Discard current card
+        iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer"); // Toggle revealing answer/question
+        iMap.put(KeyStroke.getKeyStroke('d'), "discardCard");  // Discard current card
 
         // Get the ActionMap for the panel
         ActionMap aMap = rootPane.getActionMap();

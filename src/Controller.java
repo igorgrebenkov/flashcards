@@ -35,7 +35,6 @@ public class Controller extends AbstractAction
      */
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        System.out.println(action);
 
         // Handles actions associated with InputMap/ActionMap keyboard shortcuts
         if (e.getSource() instanceof JRootPane) {

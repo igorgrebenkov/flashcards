@@ -1,4 +1,7 @@
 import javax.swing.*;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -112,14 +115,14 @@ public class FlashCardView extends JPanel {
 
         // JEditorPane displays the current FlashCard
         JEditorPane cardPane = new JEditorPane();
+
         cardPane.setSize(300, Integer.MAX_VALUE);
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
-        cardPane.setText(displayString);
+        cardPane.setText("<html>" + displayString + "</html>");
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
-
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);
