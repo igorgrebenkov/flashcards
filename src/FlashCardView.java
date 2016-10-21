@@ -121,6 +121,8 @@ public class FlashCardView extends JPanel {
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
+        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
+
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
