@@ -39,10 +39,18 @@ public class Model {
     /**
      * Getter method for the discarded FlashCard ArrayList
      *
-     * @return
+     * @return the list of discarded cards
      */
     public ArrayList<FlashCard> getDiscardedCards() {
         return discardedCards;
+    }
+
+    /**
+     * Setter method for the discarded FlashCard ArrayList
+     * @param discardedCards the list of discarded cards
+     */
+    public void setDiscardedCards(ArrayList<FlashCard> discardedCards) {
+        this.discardedCards = discardedCards;
     }
 
     /**

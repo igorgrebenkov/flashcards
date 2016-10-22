@@ -172,8 +172,13 @@ public class Controller extends AbstractAction
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File flashCardSet = fileChooser.getSelectedFile();
             try {
+                if (!model.getFlashCards().isEmpty() || !model.getDiscardedCards().isEmpty()) {
+                    model.setFlashCards(new ArrayList<>());
+                    model.setDiscardedCards(new ArrayList<>());
+                }
+
                 // Create a FlashCard set and set the model
-                this.model.setFlashCards(createFlashCards(flashCardSet));
+                model.setFlashCards(createFlashCards(flashCardSet));
                 // Display the first card
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
                         view.getFlashCardView().CARD, 0);
@@ -293,6 +298,8 @@ public class Controller extends AbstractAction
             }
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFoundException: " + e.getMessage());
+        } catch (StringIndexOutOfBoundsException e) {
+            System.err.println("StringIndexOutOfBoundsException: " + e.getMessage());
         }
         return flashCards;
     }
