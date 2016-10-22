@@ -32,6 +32,7 @@ public class FlashCardView extends JPanel {
     public FlashCardView(Model model) {
         this.model = model;
         setLayout(new BorderLayout());
+        setFocusable(false);
 
         // Keeps this View from making ControlsView disappear when
         // View is resized and FlashCard text takes up more horizontal
@@ -52,6 +53,7 @@ public class FlashCardView extends JPanel {
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        cardScroller.setFocusable(false);
 
         add(cardScroller);
 

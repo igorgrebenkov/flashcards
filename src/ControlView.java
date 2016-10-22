@@ -17,6 +17,8 @@ public class ControlView extends JPanel {
      * @param controller the Controller
      */
     public ControlView(Controller controller) {
+        setFocusable(false);
+
         ControlButton loadFile = new ControlButton("Load", "loadFile", controller);
 
         ControlButton revealAnswer = new ControlButton("Answer", "revealAnswer", controller);
