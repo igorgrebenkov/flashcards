@@ -45,6 +45,8 @@ hs_err_pid*
 
 todo.txt
 
+seg_midterm_all.txt
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 

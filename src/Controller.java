@@ -231,6 +231,9 @@ public class Controller extends AbstractAction
         try {
             if (model.getDiscardedCards().size() > 0) {
                 int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
+
+                System.out.println(unDiscardIndex);
+
                 // Return it to the model
                 model.unDiscardFlashCard(unDiscardIndex);
             }

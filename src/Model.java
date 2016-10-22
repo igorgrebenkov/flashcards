@@ -64,9 +64,9 @@ public class Model {
      */
     public void unDiscardFlashCard(int index) {
         // Fetch the discarded card's index in the original set
-        int returnIndex = discardedCards.get(0).getCardIndex();
+        int returnIndex = discardedCards.get(index).getCardIndex();
 
-        flashCards.add(returnIndex, discardedCards.remove(0));
+        flashCards.add(returnIndex, discardedCards.remove(index));
     }
 
     /**
