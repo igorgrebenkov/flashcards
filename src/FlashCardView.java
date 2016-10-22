@@ -116,11 +116,9 @@ public class FlashCardView extends JPanel {
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
-        cardPane.setText("<html>" + displayString + "</html>");
+        cardPane.setText("<html>" + displayString.substring(2) + "</html>");
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
-        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
-
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
         // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
