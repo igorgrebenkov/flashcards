@@ -39,12 +39,6 @@ public class Controller extends AbstractAction
         // Handles actions associated with InputMap/ActionMap keyboard shortcuts
         if (e.getSource() instanceof JRootPane) {
             switch (action) {
-                case "z":  // Flips to previous card
-                    view.getFlashCardView().prevCard();
-                    break;
-                case "x":  // Flips to next card
-                    view.getFlashCardView().nextCard();
-                    break;
                 case "a":  // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
                     break;
