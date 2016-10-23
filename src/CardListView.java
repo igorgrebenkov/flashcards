@@ -24,6 +24,7 @@ class CardListView extends ListView {
     @SuppressWarnings({"unchecked"})
     public void update() {
         cardList.setListData(model.getFlashCards().toArray());
+        //cardList.setSelectedIndex(5);
         revalidate();
         repaint();
     }

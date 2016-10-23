@@ -102,7 +102,7 @@ public class View extends JFrame {
         pack();
         setResizable(true);
         setVisible(true);
-        setFocusable(false);
+        setFocusable(true);
     }
 
     /**
@@ -126,7 +126,8 @@ public class View extends JFrame {
      * Updates the View (and all component views).
      */
     public void update() {
-        requestFocus();
+        // Selects first item when a FlashCard set is loaded
+        getCardListView().getCardList().setSelectedIndex(0);
         flashCardView.update();
         cardListView.update();
         discardedListView.update();
