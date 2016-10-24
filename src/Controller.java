@@ -179,6 +179,7 @@ public class Controller extends AbstractAction
                 // Focus on active card JList
                 view.getCardListView().getCardList().requestFocus();
                 view.update();
+                view.getCardListView().getCardList().setSelectedIndex(0);
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());
             }
@@ -248,7 +249,7 @@ public class Controller extends AbstractAction
                             view.getFlashCardView().DISCARD,
                             unDiscardIndex - 1);
                 }
-            } else {
+            } else if (model.getDiscardedCards().size() == 1) {
                 model.unDiscardFlashCard(unDiscardIndex);
                 view.getFlashCardView().setCurrentCardIndex(unDiscardIndex);
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,

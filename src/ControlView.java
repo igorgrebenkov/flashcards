@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The class <b>ControsView</b> contains all
+ * The class <b>ControlView</b> contains all
  * control buttons for interacting with the app.
  * <p>
  * It extends JPanel.
