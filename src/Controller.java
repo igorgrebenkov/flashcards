@@ -42,9 +42,6 @@ public class Controller extends AbstractAction
                 case "a":  // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
                     break;
-                case "d":  // Discards the current card
-                    discardButtonAction();
-                    break;
             }
         }
 
@@ -135,10 +132,13 @@ public class Controller extends AbstractAction
                         view.getDiscardedListView().getCardList().requestFocus();
                     }
                     break;
-                case 's':  // Undiscards currently selected card
+                case 'd':
                     if (source == view.getDiscardedListView().getCardList()) {
                         unDiscardButtonAction();
+                    } else {
+                        discardButtonAction();
                     }
+                    break;
             }
         }
 
@@ -222,19 +222,39 @@ public class Controller extends AbstractAction
             System.err.println("NullPointerException: " + NPe.getMessage());
         } catch (ArrayIndexOutOfBoundsException AIe) {
             System.err.println("ArrayIndexOutOfBoundsException: " + AIe.getMessage());
+        } catch (IndexOutOfBoundsException IOBe) {
+            System.err.println("IndexOutOfBoundsException: " + IOBe.getMessage());
         }
     }
 
     private void unDiscardButtonAction() {
         // Returns the current card to the discard pile
         try {
-            if (model.getDiscardedCards().size() > 0) {
-                int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
-
-                System.out.println(unDiscardIndex);
-
+            int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
+            if (model.getDiscardedCards().size() > 1) {
                 // Return it to the model
                 model.unDiscardFlashCard(unDiscardIndex);
+
+                // If we're undiscarding anything but the last card, show the next card
+                // Else, show the previous card (since there is no next card)
+                if ((unDiscardIndex < model.getDiscardedCards().size())) {
+                    view.getFlashCardView().setCurrentCardIndex(unDiscardIndex);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().DISCARD,
+                            unDiscardIndex);
+                } else {
+                    view.getFlashCardView().setCurrentCardIndex(unDiscardIndex - 1);
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().DISCARD,
+                            unDiscardIndex - 1);
+                }
+            } else {
+                model.unDiscardFlashCard(unDiscardIndex);
+                view.getFlashCardView().setCurrentCardIndex(unDiscardIndex);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().CARD,
+                        unDiscardIndex);
+
             }
             view.update();
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
