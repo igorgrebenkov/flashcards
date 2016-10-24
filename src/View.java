@@ -41,6 +41,8 @@ public class View extends JFrame {
         // Put the keystroke objects into the panel's input map under the identifier "test"
         iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
         iMap.put(KeyStroke.getKeyStroke('d'), "discardCard");
+        iMap.put(KeyStroke.getKeyStroke('z'), "prevCard");
+        iMap.put(KeyStroke.getKeyStroke('x'), "nextCard");
 
         // Get the ActionMap for the panel
         ActionMap aMap = rootPane.getActionMap();
@@ -48,6 +50,8 @@ public class View extends JFrame {
         // Put the object into the panel's ActionMap
         aMap.put("revealAnswer", controller);
         aMap.put("discardCard", controller);
+        aMap.put("prevCard", controller);
+        aMap.put("nextCard", controller);
         /************* End set up key mappings for keyboard shortcuts *************/
 
 
@@ -98,7 +102,7 @@ public class View extends JFrame {
         pack();
         setResizable(true);
         setVisible(true);
-        setFocusable(true);
+        setFocusable(false);
     }
 
     /**
@@ -122,8 +126,7 @@ public class View extends JFrame {
      * Updates the View (and all component views).
      */
     public void update() {
-        // Selects first item when a FlashCard set is loaded
-        getCardListView().getCardList().setSelectedIndex(0);
+        requestFocus();
         flashCardView.update();
         cardListView.update();
         discardedListView.update();

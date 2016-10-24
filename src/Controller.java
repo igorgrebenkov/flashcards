@@ -39,6 +39,12 @@ public class Controller extends AbstractAction
         // Handles actions associated with InputMap/ActionMap keyboard shortcuts
         if (e.getSource() instanceof JRootPane) {
             switch (action) {
+                case "z":  // Flips to previous card
+                    view.getFlashCardView().prevCard();
+                    break;
+                case "x":  // Flips to next card
+                    view.getFlashCardView().nextCard();
+                    break;
                 case "a":  // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
                     break;
@@ -102,6 +108,7 @@ public class Controller extends AbstractAction
                         view.getFlashCardView().DISCARD,
                         source.getSelectedIndex());
             }
+
         }
     }
 
@@ -165,14 +172,10 @@ public class Controller extends AbstractAction
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File flashCardSet = fileChooser.getSelectedFile();
             try {
-                // Reset Model's ArrayList if not empty
-                // Allows loading a new file over an already loaded file
                 if (!model.getFlashCards().isEmpty() || !model.getDiscardedCards().isEmpty()) {
                     model.setFlashCards(new ArrayList<>());
                     model.setDiscardedCards(new ArrayList<>());
                 }
-
-                JList cardList = view.getCardListView().getCardList();
 
                 // Create a FlashCard set and set the model
                 model.setFlashCards(createFlashCards(flashCardSet));
@@ -180,10 +183,8 @@ public class Controller extends AbstractAction
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
                         view.getFlashCardView().CARD, 0);
                 // Focus on active card JList
-                cardList.requestFocus();
+                view.getCardListView().getCardList().requestFocus();
                 view.update();
-                cardList.setSelectedIndex(0);
-                cardList.ensureIndexIsVisible(cardList.getSelectedIndex());
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());
             }
