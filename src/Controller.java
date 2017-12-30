@@ -60,7 +60,12 @@ public class Controller extends AbstractAction
                 case "nextCard":
                     view.getFlashCardView().nextCard();
                     break;
-
+                case "discard":
+                    discardAction();
+                    break;
+                case "unDiscard":
+                    unDiscardAction();
+                    break;
             }
         }
     }
@@ -139,7 +144,6 @@ public class Controller extends AbstractAction
 
     }
 
-
     /**
      * The KeyListener method for key release events
      *
@@ -193,7 +197,7 @@ public class Controller extends AbstractAction
             // Can only discard if there is at least two cards
             if (model.getFlashCards().size() > 1) {
                 // Get the index of the card to discard
-                int discardIndex = view.getFlashCardView().getCurrentCardIndex();
+                int discardIndex = view.getCardListView().getCardList().getSelectedIndex();
 
                 // Discard it from the model
                 model.discardFlashCard(discardIndex);
@@ -212,6 +216,7 @@ public class Controller extends AbstractAction
                             discardIndex - 1);
                 }
                 view.update();
+                view.getCardListView().getCardList().setSelectedIndex(discardIndex);
             }
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
@@ -226,7 +231,8 @@ public class Controller extends AbstractAction
     private void unDiscardAction() {
         // Returns the current card to the discard pile
         try {
-            int unDiscardIndex = view.getFlashCardView().getCurrentCardIndex();
+            int unDiscardIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
+
             if (model.getDiscardedCards().size() > 1) {
                 // Return it to the model
                 model.unDiscardFlashCard(unDiscardIndex);
@@ -254,6 +260,7 @@ public class Controller extends AbstractAction
                 view.getCardListView().getCardList().requestFocus();
             }
             view.update();
+            view.getDiscardedListView().getCardList().setSelectedIndex(unDiscardIndex);
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
             System.err.println("NullPointerException: " + NPe.getMessage());
