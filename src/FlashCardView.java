@@ -63,9 +63,17 @@ public class FlashCardView extends JPanel {
 
     /**
      * Getter for the isActive flag.
+     *
      * @return True if currently displaying active card; False otherwise.
      */
     public boolean getIsActive() { return isActive; }
+
+    /**
+     * Setter for the isActive flag.
+     *
+     * @param isActive the new state for isActive
+     */
+    public void setIsActive(boolean state) { isActive = state; }
 
     /**
      * Getter for the current card index

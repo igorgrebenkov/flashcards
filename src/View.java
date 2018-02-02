@@ -1,7 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * The class <b>View</b> is the main view into the app's UI.
@@ -31,6 +30,9 @@ public class View extends JFrame {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
 
+        // !@!
+        setFocusTraversalKeysEnabled(false);
+
         /*************** Set up key mappings for keyboard shortcuts ***************/
         // Get the "focus is in the window" input map for the root panel
         JRootPane rootPane = getRootPane();
@@ -38,17 +40,20 @@ public class View extends JFrame {
         rootPane.requestFocusInWindow();
 
         InputMap iMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-
         // Put the keystroke objects into the panel's input map under the identifier "test"
         iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
-        iMap.put(KeyStroke.getKeyStroke('d'), "discardCard");
+        iMap.put(KeyStroke.getKeyStroke('t'), "focusTextArea");
+        iMap.put(KeyStroke.getKeyStroke('j'), "nextCard");
+        iMap.put(KeyStroke.getKeyStroke('k'), "prevCard");
 
         // Get the ActionMap for the panel
         ActionMap aMap = rootPane.getActionMap();
 
         // Put the object into the panel's ActionMap
         aMap.put("revealAnswer", controller);
-        aMap.put("discardCard", controller);
+        aMap.put("focusTextArea", controller);
+        aMap.put("nextCard", controller);
+        aMap.put("prevCard", controller);
         /************* End set up key mappings for keyboard shortcuts *************/
 
 
@@ -67,6 +72,7 @@ public class View extends JFrame {
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
+
         JScrollPane controlPane = new JScrollPane(controlView);
         controlPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         controlPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -76,6 +82,7 @@ public class View extends JFrame {
 
         /********************** Set up Right JPanel in View  **********************/
         JPanel rightView = new JPanel();
+
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
         rightView.setPreferredSize(new Dimension(200, getHeight()));
 

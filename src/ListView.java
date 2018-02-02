@@ -40,10 +40,7 @@ public abstract class ListView extends JPanel {
 
         // Keeps ListView from decreasing width suddenly when resizing
         listScroller.setMinimumSize(new Dimension(200, 300));
-        listScroller.setMaximumSize(new Dimension(300, getHeight()));
-
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
 
         add(listScroller, BorderLayout.CENTER);
     }

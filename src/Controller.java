@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Controller extends AbstractAction
     private View view;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public Controller() {
         model = new Model(new ArrayList<>());
@@ -41,6 +42,15 @@ public class Controller extends AbstractAction
             switch (action) {
                 case "a":  // Toggles revealing answer/question
                     view.getFlashCardView().revealAnswer();
+                    break;
+                case "t":
+                    view.getTextArea().requestFocus();
+                    break;
+                case "j":
+                    nextButtonAction();
+                    break;
+                case "k":
+                    prevButtonAction();
                     break;
             }
         }
@@ -71,7 +81,49 @@ public class Controller extends AbstractAction
     }
 
     /**
-     * List selection listener for JList card set View
+     * The KeyListener method for key press events.
+     * <p>
+     * Used for Keyboard Shortcuts only relevant when a JList component is in focus.
+     *
+     * @param e the KeyEvent
+     */
+    public void keyPressed(KeyEvent e) {
+        JList source = (JList) e.getSource();
+
+        // These actions can only be performed when the discarded card JList is in focus
+        char c = e.getKeyChar();
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            switch (c) {
+                case 'f':   // Switches focus between the two JLists
+                    listFocusAction(source);
+                    break;
+                case 'd':   // Discards/undiscards cards
+                    if (source == view.getDiscardedListView().getCardList()) {
+                        unDiscardAction();
+                    } else {
+                        discardAction();
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * The KeyListener method for key release events
+     *
+     * @param e the KeyEvent
+     */
+    public void keyReleased(KeyEvent e) {}
+
+    /**
+     * The KeyListener method for key typed events
+     *
+     * @param e the KeyEvent
+     */
+    public void keyTyped(KeyEvent e) { }
+
+    /**
+     * List selection listener for JList card set View.
      *
      * @param e the ListSelectionEvent
      */
@@ -103,53 +155,30 @@ public class Controller extends AbstractAction
         }
     }
 
-    /**
-     * The KeyListener method for key typed events
-     *
-     * @param e the KeyEvent
-     */
-    public void keyTyped(KeyEvent e) {
-    }
+    public void listFocusAction(JList source) {
+        if (source == view.getDiscardedListView().getCardList()) {
+            int selectedIndex = view.getCardListView().getCardList().getSelectedIndex();
+            view.getCardListView().getCardList().clearSelection();
 
-    /**
-     * The KeyListener method for key press events
-     * <p>
-     * Used for Keyboard Shortcuts only relevant when a JList component is in focus.
-     *
-     * @param e the KeyEvent
-     */
-    public void keyPressed(KeyEvent e) {
-        JList source = (JList) e.getSource();
-
-        // These actions can only be performed when the discarded card JList is in focus
-        char c = e.getKeyChar();
-        if (e.getID() == KeyEvent.KEY_PRESSED) {
-            switch (c) {
-                case 'f':   // Switches focus between the two JLists
-                    if (source == view.getDiscardedListView().getCardList()) {
-                        view.getCardListView().getCardList().requestFocus();
-                    } else {
-                        view.getDiscardedListView().getCardList().requestFocus();
-                    }
-                    break;
-                case 'd':
-                    if (source == view.getDiscardedListView().getCardList()) {
-                        unDiscardAction();
-                    } else {
-                        discardAction();
-                    }
-                    break;
+            if (selectedIndex > 0) {
+                view.getCardListView().getCardList().setSelectedIndex(selectedIndex);
+            } else {
+                view.getCardListView().getCardList().setSelectedIndex(0);
             }
+
+            view.getCardListView().getCardList().requestFocus();
+        } else {
+            int selectedIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
+            view.getDiscardedListView().getCardList().clearSelection();
+
+            if (selectedIndex > 0) {
+                view.getDiscardedListView().getCardList().setSelectedIndex(selectedIndex);
+            } else {
+                view.getDiscardedListView().getCardList().setSelectedIndex(0);
+            }
+
+            view.getDiscardedListView().getCardList().requestFocus();
         }
-
-    }
-
-    /**
-     * The KeyListener method for key release events
-     *
-     * @param e the KeyEvent
-     */
-    public void keyReleased(KeyEvent e) {
     }
 
     /**
@@ -190,14 +219,7 @@ public class Controller extends AbstractAction
      */
     public void nextButtonAction() {
         view.getFlashCardView().nextCard();
-
-        if (view.getFlashCardView().getIsActive()) {
-            view.getCardListView().getCardList().setSelectedIndex(
-                    view.getFlashCardView().getCurrentCardIndex());
-        } else {
-            view.getDiscardedListView().getCardList().setSelectedIndex(
-                    view.getFlashCardView().getCurrentCardIndex());
-        }
+        flipCardAction();
         view.getTextArea().setText(null);
     }
 
@@ -206,22 +228,32 @@ public class Controller extends AbstractAction
      */
     public void prevButtonAction() {
         view.getFlashCardView().prevCard();
+        flipCardAction();
+        view.getTextArea().setText(null);
+    }
 
+    /**
+     * Actions associated with going to the next or previous card.
+     */
+    public void flipCardAction() {
         if (view.getFlashCardView().getIsActive()) {
             view.getCardListView().getCardList().setSelectedIndex(
-                view.getFlashCardView().getCurrentCardIndex());
-            } else {
-                view.getDiscardedListView().getCardList().setSelectedIndex(
-                        view.getFlashCardView().getCurrentCardIndex());
-            }
-        view.getTextArea().setText(null);
+                    view.getFlashCardView().getCurrentCardIndex());
+            view.getCardListView().getCardList().ensureIndexIsVisible(
+                    view.getFlashCardView().getCurrentCardIndex());
+        } else {
+            view.getDiscardedListView().getCardList().setSelectedIndex(
+                    view.getFlashCardView().getCurrentCardIndex());
+            view.getDiscardedListView().getCardList().ensureIndexIsVisible(
+                    view.getFlashCardView().getCurrentCardIndex());
+        }
     }
 
     /**
      * Actions for the Discard button that updates the model by removing a
      * card from the FlashCard set and putting it in the discard pile.
      * <p>
-     * Then, updates the view to reflect the change.
+     * Then, it updates the view to reflect the change.
      */
     private void discardAction() {
         // Discards the current card to the discard pile
@@ -260,6 +292,12 @@ public class Controller extends AbstractAction
         }
     }
 
+    /**
+     * Actions for the Undiscard button that updates the model by removing a
+     * card from the discarded FlashCard set and putting it in the active pile.
+     * <p>
+     * Then, it updates the view to reflect the change.
+     */
     private void unDiscardAction() {
         // Returns the current card to the discard pile
         try {
@@ -302,7 +340,6 @@ public class Controller extends AbstractAction
             System.err.println("IndexOutOfBoundsException: " + IOBe.getMessage());
         }
     }
-
 
     /**
      * Creates an ArrayList of FlashCards from a text file that is read line-by-line.
