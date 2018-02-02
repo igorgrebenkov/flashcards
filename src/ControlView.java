@@ -18,6 +18,7 @@ public class ControlView extends JPanel {
      */
     public ControlView(Controller controller) {
         setFocusable(false);
+        setBackground(Color.darkGray);
 
         ControlButton loadFile = new ControlButton("Load", "loadFile", controller);
 
@@ -27,9 +28,14 @@ public class ControlView extends JPanel {
 
         ControlButton unDiscardCard = new ControlButton("Undiscard", "unDiscard", controller);
 
-        setBackground(Color.darkGray);
+        ControlButton nextCard = new ControlButton("Next", "nextCard", controller);
+
+        ControlButton prevCard = new ControlButton("Prev", "prevCard", controller);
+
         add(loadFile);
         add(revealAnswer);
+        add(nextCard);
+        add(prevCard);
         add(discardCard);
         add(unDiscardCard);
     }

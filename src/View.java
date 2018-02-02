@@ -14,6 +14,7 @@ public class View extends JFrame {
     private FlashCardView flashCardView;    // Reference to the FlashCardView
     private CardListView cardListView;      // Reference to the view of a JList of FlashCards
     private DiscardedListView discardedListView; // Reference to the view of a JList of discarded FlashCards
+    private JTextArea textArea; // Text area for user input
 
     /**
      * Constructor for the View.
@@ -59,6 +60,11 @@ public class View extends JFrame {
         flashCardView = new FlashCardView(model);
         leftView.add(flashCardView);
 
+        // Add TextArea
+        textArea = new JTextArea();
+        textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        leftView.add(textArea);
+
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
         JScrollPane controlPane = new JScrollPane(controlView);
@@ -102,7 +108,7 @@ public class View extends JFrame {
     }
 
     /**
-     * Getter for the FlashCardView;
+     * Getter for the FlashCardView.
      *
      * @return the FlashCardView
      */
@@ -110,19 +116,37 @@ public class View extends JFrame {
         return flashCardView;
     }
 
+    /**
+     * Getter for the CardListView.
+     *
+     * @return the CardListView
+     */
     public CardListView getCardListView() {
         return cardListView;
     }
 
+    /**
+     * Getter for the DiscardedListView.
+     *
+     * @return the DiscardedListView
+     */
     public DiscardedListView getDiscardedListView() {
         return discardedListView;
     }
+
+    /**
+     * Getter for the JTextArea.
+     *
+     * @return the JTextArea
+     */
+    public JTextArea getTextArea() { return textArea; }
 
     /**
      * Updates the View (and all component views).
      */
     public void update() {
         requestFocus();
+        textArea.setText(null);
         flashCardView.update();
         cardListView.update();
         discardedListView.update();

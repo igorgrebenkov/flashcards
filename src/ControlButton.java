@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The class <b>ControlButton</b> provides a common template
@@ -20,5 +21,6 @@ public class ControlButton extends JButton {
         addActionListener(controller);
         setActionCommand(actionCommand);
         setFont(this.getFont().deriveFont(13f));
+        setPreferredSize(new Dimension(90, 25));
     }
 }

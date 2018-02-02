@@ -54,11 +54,11 @@ public class Controller extends AbstractAction
                 case "revealAnswer":
                     view.getFlashCardView().revealAnswer();
                     break;
-                case "prevCard":
-                    view.getFlashCardView().prevCard();
-                    break;
                 case "nextCard":
-                    view.getFlashCardView().nextCard();
+                    nextButtonAction();
+                    break;
+                case "prevCard":
+                    prevButtonAction();
                     break;
                 case "discard":
                     discardAction();
@@ -183,6 +183,38 @@ public class Controller extends AbstractAction
                 System.err.println("IOException: " + IOe.getMessage());
             }
         }
+    }
+
+    /**
+     * Actions for the Next button that displays the next card.
+     */
+    public void nextButtonAction() {
+        view.getFlashCardView().nextCard();
+
+        if (view.getFlashCardView().getIsActive()) {
+            view.getCardListView().getCardList().setSelectedIndex(
+                    view.getFlashCardView().getCurrentCardIndex());
+        } else {
+            view.getDiscardedListView().getCardList().setSelectedIndex(
+                    view.getFlashCardView().getCurrentCardIndex());
+        }
+        view.getTextArea().setText(null);
+    }
+
+    /**
+     * Actions for the Prev button that displays the prev card.
+     */
+    public void prevButtonAction() {
+        view.getFlashCardView().prevCard();
+
+        if (view.getFlashCardView().getIsActive()) {
+            view.getCardListView().getCardList().setSelectedIndex(
+                view.getFlashCardView().getCurrentCardIndex());
+            } else {
+                view.getDiscardedListView().getCardList().setSelectedIndex(
+                        view.getFlashCardView().getCurrentCardIndex());
+            }
+        view.getTextArea().setText(null);
     }
 
     /**
