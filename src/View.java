@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 
 /**
  * The class <b>View</b> is the main view into the app's UI.
@@ -13,6 +16,7 @@ public class View extends JFrame {
     private CardListView cardListView;      // Reference to the view of a JList of FlashCards
     private DiscardedListView discardedListView; // Reference to the view of a JList of discarded FlashCards
     private JTextArea textArea; // Text area for user input
+    public static final String placeholderText = "Enter text here..."; // Placeholder text for TextArea
 
     /**
      * Constructor for the View.
@@ -24,13 +28,10 @@ public class View extends JFrame {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setMinimumSize(new Dimension(826, 413)); // Approximately proportional to the preferredArea
+        setMinimumSize(new Dimension(826, 413));
         setPreferredSize(new Dimension(1150, 625));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
-
-        // !@!
-        setFocusTraversalKeysEnabled(false);
 
         /*************** Set up key mappings for keyboard shortcuts ***************/
         // Get the "focus is in the window" input map for the root panel
@@ -68,6 +69,27 @@ public class View extends JFrame {
         textArea = new JTextArea();
         textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         textArea.setPreferredSize(new Dimension(1150, 75));
+        textArea.setForeground(Color.GRAY);
+        textArea.setTabSize(2);
+        textArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
+        textArea.setText(placeholderText);
+        textArea.addKeyListener(controller);
+        textArea.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textArea.getText().equals(placeholderText)) {
+                    textArea.setText("");
+                    textArea.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textArea.getText().isEmpty()) {
+                    textArea.setForeground(Color.GRAY);
+                    textArea.setText(placeholderText);
+                }
+            }
+        });
         leftView.add(textArea);
 
         // Add view of app controls

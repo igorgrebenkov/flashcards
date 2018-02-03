@@ -34,8 +34,8 @@ public class ControlView extends JPanel {
 
         add(loadFile);
         add(revealAnswer);
-        add(nextCard);
         add(prevCard);
+        add(nextCard);
         add(discardCard);
         add(unDiscardCard);
     }

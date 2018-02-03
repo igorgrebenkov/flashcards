@@ -37,6 +37,7 @@ public class Controller extends AbstractAction
         String action = e.getActionCommand();
 
         // Handles actions associated with InputMap/ActionMap keyboard shortcuts
+        // These work no matter where focus is
         if (e.getSource() instanceof JRootPane) {
             switch (action) {
                 case "a":  // Toggles revealing answer/question
@@ -87,22 +88,29 @@ public class Controller extends AbstractAction
      * @param e the KeyEvent
      */
     public void keyPressed(KeyEvent e) {
-        JList source = (JList) e.getSource();
+        if (e.getSource() instanceof JList) {
+            JList source = (JList) e.getSource();
 
-        // These actions can only be performed when the discarded card JList is in focus
-        char c = e.getKeyChar();
-        if (e.getID() == KeyEvent.KEY_PRESSED) {
+            // These actions can only be performed when the discarded card JList is in focus
+            char c = e.getKeyChar();
             switch (c) {
                 case 'f':   // Switches focus between the two JLists
                     listFocusAction(source);
                     break;
-                case 'd':   // Discards/undiscards cards
+                case 'd':   // Discards/un-discards cards (!!!MAKE THIS GLOBAL in JRootPane)
                     if (source == view.getDiscardedListView().getCardList()) {
                         unDiscardAction();
                     } else {
                         discardAction();
                     }
                     break;
+            }
+        }
+
+        if (e.getSource() instanceof JTextArea) {
+            char c = e.getKeyChar();
+            if (c == KeyEvent.VK_ESCAPE) {
+                view.getCardListView().getCardList().requestFocus();
             }
         }
     }
@@ -167,6 +175,10 @@ public class Controller extends AbstractAction
 
             view.getCardListView().getCardList().requestFocus();
         } else {
+            // Reject focus change if the list is empty
+            if (model.getDiscardedCards().size() == 0) {
+                return;
+            }
             int selectedIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
             view.getDiscardedListView().getCardList().clearSelection();
 
