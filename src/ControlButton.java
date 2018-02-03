@@ -22,5 +22,6 @@ public class ControlButton extends JButton {
         setActionCommand(actionCommand);
         setFont(this.getFont().deriveFont(13f));
         setPreferredSize(new Dimension(90, 25));
+        setFocusable(false);
     }
 }
