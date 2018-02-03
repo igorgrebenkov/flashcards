@@ -4,6 +4,7 @@ import controller.Controller;
 import model.Model;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -40,8 +41,6 @@ public abstract class ListView extends JPanel {
         cardList.setFixedCellWidth(150);
         cardList.addKeyListener(controller);
         cardList.setFont(new Font("Arial", Font.PLAIN, 12));
-        setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
-
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
 

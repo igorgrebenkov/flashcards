@@ -4,6 +4,7 @@ import model.Model;
 import controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -32,11 +33,8 @@ public class View extends JFrame {
     public View(Model model, Controller controller) {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(900, 522));
         setPreferredSize(new Dimension(1250, 725));
-        GridBagConstraints frameGBC = new GridBagConstraints();
-        frameGBC.fill = GridBagConstraints.BOTH;
 
         /*************** Set up key mappings for keyboard shortcuts ***************/
         // Get the "focus is in the window" input map for the root panel
@@ -100,20 +98,22 @@ public class View extends JFrame {
         });
         textPane.getViewport().setView(textArea);
 
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+
         leftViewGBC.weighty = 1;
         JSplitPane textSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, flashCardView, textPane);
-        textSplitPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.DARK_GRAY));
+        textSplitPane.setBorder(emptyBorder);
         textSplitPane.setResizeWeight(0.8);
         textSplitPane.setDividerSize(2);
         BasicSplitPaneDivider divider = (BasicSplitPaneDivider) textSplitPane.getComponent(2);
         divider.setBackground(Color.DARK_GRAY);
-        divider.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.DARK_GRAY));
+        divider.setBorder(emptyBorder);
         leftView.add(textSplitPane, leftViewGBC);
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
-        controlView.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.DARK_GRAY));
-        controlView.setMinimumSize(new Dimension(800, 40));
+        controlView.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, Color.DARK_GRAY));
+        controlView.setMinimumSize(new Dimension(800, 30));
 
         leftViewGBC.gridy++;
         leftViewGBC.weighty = 0;
@@ -129,24 +129,25 @@ public class View extends JFrame {
 
         // Add JList view of current model.FlashCardModel set
         cardListView = new CardListView(model, controller);
+        cardListView.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
         rightView.add(cardListView);
 
         // Add JList view of discarded FlashCards
         discardedListView = new DiscardedListView(model, controller);
+        discardedListView.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
         rightView.add(discardedListView);
         /******************** End set up Right JPanel in view.View  ********************/
 
-        frameGBC.gridx = 0;
-        frameGBC.gridy = 0;
-        frameGBC.weightx = 0.8;
-        frameGBC.weighty = 1;
-        add(leftView, frameGBC);
-
-        frameGBC.gridx = 1;
-        frameGBC.gridy = 0;
-        frameGBC.weightx = 0.2;
-        frameGBC.weighty = 1;
-        add(rightView, frameGBC);
+        JSplitPane mainHorizontalSplitPane = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT, leftView, rightView);
+        //mainHorizontalSplitPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.DARK_GRAY));
+        mainHorizontalSplitPane.setResizeWeight(0.8);
+        mainHorizontalSplitPane.setDividerSize(2);
+        divider = (BasicSplitPaneDivider) mainHorizontalSplitPane.getComponent(2);
+        divider.setBackground(Color.DARK_GRAY);
+        divider.setBorder(emptyBorder);
+        add(mainHorizontalSplitPane);
+        mainHorizontalSplitPane.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.DARK_GRAY));
 
         // Finish him!
         pack();
