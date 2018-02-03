@@ -27,7 +27,7 @@ public class ControlView extends JPanel {
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
         gc.insets = new Insets(1,1,1,1);
-        setPreferredSize(new Dimension(1250, 0));
+        setPreferredSize(new Dimension(1250, 50));
 
         ControlButton loadFile = new ControlButton("Load", "loadFile", controller);
 
