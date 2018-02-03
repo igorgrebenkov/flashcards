@@ -1,3 +1,8 @@
+package view;
+
+import model.FlashCardModel;
+import model.Model;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -5,7 +10,7 @@ import java.util.ArrayList;
 import static java.lang.Boolean.*;
 
 /**
- * The class <b>FlashCardView</b> shows the view of the FLashCards.
+ * The class <b>view.FlashCardView</b> shows the view of the FLashCards.
  * <p>
  * It extends JPanel.
  *
@@ -25,17 +30,17 @@ public class FlashCardView extends JPanel {
 
 
     /**
-     * Constructor for FlashCardView.
+     * Constructor for view.FlashCardView.
      *
-     * @param model      the Model
+     * @param model      the model.Model
      */
     public FlashCardView(Model model) {
         this.model = model;
         setLayout(new BorderLayout());
         setFocusable(false);
 
-        // Keeps this View from making ControlsView disappear when
-        // View is resized and FlashCard text takes up more horizontal
+        // Keeps this view.View from making ControlsView disappear when
+        // view.View is resized and model.FlashCardModel text takes up more horizontal
         // space than the preferred size
         setMinimumSize(new Dimension(800, 0));
         setPreferredSize(new Dimension(800, 350));
@@ -48,8 +53,8 @@ public class FlashCardView extends JPanel {
         cardPane.setLayout(new BorderLayout());
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
-        // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
-        // Not really necessary for a blank card, but keeps the View consistent when a card set is loaded
+        // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
+        // Not really necessary for a blank card, but keeps the view.View consistent when a card set is loaded
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -78,7 +83,7 @@ public class FlashCardView extends JPanel {
     /**
      * Getter for the current card index
      *
-     * @return the current FlashCard's index
+     * @return the current model.FlashCardModel's index
      */
     public int getCurrentCardIndex() {
         return currentCardIndex;
@@ -87,14 +92,14 @@ public class FlashCardView extends JPanel {
     /**
      * Setter for the current card index
      *
-     * @param index the new index of the current FlashCard
+     * @param index the new index of the current model.FlashCardModel
      */
     public void setCurrentCardIndex(int index) {
         currentCardIndex = index;
     }
 
     /**
-     * Displays the current FlashCard.
+     * Displays the current model.FlashCardModel.
      *
      * @param operation controls whether to display a question or answer
      * @param cardPile  controls whether to display from active or discarded pile
@@ -102,7 +107,7 @@ public class FlashCardView extends JPanel {
      */
     public void displayCard(boolean operation, boolean cardPile, int index) {
         // Fetch whichever card set to display
-        ArrayList<FlashCard> cardsToDisplay = cardPile ? model.getFlashCards() : model.getDiscardedCards();
+        ArrayList<FlashCardModel> cardsToDisplay = cardPile ? model.getFlashCards() : model.getDiscardedCards();
 
         // Update currentCardIndex
         currentCardIndex = index;
@@ -125,7 +130,7 @@ public class FlashCardView extends JPanel {
         // Set flag to indicate if this card is in the discarded pile
         isActive = cardPile;
 
-        // JEditorPane displays the current FlashCard
+        // JEditorPane displays the current model.FlashCardModel
         JEditorPane cardPane = new JEditorPane();
 
         cardPane.setSize(300, Integer.MAX_VALUE);
@@ -137,7 +142,7 @@ public class FlashCardView extends JPanel {
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
 
-        // Embed in JScrollPane to allow FlashCard contents to be larger than this View's current size
+        // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
         JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -151,8 +156,8 @@ public class FlashCardView extends JPanel {
      * and displaying the card in question.
      */
     public void nextCard() {
-        // Get the relevant FlashCard list for bounds-checking
-        ArrayList<FlashCard> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
+        // Get the relevant model.FlashCardModel list for bounds-checking
+        ArrayList<FlashCardModel> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
         if (currentCardIndex != fc.size() - 1 && !fc.isEmpty()) {
             displayCard(QUESTION, isActive, ++currentCardIndex);
         }
@@ -163,8 +168,8 @@ public class FlashCardView extends JPanel {
      * and displaying the card in question.
      */
     public void prevCard() {
-        // Get the relevant FlashCard list for bounds-checking
-        ArrayList<FlashCard> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
+        // Get the relevant model.FlashCardModel list for bounds-checking
+        ArrayList<FlashCardModel> fc = isActive ? model.getFlashCards() : model.getDiscardedCards();
         if (currentCardIndex != 0 && !fc.isEmpty()) {
             displayCard(QUESTION, isActive, --currentCardIndex);
         }
@@ -184,7 +189,7 @@ public class FlashCardView extends JPanel {
     }
 
     /**
-     * Updates the FlashCardView.
+     * Updates the view.FlashCardView.
      */
     public void update() {
         revalidate();

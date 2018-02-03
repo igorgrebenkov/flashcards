@@ -1,12 +1,17 @@
+package view;
+
+import controller.Controller;
+import model.Model;
+
 /**
- * The class <b>CardListView</b> provides a view of the list of active
+ * The class <b>view.DiscardedListView</b> provides a view of the list of discarded
  * FlashCards in a JList embedded in a JScrollPane.
  * <p>
- * It extends ListView.
+ * It extends view.ListView.
  *
  * @author Igor Grebenkov
  */
-class CardListView extends ListView {
+public class DiscardedListView extends ListView {
     /**
      * Constructor
      *
@@ -14,16 +19,17 @@ class CardListView extends ListView {
      * @param controller the controller
      */
     @SuppressWarnings({"unchecked"})
-    public CardListView(Model model, Controller controller) {
+    public DiscardedListView(Model model, Controller controller) {
         super(model, controller);
     }
 
+
     /**
-     * Updates the CardListView.
+     * Updates the view.CardListView.
      */
     @SuppressWarnings({"unchecked"})
     public void update() {
-        cardList.setListData(model.getFlashCards().toArray());
+        cardList.setListData(model.getDiscardedCards().toArray());
         revalidate();
         repaint();
     }

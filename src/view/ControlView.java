@@ -1,8 +1,12 @@
+package view;
+
+import controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * The class <b>ControlView</b> contains all
+ * The class <b>view.ControlView</b> contains all
  * control buttons for interacting with the app.
  * <p>
  * It extends JPanel.
@@ -14,7 +18,7 @@ public class ControlView extends JPanel {
     /**
      * Constructor
      *
-     * @param controller the Controller
+     * @param controller the controller.Controller
      */
     public ControlView(Controller controller) {
         setFocusable(false);

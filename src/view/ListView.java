@@ -1,8 +1,13 @@
+package view;
+
+import controller.Controller;
+import model.Model;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * The abstract class <b>ListView</b> provides a JPanel containing
+ * The abstract class <b>view.ListView</b> provides a JPanel containing
  * a JList, embedded in a JScrollPane used to display a list of FlashCards
  * <p>
  * It extends JPanel.
@@ -11,7 +16,7 @@ import java.awt.*;
  */
 public abstract class ListView extends JPanel {
     protected Model model;
-    protected JList cardList;
+    JList cardList;
 
     /**
      * Constructor
@@ -38,7 +43,7 @@ public abstract class ListView extends JPanel {
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
 
-        // Keeps ListView from decreasing width suddenly when resizing
+        // Keeps view.ListView from decreasing width suddenly when resizing
         listScroller.setMinimumSize(new Dimension(200, 300));
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 

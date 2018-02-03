@@ -1,3 +1,8 @@
+package controller;
+
+import model.*;
+import view.*;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -6,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * The class <b>Controller</b> handles Events.
+ * The class <b>controller.Controller</b> handles Events.
  * <p>
  * Implements ActionListener, ListSelectionListener and KeyListener.
  *
@@ -130,14 +135,14 @@ public class Controller extends AbstractAction
     public void keyTyped(KeyEvent e) { }
 
     /**
-     * List selection listener for JList card set View.
+     * List selection listener for JList card set view.View.
      *
      * @param e the ListSelectionEvent
      */
     public void valueChanged(ListSelectionEvent e) {
         JList source = (JList) e.getSource();
 
-        // Handles displaying the selected FlashCard
+        // Handles displaying the selected model.FlashCardModel
         if (e.getSource() == view.getCardListView().getCardList()) {
             // If a card has been selected, display it
             //  -- Ensures selected index is in the range of the
@@ -197,7 +202,7 @@ public class Controller extends AbstractAction
      * it into a set of FlashCards used to update the model.
      */
     private void loadFileButtonAction() {
-        // Handles loading a FlashCard set from a txt file
+        // Handles loading a model.FlashCardModel set from a txt file
         final File workingDirectory = new File(System.getProperty("user.dir"));
         final JFileChooser fileChooser = new JFileChooser(workingDirectory);
         final JFrame selectFrame = new JFrame("Select a file...");
@@ -210,7 +215,7 @@ public class Controller extends AbstractAction
                     model.setDiscardedCards(new ArrayList<>());
                 }
 
-                // Create a FlashCard set and set the model
+                // Create a model.FlashCardModel set and set the model
                 model.setFlashCards(createFlashCards(flashCardSet));
                 // Display the first card
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
@@ -262,7 +267,7 @@ public class Controller extends AbstractAction
 
     /**
      * Actions for the Discard button that updates the model by removing a
-     * card from the FlashCard set and putting it in the discard pile.
+     * card from the model.FlashCardModel set and putting it in the discard pile.
      * <p>
      * Then, it updates the view to reflect the change.
      */
@@ -302,7 +307,7 @@ public class Controller extends AbstractAction
 
     /**
      * Actions for the Undiscard button that updates the model by removing a
-     * card from the discarded FlashCard set and putting it in the active pile.
+     * card from the discarded model.FlashCardModel set and putting it in the active pile.
      * <p>
      * Then, it updates the view to reflect the change.
      */
@@ -311,7 +316,7 @@ public class Controller extends AbstractAction
         try {
             int unDiscardIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
 
-            // Un-discard the FlashCard and save the index it was really returned to.
+            // Un-discard the model.FlashCardModel and save the index it was really returned to.
             model.unDiscardFlashCard(unDiscardIndex);
 
             int cardListDisplayIndex = view.getCardListView().getCardList().getSelectedIndex();
@@ -320,7 +325,7 @@ public class Controller extends AbstractAction
             int unDiscardDisplayIndex = unDiscardIndex < model.getDiscardedCards().size() ?
                     unDiscardIndex : unDiscardIndex-1;
 
-            // Pick which card we display based on whether the undiscard list will be empty.
+            // Pick which card we display based on whether the un-discard list will be empty.
             if (model.getDiscardedCards().size() >= 1) {
                 view.getFlashCardView().setCurrentCardIndex(unDiscardDisplayIndex);
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
@@ -354,18 +359,18 @@ public class Controller extends AbstractAction
      * Used to update the model.
      *
      * @param file the input file to read
-     * @return an ArrayList of FlashCard objects
+     * @return an ArrayList of model.FlashCardModel objects
      * @throws IOException
      */
-    private ArrayList<FlashCard> createFlashCards(File file) throws IOException {
-        ArrayList<FlashCard> flashCards = new ArrayList<>();
+    private ArrayList<FlashCardModel> createFlashCards(File file) throws IOException {
+        ArrayList<FlashCardModel> flashCards = new ArrayList<>();
         try {
-            int i = 0; // FlashCard index
+            int i = 0; // model.FlashCardModel index
             BufferedReader br = new BufferedReader(new FileReader(file));
 
             String readLine;       // reads the current line of text
-            String question = "";  // the FlashCard's question
-            String answer = "";    // The FlashCard's answer
+            String question = "";  // the model.FlashCardModel's question
+            String answer = "";    // The model.FlashCardModel's answer
 
             // Flags for if a question/answer have been found
             boolean haveQ = false, haveA = false;
@@ -380,9 +385,9 @@ public class Controller extends AbstractAction
                     haveA = true;
                 }
 
-                // We have a question and answer, so make a FlashCard and add it to the set
+                // We have a question and answer, so make a model.FlashCardModel and add it to the set
                 if (haveQ && haveA) {
-                    flashCards.add(new FlashCard(question, answer, i));
+                    flashCards.add(new FlashCardModel(question, answer, i));
                     question = "";
                     answer = "";
                     haveQ = false;

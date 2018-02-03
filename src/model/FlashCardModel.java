@@ -1,11 +1,13 @@
+package model;
+
 /**
- * The FlashCard class represents a flash card.
+ * The model.FlashCardModel class represents a flash card.
  * In addition to the question and answer variables, it stores
  * a count of how many times the user got the current question right.
  *
  * @author Igor Grebenkov
  */
-public class FlashCard {
+public class FlashCardModel {
     private String question;
     private String answer;
     private int numCountRight;    // Number of times user got this card right
@@ -15,7 +17,7 @@ public class FlashCard {
      * @param question the question string
      * @param answer the answer string
      */
-    public FlashCard(String question, String answer, int cardIndex) {
+    public FlashCardModel(String question, String answer, int cardIndex) {
         this.question = question;
         this.answer = answer;
         numCountRight = 0;
@@ -80,7 +82,7 @@ public class FlashCard {
     }
 
     /**
-     * Used to display appropriate labels in the View's JList
+     * Used to display appropriate labels in the view.View's JList
      * @return a string representation of the card's index in the set
      */
     @Override

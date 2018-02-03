@@ -1,9 +1,11 @@
+import controller.Controller;
+
 import javax.swing.*;
 
 /**
- * The class Main initiates the app.
+ * The class Flashcards initiates the app.
  */
-public class Main {
+public class Flashcards {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

@@ -1,28 +1,32 @@
+package view;
+
+import model.Model;
+import controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyListener;
 
 /**
- * The class <b>View</b> is the main view into the app's UI.
+ * The class <b>view.View</b> is the main view into the app's UI.
  * <p>
  * It extends JFrame.
  *
  * @author Igor Grebenkov
  */
 public class View extends JFrame {
-    private FlashCardView flashCardView;    // Reference to the FlashCardView
+    private FlashCardView flashCardView;    // Reference to the view.FlashCardView
     private CardListView cardListView;      // Reference to the view of a JList of FlashCards
     private DiscardedListView discardedListView; // Reference to the view of a JList of discarded FlashCards
     private JTextArea textArea; // Text area for user input
-    public static final String placeholderText = "Enter text here..."; // Placeholder text for TextArea
+    private static final String placeholderText = "Enter text here..."; // Placeholder text for TextArea
 
     /**
-     * Constructor for the View.
+     * Constructor for the view.View.
      *
-     * @param model      the Model
-     * @param controller the Controller
+     * @param model      the model.Model
+     * @param controller the controller.Controller
      */
     public View(Model model, Controller controller) {
         super("FlashCards");
@@ -57,7 +61,7 @@ public class View extends JFrame {
         /************* End set up key mappings for keyboard shortcuts *************/
 
 
-        /*********************** Set up Left JPanel in View  **********************/
+        /*********************** Set up Left JPanel in view.View  **********************/
         JPanel leftView = new JPanel();
         leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
 
@@ -99,23 +103,23 @@ public class View extends JFrame {
         controlPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         controlPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         leftView.add(controlPane);
-        /********************* End set up Left JPanel in View  ********************/
+        /********************* End set up Left JPanel in view.View  ********************/
 
 
-        /********************** Set up Right JPanel in View  **********************/
+        /********************** Set up Right JPanel in view.View  **********************/
         JPanel rightView = new JPanel();
 
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
         rightView.setPreferredSize(new Dimension(200, getHeight()));
 
-        // Add JList view of current FlashCard set
+        // Add JList view of current model.FlashCardModel set
         cardListView = new CardListView(model, controller);
         rightView.add(cardListView);
 
         // Add JList view of discarded FlashCards
         discardedListView = new DiscardedListView(model, controller);
         rightView.add(discardedListView);
-        /******************** End set up Right JPanel in View  ********************/
+        /******************** End set up Right JPanel in view.View  ********************/
 
         c.gridx = 0;
         c.gridy = 0;
@@ -137,27 +141,27 @@ public class View extends JFrame {
     }
 
     /**
-     * Getter for the FlashCardView.
+     * Getter for the view.FlashCardView.
      *
-     * @return the FlashCardView
+     * @return the view.FlashCardView
      */
     public FlashCardView getFlashCardView() {
         return flashCardView;
     }
 
     /**
-     * Getter for the CardListView.
+     * Getter for the view.CardListView.
      *
-     * @return the CardListView
+     * @return the view.CardListView
      */
     public CardListView getCardListView() {
         return cardListView;
     }
 
     /**
-     * Getter for the DiscardedListView.
+     * Getter for the view.DiscardedListView.
      *
-     * @return the DiscardedListView
+     * @return the view.DiscardedListView
      */
     public DiscardedListView getDiscardedListView() {
         return discardedListView;
@@ -171,7 +175,7 @@ public class View extends JFrame {
     public JTextArea getTextArea() { return textArea; }
 
     /**
-     * Updates the View (and all component views).
+     * Updates the view.View (and all component views).
      */
     public void update() {
         requestFocus();
