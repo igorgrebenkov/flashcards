@@ -278,6 +278,7 @@ public class Controller extends AbstractAction
             if (model.getFlashCards().size() > 1) {
                 // Get the index of the card to discard
                 int discardIndex = view.getCardListView().getCardList().getSelectedIndex();
+                int discardSelectedIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
 
                 // Discard it from the model
                 model.discardFlashCard(discardIndex);
@@ -293,7 +294,9 @@ public class Controller extends AbstractAction
                         displayIndex);
                 view.update();
                 view.getCardListView().getCardList().setSelectedIndex(displayIndex);
-                //view.getCardListView().getCardList().requestFocus();
+                if (model.getDiscardedCards().size() >= 1) {
+                    view.getDiscardedListView().getCardList().setSelectedIndex(discardSelectedIndex);
+                }
             }
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
