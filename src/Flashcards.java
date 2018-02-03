@@ -2,6 +2,7 @@ import controller.Controller;
 
 import javax.swing.*;
 
+
 /**
  * The class Flashcards initiates the app.
  */

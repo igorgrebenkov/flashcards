@@ -4,6 +4,7 @@ import model.Model;
 import controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -32,10 +33,10 @@ public class View extends JFrame {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setMinimumSize(new Dimension(926, 513));
+        setMinimumSize(new Dimension(800, 464));
         setPreferredSize(new Dimension(1250, 725));
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
+        GridBagConstraints frameGBC = new GridBagConstraints();
+        frameGBC.fill = GridBagConstraints.BOTH;
 
         /*************** Set up key mappings for keyboard shortcuts ***************/
         // Get the "focus is in the window" input map for the root panel
@@ -60,19 +61,21 @@ public class View extends JFrame {
         aMap.put("prevCard", controller);
         /************* End set up key mappings for keyboard shortcuts *************/
 
-
         /*********************** Set up Left JPanel in view.View  **********************/
-        JPanel leftView = new JPanel();
-        leftView.setLayout(new BoxLayout(leftView, BoxLayout.Y_AXIS));
+        JPanel leftView = new JPanel(new GridBagLayout());
+        GridBagConstraints leftViewGBC = new GridBagConstraints();
+        leftViewGBC.fill = GridBagConstraints.BOTH;
+        leftViewGBC.gridy = 0;
+        leftViewGBC.gridx = 0;
+        leftViewGBC.weightx = 1;
 
         // Add view of FlashCards
         flashCardView = new FlashCardView(model);
-        leftView.add(flashCardView);
 
         // Add TextArea
         JScrollPane textPane = new JScrollPane();
         textPane.setFocusable(true);
-        textPane.setPreferredSize(new Dimension(1150, 125));
+        textPane.setMinimumSize(new Dimension(800, 128));
         textArea = new JTextArea();
         textArea.setForeground(Color.GRAY);
         textArea.setTabSize(2);
@@ -96,15 +99,27 @@ public class View extends JFrame {
             }
         });
         textPane.getViewport().setView(textArea);
-        leftView.add(textPane);
+
+        leftViewGBC.weighty = 1;
+        JSplitPane textSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, flashCardView, textPane);
+        textSplitPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.DARK_GRAY));
+        textSplitPane.setResizeWeight(0.8);
+        textSplitPane.setOneTouchExpandable(true);
+        textSplitPane.setContinuousLayout(true);
+        textSplitPane.setDividerSize((int) (textSplitPane.getDividerSize() * 1.5));
+        leftView.add(textSplitPane, leftViewGBC);
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
+        controlView.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.DARK_GRAY));
 
         JScrollPane controlPane = new JScrollPane(controlView);
         controlPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         controlPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        leftView.add(controlPane);
+
+        leftViewGBC.gridy++;
+        leftViewGBC.weighty = 0;
+        leftView.add(controlView, leftViewGBC);
         /********************* End set up Left JPanel in view.View  ********************/
 
 
@@ -123,17 +138,17 @@ public class View extends JFrame {
         rightView.add(discardedListView);
         /******************** End set up Right JPanel in view.View  ********************/
 
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weightx = 0.8;
-        c.weighty = 1;
-        add(leftView, c);
+        frameGBC.gridx = 0;
+        frameGBC.gridy = 0;
+        frameGBC.weightx = 0.8;
+        frameGBC.weighty = 1;
+        add(leftView, frameGBC);
 
-        c.gridx = 1;
-        c.gridy = 0;
-        c.weightx = 0.2;
-        c.weighty = 1;
-        add(rightView, c);
+        frameGBC.gridx = 1;
+        frameGBC.gridy = 0;
+        frameGBC.weightx = 0.2;
+        frameGBC.weighty = 1;
+        add(rightView, frameGBC);
 
         // Finish him!
         pack();
