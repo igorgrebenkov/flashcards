@@ -43,7 +43,6 @@ public class FlashCardView extends JPanel {
         // view.View is resized and model.FlashCardModel text takes up more horizontal
         // space than the preferred size
         setMinimumSize(new Dimension(800, 320));
-        //setPreferredSize(new Dimension(1250, 500));
 
         // Display a blank JEditorPane initially
         JEditorPane cardPane = new JEditorPane();

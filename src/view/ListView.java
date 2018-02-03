@@ -39,7 +39,7 @@ public abstract class ListView extends JPanel {
         cardList.addListSelectionListener(controller);
         cardList.setFixedCellWidth(150);
         cardList.addKeyListener(controller);
-       //cardList.setBorder(BorderFactory.createEmptyBorder());
+        cardList.setFont(new Font("Arial", Font.PLAIN, 12));
         setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
 
         // Embed JList in a JScrollPane

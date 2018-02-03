@@ -4,7 +4,7 @@ import model.Model;
 import controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -33,7 +33,7 @@ public class View extends JFrame {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setMinimumSize(new Dimension(800, 464));
+        setMinimumSize(new Dimension(900, 522));
         setPreferredSize(new Dimension(1250, 725));
         GridBagConstraints frameGBC = new GridBagConstraints();
         frameGBC.fill = GridBagConstraints.BOTH;
@@ -104,18 +104,16 @@ public class View extends JFrame {
         JSplitPane textSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, flashCardView, textPane);
         textSplitPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.DARK_GRAY));
         textSplitPane.setResizeWeight(0.8);
-        textSplitPane.setOneTouchExpandable(true);
-        textSplitPane.setContinuousLayout(true);
-        textSplitPane.setDividerSize((int) (textSplitPane.getDividerSize() * 1.5));
+        textSplitPane.setDividerSize(2);
+        BasicSplitPaneDivider divider = (BasicSplitPaneDivider) textSplitPane.getComponent(2);
+        divider.setBackground(Color.DARK_GRAY);
+        divider.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, Color.DARK_GRAY));
         leftView.add(textSplitPane, leftViewGBC);
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);
         controlView.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.DARK_GRAY));
-
-        JScrollPane controlPane = new JScrollPane(controlView);
-        controlPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        controlPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        controlView.setMinimumSize(new Dimension(800, 40));
 
         leftViewGBC.gridy++;
         leftViewGBC.weighty = 0;

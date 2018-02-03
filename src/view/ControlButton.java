@@ -21,11 +21,12 @@ public class ControlButton extends JButton {
      */
     public ControlButton(String btnText, String actionCommand, Controller controller) {
         super(btnText);
-        setFocusPainted(false);
         addActionListener(controller);
         setActionCommand(actionCommand);
-        setFont(this.getFont().deriveFont(13f));
-        setPreferredSize(new Dimension(90, 28));
+        setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        setPreferredSize(new Dimension(100, 25));
+        setBorder(null);
+        setOpaque(false);
         setFocusable(false);
     }
 }
