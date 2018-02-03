@@ -288,6 +288,7 @@ public class Controller extends AbstractAction
                         displayIndex);
                 view.update();
                 view.getCardListView().getCardList().setSelectedIndex(displayIndex);
+                view.getCardListView().getCardList().requestFocus();
             }
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
@@ -328,6 +329,7 @@ public class Controller extends AbstractAction
                 view.update();
                 view.getCardListView().getCardList().setSelectedIndex(cardListDisplayIndex);
                 view.getDiscardedListView().getCardList().setSelectedIndex(unDiscardDisplayIndex);
+                view.getDiscardedListView().getCardList().requestFocus();
             } else if (model.getDiscardedCards().size() == 0) {
                 view.getFlashCardView().setCurrentCardIndex(cardListDisplayIndex);
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
