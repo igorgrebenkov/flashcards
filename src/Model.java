@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import static java.lang.Integer.min;
+
 /**
  * The class <b>Model</b> stores an array of all the FlashCards in the current set. Also stores a pile
  * of discarded FlashCards from the current set. This allows the user to discard
@@ -69,12 +71,18 @@ public class Model {
 
     /**
      * Returns a FlashCard to the main pile from the discard pile
+     *
+     * @return the index we actually returned it to
      */
-    public void unDiscardFlashCard(int index) {
-        // Fetch the discarded card's index in the original set
-        int returnIndex = discardedCards.get(index).getCardIndex();
+    public int unDiscardFlashCard(int index) {
+        // We try to return the flashcard to its original position,
+        // but if that indexed position no longer exists we place it at the end.
+        int returnIndex = min(flashCards.size(),
+                discardedCards.get(index).getCardIndex());
 
         flashCards.add(returnIndex, discardedCards.remove(index));
+
+        return returnIndex;
     }
 
     /**

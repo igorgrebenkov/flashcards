@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * The class <b>View</b> is the main view into the app's UI.
@@ -26,7 +25,7 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
         setMinimumSize(new Dimension(826, 413)); // Approximately proportional to the preferredArea
-        setPreferredSize(new Dimension(1050, 525));
+        setPreferredSize(new Dimension(1150, 625));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
 
@@ -68,6 +67,7 @@ public class View extends JFrame {
         // Add TextArea
         textArea = new JTextArea();
         textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        textArea.setPreferredSize(new Dimension(1150, 75));
         leftView.add(textArea);
 
         // Add view of app controls

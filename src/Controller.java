@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -268,19 +267,15 @@ public class Controller extends AbstractAction
 
                 // If we're discarding anything but the last card, show the next card
                 // Else, show the previous card (since there is no next card)
-                if ((discardIndex < model.getFlashCards().size())) {
-                    view.getFlashCardView().setCurrentCardIndex(discardIndex);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                            view.getFlashCardView().CARD,
-                            discardIndex);
-                } else {
-                    view.getFlashCardView().setCurrentCardIndex(discardIndex - 1);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                            view.getFlashCardView().CARD,
-                            discardIndex - 1);
-                }
+                int displayIndex = discardIndex < model.getFlashCards().size() ?
+                        discardIndex : discardIndex-1;
+
+                view.getFlashCardView().setCurrentCardIndex(displayIndex);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().CARD,
+                        displayIndex);
                 view.update();
-                view.getCardListView().getCardList().setSelectedIndex(discardIndex);
+                view.getCardListView().getCardList().setSelectedIndex(displayIndex);
             }
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
@@ -303,34 +298,34 @@ public class Controller extends AbstractAction
         try {
             int unDiscardIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
 
-            if (model.getDiscardedCards().size() > 1) {
-                // Return it to the model
-                model.unDiscardFlashCard(unDiscardIndex);
+            // Un-discard the FlashCard and save the index it was really returned to.
+            model.unDiscardFlashCard(unDiscardIndex);
 
-                // If we're undiscarding anything but the last card, show the next card
-                // Else, show the previous card (since there is no next card)
-                if ((unDiscardIndex < model.getDiscardedCards().size())) {
-                    view.getFlashCardView().setCurrentCardIndex(unDiscardIndex);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                            view.getFlashCardView().DISCARD,
-                            unDiscardIndex);
-                } else {
-                    view.getFlashCardView().setCurrentCardIndex(unDiscardIndex - 1);
-                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                            view.getFlashCardView().DISCARD,
-                            unDiscardIndex - 1);
-                }
-            } else if (model.getDiscardedCards().size() == 1) {
-                model.unDiscardFlashCard(unDiscardIndex);
+            int cardListDisplayIndex = view.getCardListView().getCardList().getSelectedIndex();
+            // If we're un-discarding anything but the last card, show the next card
+            // Else, show the previous card (since there is no next card).
+            int unDiscardDisplayIndex = unDiscardIndex < model.getDiscardedCards().size() ?
+                    unDiscardIndex : unDiscardIndex-1;
 
-                view.getFlashCardView().setCurrentCardIndex(unDiscardIndex);
+            // Pick which card we display based on whether the undiscard list will be empty.
+            if (model.getDiscardedCards().size() >= 1) {
+                view.getFlashCardView().setCurrentCardIndex(unDiscardDisplayIndex);
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().DISCARD,
+                        unDiscardDisplayIndex);
+                view.update();
+                view.getCardListView().getCardList().setSelectedIndex(cardListDisplayIndex);
+                view.getDiscardedListView().getCardList().setSelectedIndex(unDiscardDisplayIndex);
+            } else if (model.getDiscardedCards().size() == 0) {
+                view.getFlashCardView().setCurrentCardIndex(cardListDisplayIndex);
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
                         view.getFlashCardView().CARD,
-                        unDiscardIndex);
+                        cardListDisplayIndex);
+                view.update();
+                view.getCardListView().getCardList().setSelectedIndex(cardListDisplayIndex);
                 view.getCardListView().getCardList().requestFocus();
             }
-            view.update();
-            view.getDiscardedListView().getCardList().setSelectedIndex(unDiscardIndex);
+
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
             // Maybe pop up a window here?
             System.err.println("NullPointerException: " + NPe.getMessage());
