@@ -32,8 +32,8 @@ public class View extends JFrame {
         super("FlashCards");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
-        setMinimumSize(new Dimension(826, 413));
-        setPreferredSize(new Dimension(1150, 625));
+        setMinimumSize(new Dimension(926, 513));
+        setPreferredSize(new Dimension(1250, 725));
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
 
@@ -70,9 +70,10 @@ public class View extends JFrame {
         leftView.add(flashCardView);
 
         // Add TextArea
+        JScrollPane textPane = new JScrollPane();
+        textPane.setFocusable(true);
+        textPane.setPreferredSize(new Dimension(1150, 125));
         textArea = new JTextArea();
-        textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        textArea.setPreferredSize(new Dimension(1150, 75));
         textArea.setForeground(Color.GRAY);
         textArea.setTabSize(2);
         textArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
@@ -94,7 +95,8 @@ public class View extends JFrame {
                 }
             }
         });
-        leftView.add(textArea);
+        textPane.getViewport().setView(textArea);
+        leftView.add(textPane);
 
         // Add view of app controls
         ControlView controlView = new ControlView(controller);

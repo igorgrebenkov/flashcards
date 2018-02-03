@@ -135,7 +135,7 @@ public class FlashCardView extends JPanel {
 
         cardPane.setSize(300, Integer.MAX_VALUE);
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
-        cardPane.setFont(new Font("Verdana", Font.PLAIN, 26));
+        cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText("<html>" + displayString.substring(2) + "</html>");
         cardPane.setEditable(false);
