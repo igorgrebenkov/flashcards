@@ -1,0 +1,43 @@
+<?xml version = "1.0"?>
+<class>
+   <card>
+      <question>
+         Software Life Cycle
+      </question>
+      <answer>
+         A process for planning, creating, testing and deploying an information system.
+      </answer>
+   </card>
+
+   <card>
+      <question>
+         Software Quality (What are the attributes?)
+      </question>
+      <answer>
+         An attribute of a product or process that, if improved, would better satisfy 
+         one or more of the stakeholders of that product or service. 
+            <ul>
+               <li>Usability</li> 
+               <li>Efficiency</li> 
+               <li>Reliability</li> 
+               <li>Maintainability</li> 
+               <li>Reusability</li>
+            </ul>
+      </answer>
+   </card>
+
+   <card>
+      <question>
+         Agile
+      </question>
+      <answer>
+         Iterative software engineering philosophy that emphasizes the ability to quickly 
+         modify software (test-first development). <br><br>
+
+         Gather requirements in small increments, and design and implement each small increment 
+         before the next. <br><br>
+
+         May require design changes/refactoring along the way to accommodate new requirements.
+      </answer>
+   </card>
+</class>
