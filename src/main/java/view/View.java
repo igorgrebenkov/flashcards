@@ -36,29 +36,6 @@ public class View extends JFrame {
         setMinimumSize(new Dimension(900, 522));
         setPreferredSize(new Dimension(1250, 725));
 
-        /*************** Set up key mappings for keyboard shortcuts ***************/
-        // Get the "focus is in the window" input map for the root panel
-        JRootPane rootPane = getRootPane();
-        rootPane.setFocusable(true);
-        rootPane.requestFocusInWindow();
-
-        InputMap iMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        // Put the keystroke objects into the panel's input map under the identifier "test"
-        iMap.put(KeyStroke.getKeyStroke('a'), "answerKey");
-        iMap.put(KeyStroke.getKeyStroke('t'), "focusTextArea");
-        iMap.put(KeyStroke.getKeyStroke('j'), "nextCard");
-        iMap.put(KeyStroke.getKeyStroke('k'), "prevCard");
-
-        // Get the ActionMap for the panel
-        ActionMap aMap = rootPane.getActionMap();
-
-        // Put the object into the panel's ActionMap
-        aMap.put("answerKey", controller);
-        aMap.put("focusTextArea", controller);
-        aMap.put("nextCard", controller);
-        aMap.put("prevCard", controller);
-        /************* End set up key mappings for keyboard shortcuts *************/
-
         /*********************** Set up Left JPanel in view.View  **********************/
         JPanel leftView = new JPanel(new GridBagLayout());
         GridBagConstraints leftViewGBC = new GridBagConstraints();

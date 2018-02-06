@@ -43,25 +43,6 @@ public class Controller extends AbstractAction
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
 
-        // Handles actions associated with InputMap/ActionMap keyboard shortcuts
-        // These work no matter where focus is
-        if (e.getSource() instanceof JRootPane) {
-            switch (action) {
-                case "a":  // Toggles revealing answer/question
-                    view.getFlashCardView().revealAnswer();
-                    break;
-                case "t":
-                    view.getTextArea().requestFocus();
-                    break;
-                case "j":
-                    nextButtonAction();
-                    break;
-                case "k":
-                    prevButtonAction();
-                    break;
-            }
-        }
-
         // Handles actions associated with JButtons
         if (e.getSource() instanceof JButton) {
             switch (action) {
@@ -101,6 +82,18 @@ public class Controller extends AbstractAction
             // These actions can only be performed when the discarded card JList is in focus
             char c = e.getKeyChar();
             switch (c) {
+                case 'j':
+                    nextButtonAction();
+                    break;
+                case 'k':
+                    prevButtonAction();
+                    break;
+                case 'a':
+                    view.getFlashCardView().revealAnswer();
+                    break;
+                case 't':
+                    view.getTextArea().requestFocus();
+                    break;
                 case 'f':   // Switches focus between the two JLists
                     listFocusAction(source);
                     break;
