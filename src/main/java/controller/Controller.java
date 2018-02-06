@@ -1,7 +1,6 @@
 package controller;
 
 import model.*;
-import org.w3c.dom.NodeList;
 import view.*;
 
 import javax.swing.*;
@@ -12,8 +11,6 @@ import java.io.*;
 import java.util.*;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.*;
-
-import static javax.swing.text.html.CSS.getAttribute;
 
 /**
  * The class <b>controller.Controller</b> handles Events.
@@ -145,30 +142,31 @@ public class Controller extends AbstractAction
      * @param e the ListSelectionEvent
      */
     public void valueChanged(ListSelectionEvent e) {
-        JList source = (JList) e.getSource();
-
         // Handles displaying the selected model.FlashCardModel
-        if (e.getSource() == view.getCardListView().getCardList()) {
-            // If a card has been selected, display it
-            //  -- Ensures selected index is in the range of the
-            //     ArrayList of FlashCards
-            if (!e.getValueIsAdjusting() &&
-                    (source.getSelectedIndex() >= 0) &&
-                    (source.getSelectedIndex() < model.getFlashCards().size())) {
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                        view.getFlashCardView().CARD,
-                        source.getSelectedIndex());
-            }
-        } else {
-            // Same as above for discarded cards
-            if (!e.getValueIsAdjusting() &&
-                    (source.getSelectedIndex() >= 0) &&
-                    (source.getSelectedIndex() < model.getDiscardedCards().size())) {
-                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
-                        view.getFlashCardView().DISCARD,
-                        source.getSelectedIndex());
-            }
+        if (e.getSource() instanceof JList) {
+            JList source = (JList) e.getSource();
+            if (e.getSource() == view.getCardListView().getCardList()) {
+                // If a card has been selected, display it
+                //  -- Ensures selected index is in the range of the
+                //     ArrayList of FlashCards
+                if (!e.getValueIsAdjusting() &&
+                        (source.getSelectedIndex() >= 0) &&
+                        (source.getSelectedIndex() < model.getFlashCards().size())) {
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().CARD,
+                            source.getSelectedIndex());
+                }
+            } else {
+                // Same as above for discarded cards
+                if (!e.getValueIsAdjusting() &&
+                        (source.getSelectedIndex() >= 0) &&
+                        (source.getSelectedIndex() < model.getDiscardedCards().size())) {
+                    view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                            view.getFlashCardView().DISCARD,
+                            source.getSelectedIndex());
+                }
 
+            }
         }
     }
 
@@ -277,7 +275,6 @@ public class Controller extends AbstractAction
      * Then, it updates the view to reflect the change.
      */
     private void discardAction() {
-        System.out.println("discard");
         // Discards the current card to the discard pile
         try {
             // Can only discard if there is at least two cards
@@ -321,8 +318,6 @@ public class Controller extends AbstractAction
      * Then, it updates the view to reflect the change.
      */
     private void unDiscardAction() {
-        System.out.println("undiscard");
-
         // Returns the current card to the discard pile
         try {
             int unDiscardIndex = view.getDiscardedListView().getCardList().getSelectedIndex();

@@ -44,7 +44,7 @@ public class View extends JFrame {
 
         InputMap iMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         // Put the keystroke objects into the panel's input map under the identifier "test"
-        iMap.put(KeyStroke.getKeyStroke('a'), "revealAnswer");
+        iMap.put(KeyStroke.getKeyStroke('a'), "answerKey");
         iMap.put(KeyStroke.getKeyStroke('t'), "focusTextArea");
         iMap.put(KeyStroke.getKeyStroke('j'), "nextCard");
         iMap.put(KeyStroke.getKeyStroke('k'), "prevCard");
@@ -53,7 +53,7 @@ public class View extends JFrame {
         ActionMap aMap = rootPane.getActionMap();
 
         // Put the object into the panel's ActionMap
-        aMap.put("revealAnswer", controller);
+        aMap.put("answerKey", controller);
         aMap.put("focusTextArea", controller);
         aMap.put("nextCard", controller);
         aMap.put("prevCard", controller);

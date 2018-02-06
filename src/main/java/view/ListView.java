@@ -4,7 +4,7 @@ import controller.Controller;
 import model.Model;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.text.Position;
 import java.awt.*;
 
 /**
@@ -33,20 +33,13 @@ public abstract class ListView extends JPanel {
         setFocusable(false);
 
         // Init new JList
-        cardList = new JList();
-        cardList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        cardList.setLayoutOrientation(JList.VERTICAL);
-        cardList.setVisibleRowCount(-1); // display max items possible in space
-        cardList.addListSelectionListener(controller);
-        cardList.setFixedCellWidth(150);
-        cardList.addKeyListener(controller);
-        cardList.setFont(new Font("Arial", Font.PLAIN, 12));
+        cardList = new CardList(controller);
         // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
 
         // Keeps view.ListView from decreasing width suddenly when resizing
         listScroller.setMinimumSize(new Dimension(200, 300));
-        listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         add(listScroller, BorderLayout.CENTER);
     }
@@ -59,7 +52,6 @@ public abstract class ListView extends JPanel {
     public JList getCardList() {
         return cardList;
     }
-
 
     // Updates the list view
     abstract public void update();

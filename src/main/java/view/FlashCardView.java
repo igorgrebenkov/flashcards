@@ -4,6 +4,10 @@ import model.FlashCardModel;
 import model.Model;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -19,6 +23,8 @@ import static java.lang.Boolean.*;
 public class FlashCardView extends JPanel {
 
     private Model model;
+    private JTextPane cardPane;           // Displays the card content
+    private JScrollPane cardScroller;     // cardPane is embedded in this JScrollPane
     private int currentCardIndex;         // The index of the card currently displayed
     private boolean isQuestion;           // Flag to indicate if the displayed card shows a question or answer
     private boolean isActive;             // Flag to indicate if the displayed card is in the active pile
@@ -42,24 +48,30 @@ public class FlashCardView extends JPanel {
         // Keeps this view.View from making ControlsView disappear when
         // view.View is resized and model.FlashCardModel text takes up more horizontal
         // space than the preferred size
-        setMinimumSize(new Dimension(800, 320));
+        //setMinimumSize(new Dimension(800, 320));
 
-        // Display a blank JEditorPane initially
-        JEditorPane cardPane = new JEditorPane();
+        // Display a blank JTextPane initially
+        cardPane = new JTextPane();
         cardPane.setText("");
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
+        cardPane.setAlignmentY(TOP_ALIGNMENT);
         cardPane.setLayout(new BorderLayout());
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
+        cardPane.setContentType("text/html"); // allow HTML
+        cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
+        cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
+        cardPane.setAlignmentY(0.5f);
 
         // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
         // Not really necessary for a blank card, but keeps the view.View consistent when a card set is loaded
-        JScrollPane cardScroller = new JScrollPane(cardPane);
+        cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         cardScroller.setFocusable(false);
+        cardScroller.setMinimumSize(new Dimension(800, 320));
 
-        add(cardScroller);
+        add(cardScroller, BorderLayout.CENTER);
 
         currentCardIndex = -1;
         isQuestion = true;
@@ -105,6 +117,7 @@ public class FlashCardView extends JPanel {
      * @param index     the index of the card to display
      */
     public void displayCard(boolean operation, boolean cardPile, int index) {
+        System.out.println("\nAbout to display " + index);
         // Fetch whichever card set to display
         ArrayList<FlashCardModel> cardsToDisplay = cardPile ? model.getFlashCards() : model.getDiscardedCards();
 
@@ -129,24 +142,8 @@ public class FlashCardView extends JPanel {
         // Set flag to indicate if this card is in the discarded pile
         isActive = cardPile;
 
-        // JEditorPane displays the current model.FlashCardModel
-        JEditorPane cardPane = new JEditorPane();
-
-        cardPane.setSize(300, Integer.MAX_VALUE);
-        cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
-        cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
-        cardPane.setContentType("text/html"); // allow HTML
         cardPane.setText("<html>" + displayString + "</html>");
-        cardPane.setEditable(false);
-        cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
-        cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));
-
-        // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
-        JScrollPane cardScroller = new JScrollPane(cardPane);
-        cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        this.add(cardScroller, BorderLayout.CENTER);
+        add(cardScroller, BorderLayout.CENTER);
         update();
     }
 
