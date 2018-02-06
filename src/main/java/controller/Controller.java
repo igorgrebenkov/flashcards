@@ -277,6 +277,7 @@ public class Controller extends AbstractAction
      * Then, it updates the view to reflect the change.
      */
     private void discardAction() {
+        System.out.println("discard");
         // Discards the current card to the discard pile
         try {
             // Can only discard if there is at least two cards
@@ -320,6 +321,8 @@ public class Controller extends AbstractAction
      * Then, it updates the view to reflect the change.
      */
     private void unDiscardAction() {
+        System.out.println("undiscard");
+
         // Returns the current card to the discard pile
         try {
             int unDiscardIndex = view.getDiscardedListView().getCardList().getSelectedIndex();
@@ -349,6 +352,7 @@ public class Controller extends AbstractAction
                         cardListDisplayIndex);
                 view.update();
                 view.getCardListView().getCardList().setSelectedIndex(cardListDisplayIndex);
+                view.getCardListView().getCardList().requestFocus();
             }
 
         } catch (NullPointerException NPe) { // If there's one card left, we can't discard it
