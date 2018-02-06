@@ -32,10 +32,10 @@
       </question>
       <answer>
          Iterative software engineering philosophy that emphasizes the ability to quickly 
-         modify software (test-first development). <br><br>
+         modify software (test-first development). 
 
          Gather requirements in small increments, and design and implement each small increment 
-         before the next. <br><br>
+         before the next. 
 
          May require design changes/refactoring along the way to accommodate new requirements.
       </answer>

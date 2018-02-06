@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import org.w3c.dom.NodeList;
 import view.*;
 
 import javax.swing.*;
@@ -9,7 +10,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-//import org.jdom2.*;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.*;
+
+import static javax.swing.text.html.CSS.getAttribute;
 
 /**
  * The class <b>controller.Controller</b> handles Events.
@@ -368,41 +372,24 @@ public class Controller extends AbstractAction
      */
     private ArrayList<FlashCardModel> createFlashCards(File file) throws IOException {
         ArrayList<FlashCardModel> flashCards = new ArrayList<>();
+        String question;
+        String answer;
+
+        SAXBuilder saxBuilder = new SAXBuilder();
+
         try {
-            int i = 0; // model.FlashCardModel index
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            Document document = saxBuilder.build(file);
+            Element rootNode = document.getRootElement();
+            List<Element> cards = rootNode.getChildren();
 
-            String readLine;       // reads the current line of text
-            String question = "";  // the model.FlashCardModel's question
-            String answer = "";    // The model.FlashCardModel's answer
-
-            // Flags for if a question/answer have been found
-            boolean haveQ = false, haveA = false;
-
-            // Read the file line by line
-            while ((readLine = br.readLine()) != null) {
-                if (readLine.charAt(0) == 'Q') {         // start reading a question
-                    question = question + readLine;
-                    haveQ = true;
-                } else if (readLine.charAt(0) == 'A') {  // start reading an answer
-                    answer = answer + readLine;
-                    haveA = true;
-                }
-
-                // We have a question and answer, so make a model.FlashCardModel and add it to the set
-                if (haveQ && haveA) {
-                    flashCards.add(new FlashCardModel(question, answer, i));
-                    question = "";
-                    answer = "";
-                    haveQ = false;
-                    haveA = false;
-                    ++i;
-                }
+            for (int i = 0; i < cards.size(); i++) {
+                Element cardContents = cards.get(i);
+                question = cardContents.getChild("question").getValue().trim();
+                answer = cardContents.getChild("answer").getValue().trim();
+                flashCards.add(new FlashCardModel(question, answer, i));
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("FileNotFoundException: " + e.getMessage());
-        } catch (StringIndexOutOfBoundsException e) {
-            System.err.println("StringIndexOutOfBoundsException: " + e.getMessage());
+        } catch (JDOMException e) {
+            System.err.println("JDOMException: " + e.getMessage());
         }
         return flashCards;
     }

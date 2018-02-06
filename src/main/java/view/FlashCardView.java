@@ -75,7 +75,7 @@ public class FlashCardView extends JPanel {
     /**
      * Setter for the isActive flag.
      *
-     * @param isActive the new state for isActive
+     * @param state the new state for isActive
      */
     public void setIsActive(boolean state) { isActive = state; }
 
@@ -136,7 +136,7 @@ public class FlashCardView extends JPanel {
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
         cardPane.setContentType("text/html"); // allow HTML
-        cardPane.setText("<html>" + displayString.substring(2) + "</html>");
+        cardPane.setText("<html>" + displayString + "</html>");
         cardPane.setEditable(false);
         cardPane.setFocusable(false); // Ensures keyboard shortcuts always work
         cardPane.setBackground(new Color(0xFF, 0xFA, 0xCD));

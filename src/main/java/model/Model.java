@@ -17,6 +17,7 @@ public class Model {
 
     public Model(ArrayList<FlashCardModel> fc) {
         flashCards = fc;
+        flashCards = new ArrayList<>();
         discardedCards = new ArrayList<>();
     }
 

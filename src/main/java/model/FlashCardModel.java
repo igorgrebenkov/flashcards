@@ -87,6 +87,6 @@ public class FlashCardModel {
      */
     @Override
     public String toString() {
-        return question.substring(2);
+        return question;
     }
 }
