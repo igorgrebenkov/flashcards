@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import java.util.prefs.Preferences;
+
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.*;
 
@@ -26,6 +28,7 @@ public class Controller extends AbstractAction
         KeyListener {
     private Model model;
     private View view;
+    private JFileChooser fileChooser;
 
     /**
      * Constructor.
@@ -33,6 +36,9 @@ public class Controller extends AbstractAction
     public Controller() {
         model = new Model(new ArrayList<>());
         view = new View(model, this);
+
+        final File workingDirectory = new File(System.getProperty("user.dir"));
+        fileChooser = new JFileChooser(workingDirectory);
     }
 
     /**
@@ -199,8 +205,7 @@ public class Controller extends AbstractAction
      */
     private void loadFileButtonAction() {
         // Handles loading a model.FlashCardModel set from a txt file
-        final File workingDirectory = new File(System.getProperty("user.dir"));
-        final JFileChooser fileChooser = new JFileChooser(workingDirectory);
+        Preferences prefs = Preferences.userRoot().node(getClass().getName());
         final JFrame selectFrame = new JFrame("Select a file...");
         int returnVal = fileChooser.showOpenDialog(selectFrame);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
