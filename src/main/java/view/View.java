@@ -57,21 +57,15 @@ public class View extends JFrame {
         textArea.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16));
         textArea.setText(placeholderText);
         textArea.addKeyListener(controller);
+        textArea.setLineWrap(true);
         textArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textArea.getText().equals(placeholderText)) {
-                    textArea.setText("");
-                    textArea.setForeground(Color.BLACK);
-                }
+                textArea.setText("");
+                textArea.setForeground(Color.BLACK);
             }
             @Override
-            public void focusLost(FocusEvent e) {
-                if (textArea.getText().isEmpty()) {
-                    textArea.setForeground(Color.GRAY);
-                    textArea.setText(placeholderText);
-                }
-            }
+            public void focusLost(FocusEvent e) {}
         });
         textPane.getViewport().setView(textArea);
 

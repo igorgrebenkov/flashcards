@@ -98,6 +98,7 @@ public class Controller extends AbstractAction
                     view.getFlashCardView().revealAnswer();
                     break;
                 case 't':
+                    e.consume();
                     view.getTextArea().requestFocus();
                     break;
                 case 'f':   // Switches focus between the two JLists

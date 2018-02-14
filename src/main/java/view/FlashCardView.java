@@ -62,6 +62,7 @@ public class FlashCardView extends JPanel {
         cardPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, TRUE); // Allows setting font properties
         cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
         cardPane.setAlignmentY(0.5f);
+        cardPane.setMargin(new Insets(10,10,10,10));
 
         // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
         // Not really necessary for a blank card, but keeps the view.View consistent when a card set is loaded
@@ -129,9 +130,6 @@ public class FlashCardView extends JPanel {
             throw new NullPointerException("NullPointerException.");
         }
 
-        // Clear previous flash card
-        removeAll();
-
         // Display question or answer based on value of operation
         String displayString = operation ?
                 cardsToDisplay.get(currentCardIndex).getQuestion() :
@@ -143,7 +141,7 @@ public class FlashCardView extends JPanel {
         isActive = cardPile;
 
         cardPane.setText("<html>" + displayString + "</html>");
-        add(cardScroller, BorderLayout.CENTER);
+        //cardScroller.revalidate();
         update();
     }
 
