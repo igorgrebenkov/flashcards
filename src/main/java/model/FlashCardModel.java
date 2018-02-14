@@ -8,9 +8,11 @@ package model;
  * @author Igor Grebenkov
  */
 public class FlashCardModel {
+    private String title;
     private String question;
     private String answer;
     private int cardIndex;        // The index of the card in its set
+
     /**
      * Constructor
      * @param question the question string
@@ -19,6 +21,21 @@ public class FlashCardModel {
     public FlashCardModel(String question, String answer, int cardIndex) {
         this.question = question;
         this.answer = answer;
+        this.cardIndex = cardIndex;
+
+    }
+
+    /**
+     * Constructor
+     * @param title the title for the flashcard
+     * @param question the question string
+     * @param answer the answer string
+     */
+    public FlashCardModel(String title, String question,
+                          String answer, int cardIndex) {
+        this.question = question;
+        this.answer = answer;
+        this.title = title;
         this.cardIndex = cardIndex;
     }
 
@@ -68,6 +85,6 @@ public class FlashCardModel {
      */
     @Override
     public String toString() {
-        return question;
+        return title != null ? title : question;
     }
 }

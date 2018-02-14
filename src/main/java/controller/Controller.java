@@ -372,6 +372,7 @@ public class Controller extends AbstractAction
         ArrayList<FlashCardModel> flashCards = new ArrayList<>();
         String question;
         String answer;
+        String title;
 
         SAXBuilder saxBuilder = new SAXBuilder();
 
@@ -384,7 +385,19 @@ public class Controller extends AbstractAction
                 Element cardContents = cards.get(i);
                 question = cardContents.getChild("question").getValue().trim();
                 answer = cardContents.getChild("answer").getValue().trim();
-                flashCards.add(new FlashCardModel(question, answer, i));
+
+                try {
+                    title = cardContents.getChild("title").getValue();
+                } catch (NullPointerException e) {
+                    title = null;
+                }
+
+                // If the user didn't supply a title, we leave it null. 
+                if (title != null) {
+                    flashCards.add(new FlashCardModel(title, question, answer, i));
+                } else {
+                    flashCards.add(new FlashCardModel(question, answer, i));
+                }
             }
         } catch (JDOMException e) {
             System.err.println("JDOMException: " + e.getMessage());

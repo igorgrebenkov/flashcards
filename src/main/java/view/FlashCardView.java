@@ -5,6 +5,7 @@ import model.Model;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -63,6 +64,9 @@ public class FlashCardView extends JPanel {
         cardPane.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 26));
         cardPane.setAlignmentY(0.5f);
         cardPane.setMargin(new Insets(10,10,10,10));
+
+        DefaultCaret caret = (DefaultCaret) cardPane.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 
         // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
         // Not really necessary for a blank card, but keeps the view.View consistent when a card set is loaded
