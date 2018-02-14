@@ -3,6 +3,7 @@ package view;
 import controller.Controller;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;

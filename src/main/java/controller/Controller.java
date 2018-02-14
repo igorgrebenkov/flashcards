@@ -97,7 +97,7 @@ public class Controller extends AbstractAction
                 case 'a':
                     view.getFlashCardView().revealAnswer();
                     break;
-                case 't':
+                case 'i':
                     e.consume();
                     view.getTextArea().requestFocus();
                     break;

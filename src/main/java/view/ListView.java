@@ -32,13 +32,9 @@ public abstract class ListView extends JPanel {
         setLayout(new BorderLayout());
         setFocusable(false);
 
-        // Init new JList
         cardList = new CardList(controller);
-        // Embed JList in a JScrollPane
         JScrollPane listScroller = new JScrollPane(cardList);
-
-        // Keeps view.ListView from decreasing width suddenly when resizing
-        listScroller.setMinimumSize(new Dimension(200, 300));
+        listScroller.setMinimumSize(new Dimension(200, 0));
         listScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         add(listScroller, BorderLayout.CENTER);

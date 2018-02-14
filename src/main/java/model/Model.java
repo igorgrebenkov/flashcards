@@ -60,7 +60,6 @@ public class Model {
      * Randomly shuffles the pile of FlashCards
      */
     public void shufflePile() {
-
     }
 
     /**
@@ -90,6 +89,5 @@ public class Model {
      * Returns all FlashCards to the main pile from the discard pile
      */
     public void undiscardAllFlashCards() {
-
     }
 }

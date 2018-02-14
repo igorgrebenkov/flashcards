@@ -71,7 +71,6 @@ public class FlashCardView extends JPanel {
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         cardScroller.setFocusable(false);
         cardScroller.setMinimumSize(new Dimension(800, 320));
-
         add(cardScroller, BorderLayout.CENTER);
 
         currentCardIndex = -1;
@@ -118,7 +117,6 @@ public class FlashCardView extends JPanel {
      * @param index     the index of the card to display
      */
     public void displayCard(boolean operation, boolean cardPile, int index) {
-        System.out.println("\nAbout to display " + index);
         // Fetch whichever card set to display
         ArrayList<FlashCardModel> cardsToDisplay = cardPile ? model.getFlashCards() : model.getDiscardedCards();
 
@@ -141,7 +139,6 @@ public class FlashCardView extends JPanel {
         isActive = cardPile;
 
         cardPane.setText("<html>" + displayString + "</html>");
-        //cardScroller.revalidate();
         update();
     }
 

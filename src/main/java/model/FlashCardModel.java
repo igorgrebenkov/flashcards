@@ -10,7 +10,6 @@ package model;
 public class FlashCardModel {
     private String question;
     private String answer;
-    private int numCountRight;    // Number of times user got this card right
     private int cardIndex;        // The index of the card in its set
     /**
      * Constructor
@@ -20,7 +19,6 @@ public class FlashCardModel {
     public FlashCardModel(String question, String answer, int cardIndex) {
         this.question = question;
         this.answer = answer;
-        numCountRight = 0;
         this.cardIndex = cardIndex;
     }
 
@@ -62,23 +60,6 @@ public class FlashCardModel {
      */
     public int getCardIndex() {
         return cardIndex;
-    }
-
-
-    /**
-     * Getter for number of times right counter.
-     * @return counter for number of times right
-     */
-    public int getNumCountRight() {
-        return numCountRight;
-    }
-
-    /**
-     * Setter for the number of times right counter.
-     * @param numCountRight counter for number of times right
-     */
-    public void setNumCountRight(int numCountRight) {
-        this.numCountRight = numCountRight;
     }
 
     /**

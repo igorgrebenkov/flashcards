@@ -36,6 +36,8 @@ public class View extends JFrame {
         setMinimumSize(new Dimension(900, 522));
         setPreferredSize(new Dimension(1250, 725));
 
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+
         /*********************** Set up Left JPanel in view.View  **********************/
         JPanel leftView = new JPanel(new GridBagLayout());
         GridBagConstraints leftViewGBC = new GridBagConstraints();
@@ -44,13 +46,11 @@ public class View extends JFrame {
         leftViewGBC.gridx = 0;
         leftViewGBC.weightx = 1;
 
-        // Add view of FlashCards
         flashCardView = new FlashCardView(model);
 
-        // Add TextArea
         JScrollPane textPane = new JScrollPane();
         textPane.setFocusable(true);
-        textPane.setMinimumSize(new Dimension(800, 128));
+        textPane.setMinimumSize(new Dimension(800, 0));
         textArea = new JTextArea();
         textArea.setForeground(Color.GRAY);
         textArea.setTabSize(2);
@@ -61,15 +61,17 @@ public class View extends JFrame {
         textArea.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                textArea.setText("");
-                textArea.setForeground(Color.BLACK);
+                if (textArea.getText().equals(placeholderText) ||
+                        textArea.getText().equals("")) {
+                    textArea.setText("");
+                    textArea.setForeground(Color.BLACK);
+                }
             }
             @Override
             public void focusLost(FocusEvent e) {}
         });
         textPane.getViewport().setView(textArea);
 
-        Border emptyBorder = BorderFactory.createEmptyBorder();
 
         leftViewGBC.weighty = 1;
         JSplitPane textSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, flashCardView, textPane);
@@ -77,13 +79,11 @@ public class View extends JFrame {
         textSplitPane.setResizeWeight(0.8);
         textSplitPane.setDividerSize(2);
         BasicSplitPaneDivider divider = (BasicSplitPaneDivider) textSplitPane.getComponent(2);
-        divider.setBackground(Color.DARK_GRAY);
         divider.setBorder(emptyBorder);
         leftView.add(textSplitPane, leftViewGBC);
 
-        // Add view of app controls
         ControlView controlView = new ControlView(controller);
-        controlView.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, Color.DARK_GRAY));
+        controlView.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.DARK_GRAY));
         controlView.setMinimumSize(new Dimension(800, 30));
 
         leftViewGBC.gridy++;
@@ -98,29 +98,25 @@ public class View extends JFrame {
         rightView.setLayout(new BoxLayout(rightView, BoxLayout.Y_AXIS));
         rightView.setPreferredSize(new Dimension(200, getHeight()));
 
-        // Add JList view of current model.FlashCardModel set
         cardListView = new CardListView(model, controller);
-        cardListView.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
-        rightView.add(cardListView);
-
-        // Add JList view of discarded FlashCards
         discardedListView = new DiscardedListView(model, controller);
-        discardedListView.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.DARK_GRAY));
-        rightView.add(discardedListView);
+
+        JSplitPane cardListSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, cardListView, discardedListView);
+        cardListSplitPane.setResizeWeight(0.5);
+        cardListSplitPane.setDividerSize(2);
+        divider = (BasicSplitPaneDivider) cardListSplitPane.getComponent(2);
+        divider.setBorder(emptyBorder);
+        rightView.add(cardListSplitPane);
         /******************** End set up Right JPanel in view.View  ********************/
 
         JSplitPane mainHorizontalSplitPane = new JSplitPane(
                 JSplitPane.HORIZONTAL_SPLIT, leftView, rightView);
-        //mainHorizontalSplitPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.DARK_GRAY));
         mainHorizontalSplitPane.setResizeWeight(0.8);
         mainHorizontalSplitPane.setDividerSize(2);
         divider = (BasicSplitPaneDivider) mainHorizontalSplitPane.getComponent(2);
-        divider.setBackground(Color.DARK_GRAY);
         divider.setBorder(emptyBorder);
         add(mainHorizontalSplitPane);
-        mainHorizontalSplitPane.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.DARK_GRAY));
 
-        // Finish him!
         pack();
         setResizable(true);
         setVisible(true);
