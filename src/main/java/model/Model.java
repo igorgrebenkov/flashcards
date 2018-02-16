@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Integer.min;
@@ -11,7 +12,7 @@ import static java.lang.Integer.min;
  *
  * @author Igor Grebenkov
  */
-public class Model {
+public class Model implements Serializable {
     private ArrayList<FlashCardModel> flashCards;     // The list of FlashCards
     private ArrayList<FlashCardModel> discardedCards;  // The list of discarded FlashCards
 

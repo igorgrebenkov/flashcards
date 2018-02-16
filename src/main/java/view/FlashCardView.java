@@ -4,11 +4,7 @@ import model.FlashCardModel;
 import model.Model;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.text.DefaultCaret;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -25,7 +21,6 @@ public class FlashCardView extends JPanel {
 
     private Model model;
     private JTextPane cardPane;           // Displays the card content
-    private JScrollPane cardScroller;     // cardPane is embedded in this JScrollPane
     private int currentCardIndex;         // The index of the card currently displayed
     private boolean isQuestion;           // Flag to indicate if the displayed card shows a question or answer
     private boolean isActive;             // Flag to indicate if the displayed card is in the active pile
@@ -70,7 +65,7 @@ public class FlashCardView extends JPanel {
 
         // Embed in JScrollPane to allow model.FlashCardModel contents to be larger than this view.View's current size
         // Not really necessary for a blank card, but keeps the view.View consistent when a card set is loaded
-        cardScroller = new JScrollPane(cardPane);
+        JScrollPane cardScroller = new JScrollPane(cardPane);
         cardScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         cardScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         cardScroller.setFocusable(false);
@@ -89,11 +84,12 @@ public class FlashCardView extends JPanel {
     public boolean getIsActive() { return isActive; }
 
     /**
-     * Setter for the isActive flag.
-     *
-     * @param state the new state for isActive
+     * Setter for the model.
+     * @param m the new model
      */
-    public void setIsActive(boolean state) { isActive = state; }
+    public void setModel(Model m) {
+        model = m;
+    }
 
     /**
      * Getter for the current card index

@@ -5,6 +5,8 @@ import javax.swing.*;
 
 /**
  * The class Flashcards initiates the app.
+ *
+ * @author Igor Grebenkov
  */
 public class Flashcards {
     public static void main(String[] args) {

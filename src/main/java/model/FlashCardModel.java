@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * The model.FlashCardModel class represents a flash card.
  * In addition to the question and answer variables, it stores
@@ -7,7 +9,7 @@ package model;
  *
  * @author Igor Grebenkov
  */
-public class FlashCardModel {
+public class FlashCardModel implements Serializable {
     private String title;
     private String question;
     private String answer;

@@ -29,7 +29,7 @@ public class ControlView extends JPanel {
         gc.insets = new Insets(1,1,1,1);
         setPreferredSize(new Dimension(1250, 50));
 
-        ControlButton loadFile = new ControlButton("Load", "loadFile", controller);
+        //ControlButton loadFile = new ControlButton("Load", "loadFile", controller);
 
         ControlButton revealAnswer = new ControlButton("Answer", "revealAnswer", controller);
 
@@ -41,8 +41,8 @@ public class ControlView extends JPanel {
 
         ControlButton prevCard = new ControlButton("Prev", "prevCard", controller);
 
-        add(loadFile, gc);
-        gc.gridx++;
+        //add(loadFile, gc);
+        //gc.gridx++;
         add(revealAnswer, gc);
         gc.gridx++;
         add(prevCard, gc);

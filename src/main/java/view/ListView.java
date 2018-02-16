@@ -4,7 +4,6 @@ import controller.Controller;
 import model.Model;
 
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 
 /**
@@ -41,6 +40,12 @@ public abstract class ListView extends JPanel {
     }
 
     /**
+     * Setter for the ListView Model
+     * @param m the new model
+     */
+    public void setModel(Model m) { model = m; }
+
+    /**
      * Returns the card set's JList.
      *
      * @return the card set's JList
@@ -49,6 +54,8 @@ public abstract class ListView extends JPanel {
         return cardList;
     }
 
-    // Updates the list view
+    /**
+     * Updates the list view
+     */
     abstract public void update();
 }

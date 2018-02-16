@@ -9,7 +9,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.*;
@@ -29,6 +28,7 @@ public class Controller extends AbstractAction
     private Model model;
     private View view;
     private JFileChooser fileChooser;
+    private String lastSavePath;
 
     /**
      * Constructor.
@@ -39,6 +39,7 @@ public class Controller extends AbstractAction
 
         final File workingDirectory = new File(System.getProperty("user.dir"));
         fileChooser = new JFileChooser(workingDirectory);
+        lastSavePath = null;
     }
 
     /**
@@ -53,7 +54,7 @@ public class Controller extends AbstractAction
         if (e.getSource() instanceof JButton) {
             switch (action) {
                 case "loadFile":
-                    loadFileButtonAction();
+                    importXMLAction();
                     break;
                 case "revealAnswer":
                     view.getFlashCardView().revealAnswer();
@@ -69,6 +70,27 @@ public class Controller extends AbstractAction
                     break;
                 case "unDiscard":
                     unDiscardAction();
+                    break;
+            }
+        }
+
+        if (e.getSource() instanceof JMenuItem) {
+            switch (action) {
+                case "importXML":
+                    importXMLAction();
+                    break;
+                case "save":
+                    saveAction();
+                    break;
+                case "saveAs":
+                    saveAsAction();
+                    break;
+                case "load":
+                    loadAction();
+                    break;
+                case "help":
+                    break;
+                case "about":
                     break;
             }
         }
@@ -170,6 +192,11 @@ public class Controller extends AbstractAction
         }
     }
 
+    /**
+     * Action for changing focus between lists with the 'f' key.
+     *
+     * @param source the event source
+     */
     public void listFocusAction(JList source) {
         if (source == view.getDiscardedListView().getCardList()) {
             int selectedIndex = view.getCardListView().getCardList().getSelectedIndex();
@@ -201,16 +228,12 @@ public class Controller extends AbstractAction
     }
 
     /**
-     * Loads a file in response to pressing the Load button and turns
-     * it into a set of FlashCards used to update the model.
+     * Loads an XML file and turns it into a set of FlashCards.
      */
-    private void loadFileButtonAction() {
-        // Handles loading a model.FlashCardModel set from a txt file
-        Preferences prefs = Preferences.userRoot().node(getClass().getName());
-        final JFrame selectFrame = new JFrame("Select a file...");
-        int returnVal = fileChooser.showOpenDialog(selectFrame);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File flashCardSet = fileChooser.getSelectedFile();
+    private void importXMLAction() {
+        String filePath;
+        if ((filePath = getOpenFilePath()) != null) {
+            File flashCardSet = new File(filePath);
             try {
                 if (!model.getFlashCards().isEmpty() || !model.getDiscardedCards().isEmpty()) {
                     model.setFlashCards(new ArrayList<>());
@@ -222,14 +245,95 @@ public class Controller extends AbstractAction
                 // Display the first card
                 view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
                         view.getFlashCardView().CARD, 0);
-                // Focus on active card JList
                 view.getCardListView().getCardList().requestFocus();
                 view.update();
                 view.getCardListView().getCardList().setSelectedIndex(0);
+
+                // Clear last save path since we're loading a new set.
+                // TODO: dialog asking if user wants to discard current set if one exists
+                lastSavePath = null;
             } catch (IOException IOe) {
                 System.err.println("IOException: " + IOe.getMessage());
             }
         }
+    }
+
+    /**
+     * Action for saving the current model without selecting a new filename.
+     */
+    public void saveAction() {
+        if (lastSavePath != null) {
+            try {
+                FileOutputStream fileOut = new FileOutputStream(lastSavePath);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(model);
+                out.close();
+                fileOut.close();
+            } catch (IOException IOe) {
+                // TODO: Dialog for error?
+                System.err.println("IOException: " + IOe.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Action for saving (as) the current model to file.
+     */
+    public void saveAsAction() {
+        String filePath;
+
+        if ((filePath = getSaveFilePath()) != null) {
+            try {
+                FileOutputStream fileOut = new FileOutputStream(filePath);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(model);
+                out.close();
+                fileOut.close();
+
+                // Update the current save path
+                // TODO: Dialog asking if user wants to discard current set if any
+                lastSavePath = filePath;
+            } catch (IOException IOe) {
+                System.err.println("IOException: " + IOe.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Action for loading model from file.
+     */
+    public void loadAction() {
+        String filePath;
+
+        if ((filePath = getOpenFilePath()) != null) {
+            try {
+                FileInputStream fileIn = new FileInputStream(filePath);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                // Update the model in the Controller and relevant views
+                model = (Model) in.readObject();
+                view.getFlashCardView().setModel(model);
+                view.getCardListView().setModel(model);
+                view.getDiscardedListView().setModel(model);
+
+                in.close();
+                fileIn.close();
+
+                // Update view
+                view.update();
+                view.getFlashCardView().displayCard(view.getFlashCardView().QUESTION,
+                        view.getFlashCardView().CARD, 0);
+                view.getCardListView().getCardList().requestFocus();
+                view.getCardListView().getCardList().setSelectedIndex(0);
+                // Update path
+                lastSavePath = filePath;
+            } catch (IOException IOe) {
+                System.err.println("IOException: " + IOe.getMessage());
+            } catch (ClassNotFoundException CNFe) {
+                System.err.print("ClassNotFoundException: " + CNFe.getMessage());
+            }
+        }
+
     }
 
     /**
@@ -392,7 +496,7 @@ public class Controller extends AbstractAction
                     title = null;
                 }
 
-                // If the user didn't supply a title, we leave it null. 
+                // If the user didn't supply a title, we leave it null.
                 if (title != null) {
                     flashCards.add(new FlashCardModel(title, question, answer, i));
                 } else {
@@ -404,4 +508,32 @@ public class Controller extends AbstractAction
         }
         return flashCards;
     }
+
+    /*
+     * Helper method that opens a JFileChooser to select a file path for opening a file.
+     */
+    public String getOpenFilePath() {
+        final JFrame frame = new JFrame();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
+        } else {
+            return null;
+        }
+    }
+     /*
+     * Helper method that opens a JFileChooser to select a file path for saving a file.
+     */
+    public String getSaveFilePath() {
+        final JFrame frame = new JFrame();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getAbsolutePath();
+        } else {
+            return null;
+        }
+    }
+
 }

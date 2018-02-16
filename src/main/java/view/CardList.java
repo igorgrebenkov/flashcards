@@ -3,11 +3,19 @@ package view;
 import controller.Controller;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+
+/**
+ * The class <b>view.CardList</b> is a custom JList class used to display
+ * the list of FlashCards.
+ * <p>
+ * It extends JList.
+ *
+ * @author Igor Grebenkov
+ */
 public class CardList extends JList {
     public CardList(Controller controller) {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

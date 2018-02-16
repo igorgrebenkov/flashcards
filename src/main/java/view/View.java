@@ -6,7 +6,6 @@ import controller.Controller;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -38,6 +37,9 @@ public class View extends JFrame {
         setPreferredSize(new Dimension(1250, 725));
 
         Border emptyBorder = BorderFactory.createEmptyBorder();
+
+        MenuBar menuBar = new MenuBar(controller);
+        setJMenuBar(menuBar);
 
         /*********************** Set up Left JPanel in view.View  **********************/
         JPanel leftView = new JPanel(new GridBagLayout());
